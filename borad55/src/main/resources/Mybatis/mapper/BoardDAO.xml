@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+       
+<mapper namespace="com.demo.minhun.dao.IBoardDAO">
+
+
+<!-- 댓글 수 +1 -->
+<update id="board_reply_plus">
+update board set board_reply_cnt = board_reply_cnt + 1 where board_idx=#{param1}
+</update>
+
+
+
+<!-- 댓글 수 -1 -->
+<update id="board_reply_minus">
+update board set board_reply_cnt = board_reply_cnt - 1 where board_idx=#{param1}
+</update>
+
+
+
+
+
+<select id="list" resultType="com.demo.minhun.dto.BoardDTO" parameterType="com.demo.minhun.dto.Criteria">
+<!-- select * from board order by board_date desc -->
+select board_idx,board_name, board_title, board_content,board_date,board_hit,bgno,board_reply_cnt,board_profle_img
+    from (
+    
+        select BOARD_IDX, BOARD_NAME, BOARD_TITLE, BOARD_CONTENT,BOARD_DATE,board_hit,bgno,board_reply_cnt,board_profle_img,
+            row_number() over(order by BOARD_IDX desc) as rNum
+            
+        from board
+        
+        where 1=1
+        
+   <include refid="search" ></include>
+     <if test="bgnopage != 0"> and bgno=#{bgnopage}</if>
+        ) mb
+    where rNum between #{rowStart} and #{rowEnd}
+        order by board_idx desc
+              <!--(생성날짜를 최신순으로 리스트형태로 가져오는 쿼리문)-->
+</select>
+
+
+
+
+
+<insert id="write" ><!-- 게시글들 쓰기 -->
+ insert into board (board_idx, board_name, board_title, board_content,BGNO,board_profle_img,board_writer_id)
+
+ values(board_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})
+</insert>
+
+
+
+
+<select id="viewDTO" resultType="com.demo.minhun.dto.BoardDTO"><!-- 게시글 번호 -->
+  select * from board where board_idx=#{ param1 }
+  </select>
+  
+  
+  
+<update id="updateDTO" ><!-- 게시글 수정 -->
+  update board set board_name=#{param2},board_title=#{param3},board_content=#{param4} where board_idx=#{param1}
+</update>
+
+
+
+<delete id="deleteDTO"><!-- 게시글 삭제 -->
+ delete from board where board_idx=#{param1}
+</delete>
+
+
+
+<update id="hit"><!--조회수 -->
+  update board set board_hit=board_hit+1 where board_idx=#{param1}
+</update>
+
+
+<!-- 총 개시글 -->
+ <select id="listCount" parameterType="com.demo.minhun.dto.Criteria" resultType="int">
+ 
+ select count(board_idx) from board where 1=1
+ 
+ <include refid="search"></include>
+ AND board_idx > 0
+ <if test="bgnopage != 0"> and BGNO=#{bgnopage} </if>
+ </select>
+ 
+<sql id="search">
+		 <if test="searchType != null"> 
+		<if test="searchType == 'title'.toString()">AND board_title LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'content'.toString()">AND board_content LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'name'.toString()">AND board_name LIKE	 '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'titleOFcontent'.toString()">AND (board_title LIKE '%' || #{keyword} || '%') or (board_content LIKE '%' || #{keyword} || '%')</if>
+		 </if>
+</sql>
+
+
+
+
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+<!-- 질문 게시판 메인 미니 게시판 리스트 -->
+<select id="mini" resultType="com.demo.minhun.dto.BoardDTO">
+
+select board_idx,board_name, board_title, board_content,board_date,board_hit,bgno,board_reply_cnt
+    from (
+    
+        select BOARD_IDX, BOARD_NAME, BOARD_TITLE, BOARD_CONTENT,BOARD_DATE,board_hit,bgno,board_reply_cnt,
+            row_number() over(order by BOARD_IDX desc) as rNum
+            
+        from board
+        
+        where bgno=1
+        
+        ) mb
+        
+    where rNum between 1 and  4
+    
+      order by board_idx desc
+</select>
+
+<!-- 메인 미니 자유게시판 -->
+<select id="mini2" resultType="com.demo.minhun.dto.BoardDTO">
+
+select board_idx,board_name, board_title, board_content,board_date,board_hit,bgno,board_reply_cnt
+
+    from (
+    
+        select BOARD_IDX, BOARD_NAME, BOARD_TITLE, BOARD_CONTENT,BOARD_DATE,board_hit,bgno,board_reply_cnt,
+            row_number() over(order by BOARD_IDX desc) as rNum
+            
+        from board
+        
+        where bgno=2
+        
+        ) mb
+        
+    where rNum between 1 and  4
+    
+      order by board_idx desc
+      
+</select>
+
+
+
+<!-- 메인 조회수 미니 게시판 -->
+<select id="mini3" resultType="com.demo.minhun.dto.BoardDTO">
+
+select board_idx,board_name, board_title, board_content,board_date,board_hit,bgno,board_reply_cnt
+
+    from (
+    
+        select BOARD_IDX, BOARD_NAME, BOARD_TITLE, BOARD_CONTENT,BOARD_DATE,board_hit,bgno,board_reply_cnt,
+            row_number() over(order by BOARD_IDX desc) as rNum
+            
+        from board
+        
+        where 1=1
+        
+        ) mb
+        
+    where rNum between 1 and  4
+    
+      order by board_hit desc
+      
+</select>
+
+<!-- 메인 미니게시판 추천수  -->
+<select id="mini4" resultType="com.demo.minhun.dto.BoardDTO">
+<![CDATA[
+select*from(
+
+select*from board 
+order by  board_like_cnt desc 
+)
+where rownum < 5
+ ]]>
+</select>
+
+
+
+
+<select id="reportlist" resultType="com.demo.minhun.dto.BoardDTO" parameterType="com.demo.minhun.dto.Criteria">
+
+select board_idx,board_name, board_title, board_content,board_date,board_hit,bgno,board_reportcheck
+
+    from (
+    
+        select BOARD_IDX, BOARD_NAME, BOARD_TITLE, BOARD_CONTENT,BOARD_DATE,board_hit,bgno,board_reportcheck,
+            row_number() over(order by BOARD_IDX desc) as rNum
+            
+        from board
+        
+        where board_reportcheck is not null
+        
+   <include refid="search" ></include>
+     <if test="bgnopage != 0"> and bgno=#{bgnopage}</if>
+        ) mb
+    where rNum between #{rowStart} and #{rowEnd}
+    
+        order by board_idx desc
+
+</select>
+
+
+
+<select id="reportCount" parameterType="com.demo.minhun.dto.Criteria" resultType="int">
+ select count(board_reportcheck) from board where 1=1
+ 
+ <include refid="search"></include>
+ AND board_idx > 0
+ <if test="bgnopage != 0"> and BGNO=#{bgnopage} </if>
+ </select>
+ 
+
+
+
+<update id="reportDTO">
+update board set board_reportcheck=#{param1} where board_idx=#{param2}
+</update>
+
+
+
+
+<select id="report_view" resultType="com.demo.minhun.dto.BoardDTO">
+ select * from board where board_idx=#{ param1 }
+</select>
+
+
+
+<!-- 원래 프로필 값 변경 코드 -->
+<update id="board_profle_update">
+update board set board_profle_img=#{param1} where board_writer_id=#{param2}
+</update>
+
+
+
+
+
+ 
+</mapper>

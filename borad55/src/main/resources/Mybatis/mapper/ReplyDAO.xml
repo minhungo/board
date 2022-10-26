@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.minhun.dao.IReplyDAO">
+
+<select id="reply_list"
+		resultType="com.demo.minhun.dto.ReplyDTO">
+		select * from reply where reply_board_idx=#{param1} order
+		by
+		reply_select desc,reply_date desc
+</select>
+
+
+
+
+
+<insert id="reply_write">
+		insert into reply
+		(reply_idx,reply_name,reply_content,reply_date,reply_board_idx,reply_signup_id,reply_profle_img)
+		values
+		(reply_board_seq.nextval, #{param1},#{param2}, sysdate, #{param3}, #{param4}, #{param5})
+</insert>
+
+
+
+
+<delete id="reply_deleteDTO">
+		delete from reply where reply_idx=#{param1}
+</delete>
+
+
+
+<update id="reply_selectDTO">
+      update reply set
+      reply_select = 1
+      where reply_idx = #{param1}
+</update>
+
+
+
+<!-- 댓글 프로필 값 변경 코드 -->
+<update id="reply_profle_update">
+update reply set reply_profle_img=#{param1} where reply_signup_id=#{param2}
+</update>
+
+
+
+
+<!-- 댓글 수정 코드 -->
+<update id="Reply_Update_Action">
+update reply set reply_content=#{param1} where reply_idx=#{param2}
+</update>
+
+
+
+
+</mapper>
+

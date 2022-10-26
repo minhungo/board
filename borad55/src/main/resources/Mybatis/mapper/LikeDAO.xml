@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.minhun.dao.LikeDAO">
+
+   
+   <!-- 동일 id가 게시글을 추천 했는가? // 했다면 0 안했다면 1을 반환 (유효성 검사) int -->
+   <select id="LikeCheck" resultType="int">
+      select Count(*) from tt_like where board_idx=#{param1} and signup_id=#{param2}
+   </select>
+   
+
+
+
+
+
+
+   <!-- 게시글 추천 시 tt_board 테이블  board_like_cnt+1 // 단순추가-->
+   <update id="BoardUpLike">
+      update board set
+      BOARD_LIKE_CNT = BOARD_LIKE_CNT+1
+      where board_idx = #{param1}
+   </update>
+   
+
+   <!-- 게시글 추천 시 tt_like테이블에 값을 추가  // 단순추가-->
+   <insert id="LikeUp">
+      insert into tt_like(likeno , board_idx , signup_id)
+      values((SELECT NVL(MAX(likeno), 0) + 1 FROM tt_like) ,#{param1} ,#{param2})
+   </insert>
+
+
+
+
+
+
+   <!-- 게시글 재추천 시 tt_like테이블에 값을 삭제  // 단순삭제-->
+   <delete id="LikeDown">
+      delete from tt_like where board_idx = #{param1} and signup_id = #{param2}
+   </delete>
+   
+   
+   <!-- 게시글 재추천 시 tt_board 테이블  board_like_cnt - 1 // 단순 -1 -->
+   <update id="BoardDownLike">
+      update board set
+      BOARD_LIKE_CNT = BOARD_LIKE_CNT-1
+      where board_idx = #{param1}
+   </update>
+
+</mapper>
+

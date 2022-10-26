@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.minhun.dao.SignupDAO">
+
+
+	<insert id="signup">
+    insert into signup (signup_id,
+            signup_pw,signup_pw_check,signup_name, signup_nickname, signup_email,signup_adr,signup_adr_point,signup_data, signup_num, signup_profle_img)
+            values
+            (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, report_SEQ.nextval, #{param10})
+	</insert>
+
+	<select id="login" resultType="com.demo.minhun.dto.signupDTO">
+	select * from signup where signup_id = #{param1} and signup_pw = #{param2}
+	</select>
+
+
+ 	<select id="idcheck" parameterType="String" resultType="int">
+        select count(*) from signup where signup_id = #{input_id}
+    </select>
+
+
+ 	<select id="NickNameCheck" parameterType="String" resultType="int">
+        select count(*) from signup where signup_nickname = #{input_nickname}
+    </select>
+    
+    
+    <update id="signup_replyselect">
+      update signup set
+      signup_point = signup_point+100
+      where signup_nickname = #{param1}
+   </update>
+   
+   
+   <update id="signup_ReplyPointDown">
+      update signup set
+      signup_point = signup_point-100
+      where signup_nickname = #{param1}
+   </update>
+   
+   
+<select id="signuplist" resultType="com.demo.minhun.dto.signupDTO" parameterType="com.demo.minhun.dto.Criteria">
+select SIGNUP_NUM,SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME, SIGNUP_NICKNAME, SIGNUP_EMAIL, SIGNUP_ADR, SIGNUP_ADR_POINT, SIGNUP_DATA, SIGNUP_DATE,signup_profle_img
+
+from (
+        select SIGNUP_NUM, SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME,SIGNUP_NICKNAME, SIGNUP_EMAIL, SIGNUP_ADR,SIGNUP_ADR_POINT,SIGNUP_DATA,SIGNUP_DATE,signup_profle_img,
+        
+            row_number() over(order by SIGNUP_NUM desc) as rNum
+            
+        from signup
+        
+        where 1=1
+        <include refid="search" ></include>
+             ) mb
+             
+    where rNum between #{rowStart} and #{rowEnd}
+        order by SIGNUP_NUM desc
+</select>
+   
+   
+ <select id="signupCount" parameterType="com.demo.minhun.dto.Criteria" resultType="int">
+select count(signup_num) from signup where 1=1
+</select> 
+   
+   
+<select id="signupview" resultType="com.demo.minhun.dto.signupDTO"><!-- 게시글 번호 -->
+ select * from signup where signup_num=#{param1}
+</select>
+   
+
+<delete id="deleteSignup"><!-- 회원탈퇴 -->
+ delete from signup where signup_num=#{param1}
+</delete>
+
+
+
+<update id="imgload">
+update signup set signup_profle_img = #{param1} where signup_id = #{param2}
+</update>
+
+
+
+<!-- 신고자 목록 불러오기 -->
+<select id="userReportlist" resultType="com.demo.minhun.dto.signupDTO" parameterType="com.demo.minhun.dto.Criteria">
+select SIGNUP_NUM,SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME, SIGNUP_NICKNAME, SIGNUP_EMAIL, SIGNUP_ADR, SIGNUP_ADR_POINT, SIGNUP_DATA, SIGNUP_DATE, USER_REPORTCHECK 
+
+from (
+        select SIGNUP_NUM, SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME,SIGNUP_NICKNAME, SIGNUP_EMAIL, SIGNUP_ADR,SIGNUP_ADR_POINT,SIGNUP_DATA,SIGNUP_DATE, USER_REPORTCHECK,
+        
+            row_number() over(order by SIGNUP_NUM desc) as rNum
+            
+        from signup
+        
+        where USER_REPORTCHECK is not null
+        
+         <include refid="search" ></include>
+             ) mb
+             
+    where rNum between #{rowStart} and #{rowEnd}
+    
+        order by SIGNUP_NUM desc
+</select>
+   
+   
+   
+ <!-- userReportlist 관련 검색 기능 -->  
+<sql id="search">
+       <if test="searchType != null"> 
+      <if test="searchType == 'ID'.toString()">AND signup_id LIKE '%' || #{keyword} || '%'</if>
+         <if test="searchType == 'nickname'.toString()">AND signup_nickname LIKE '%' || #{keyword} || '%'</if>
+            <if test="searchType == 'name'.toString()">AND signup_name LIKE '%' || #{keyword} || '%'</if>
+       </if>
+</sql>
+
+
+<!-- 신고 DB에 넣어주기-->
+<update id="reportDTO">
+update board set board_reportcheck=#{param1} where board_idx=#{param2}
+</update>
+
+
+<!-- 프로필에서 유저 신고 -->
+<update id="userReportDTO">
+update signup set user_reportcheck=#{param1} where signup_num=#{param2}
+</update>
+
+
+
+<!-- 정지 시키는거 -->
+<update id="sanctionsDTO">
+update signup set str_sanctions=#{param1}, and_sanctions=#{param2},true_sanctions=#{param3} where signup_num=#{param4}
+</update>
+
+
+<!-- 정지 해제일 -->
+<update id="sanctionsOnlock">
+update signup set str_sanctions=default ,and_sanctions=default, true_sanctions=0 where signup_num=#{param1}
+</update>
+
+
+<!-- 계급 업로드 -->
+<update id="signup_gradeUpdate">
+      update signup set
+        signup_grade = case 
+        when signup_point>= 10000 then 'diamond'      
+        when signup_point>= 5000 then 'platinum'
+        when signup_point>= 3000 then 'gold'
+        when signup_point>= 1000 then 'silver'
+        ELSE 'bronze'
+        end
+      where signup_nickname = #{param1}
+</update>
+
+
+<!-- 원본 프로필 이미지 값 들고오는 친구 -->
+<select id="origin_img_return" resultType="com.demo.minhun.dto.signupDTO">
+select signup_profle_img from signup where signup_id = #{param1}
+</select>
+	
+	
+<!-- 제제자 리스트 -->
+  <select id="sanctionslist" resultType="com.demo.minhun.dto.signupDTO" parameterType="com.demo.minhun.dto.Criteria">
+ 
+select SIGNUP_NUM,SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME, SIGNUP_NICKNAME, SIGNUP_EMAIL,
+ SIGNUP_ADR, SIGNUP_ADR_POINT, SIGNUP_DATA, SIGNUP_DATE,str_sanctions,and_sanctions,true_sanctions
+
+from (
+        select SIGNUP_NUM, SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME,SIGNUP_NICKNAME, SIGNUP_EMAIL,SIGNUP_ADR,
+        SIGNUP_ADR_POINT,SIGNUP_DATA,SIGNUP_DATE,USER_REPORTCHECK,str_sanctions,and_sanctions,true_sanctions,
+        
+            row_number() over(order by SIGNUP_NUM desc) as rNum
+            
+        from signup
+         
+        where 1=1 
+     
+
+      
+        <include refid="search"></include>
+        
+             ) mb 
+             
+             
+    where rNum between #{rowStart} and #{rowEnd}
+    
+        order by SIGNUP_NUM desc
+       
+</select>
+
+
+
+<update id="MyPage_UpDate">
+
+update signup set signup_pw=#{param1},
+
+signup_nickname=#{param2}, signup_email=#{param3}, signup_adr=#{param4}, signup_adr_point=#{param5}
+
+where signup_id=#{param6}
+
+</update>
+
+
+</mapper>
+
