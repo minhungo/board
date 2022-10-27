@@ -1,5 +1,6 @@
-package com.demo.minhun;
 
+package com.demo.minhun;
+/*
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -42,6 +43,7 @@ import com.demo.minhun.dto.PageMaker;
 import com.demo.minhun.dto.ReplyDTO;
 import com.demo.minhun.dto.SearchCriteria;
 import com.demo.minhun.dto.signupDTO;
+
 
 
 @Controller
@@ -171,6 +173,7 @@ public class Mycontoller {
 	}
 
 	
+	//댓글 --
 
 	@RequestMapping("/writeReplyAction") // 댓글 쓰기
 	@ResponseBody
@@ -239,7 +242,7 @@ public class Mycontoller {
 	
 	
 	
-	
+	//댓글삭제 ----------------------
 	@RequestMapping("/deleteReplyAction") // 댓글삭제
 	@ResponseBody
 	public String deleteReplyAction(
@@ -573,7 +576,7 @@ public class Mycontoller {
 	
 	   
 	   
-	   
+	//------------------------얼라창   
 	   
 	   			//alert
 	      @RequestMapping("alert")
@@ -772,6 +775,8 @@ public class Mycontoller {
 	
 	
 	
+	   
+	 //----------------------여기서 부터 어드민 계정 컨트롤
 	 
 	 @RequestMapping(value = "/adminreport", method = RequestMethod.GET)
      public String adminreport (Model model, @ModelAttribute("scri") SearchCriteria scri,
@@ -888,9 +893,6 @@ public class Mycontoller {
 	 
 	 
 	 
-	 
-	 
-	 
 	 // 유저 신고 기능
 	 @RequestMapping(value = "/userReportaction", method = RequestMethod.POST)
 	 @ResponseBody
@@ -993,6 +995,7 @@ public class Mycontoller {
 	 
 	 
 	 
+	  //-------------------뭔지몰라서남욱씨한테 물어봐야함
 	  	@PostMapping("/test1")
 	     @ResponseBody
 	     public signupDTO test(@RequestParam String test, Model model,signupDTO sdto) {
@@ -1046,3 +1049,4 @@ public class Mycontoller {
 	 
 	 
 }
+*/
