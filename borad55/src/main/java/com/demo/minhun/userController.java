@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -167,7 +168,19 @@ public class userController {
 	  		return "<script>alert('정보수정완료'); window.close();</script>";
 	    }
 	 
+		//컨텍트 어스  (지도 전화번호)
+		@RequestMapping("/contact2")
+		public String contact2() {
+			return "contact2";
+		}
 		
+		
+		
+		//유저 마이페이지
+		@GetMapping("/userInformation2")
+		public String userInformation2() {
+			return "userInformation2";
+		}
 		
 
 }
