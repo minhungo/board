@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,13 @@ public class signupController {
 	SignupDAO sigupDAO;
 	
 	signupDTO user;
+	
+	
+	
+	@GetMapping("/signup")
+	public String t1() {
+		return "signup";
+	}
 	
 	
 	@RequestMapping("/signupAction") // 회원가입 

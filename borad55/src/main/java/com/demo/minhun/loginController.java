@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ import com.demo.minhun.dto.signupDTO;
 import java.util.List;
 
 //로그인 컨트롤러
+
 @Controller
 public class loginController {
 
@@ -43,6 +45,15 @@ public class loginController {
 	signupDTO user;
 	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();    
+	
+	
+	
+	
+	//로그인
+	@GetMapping("/signin")
+	public String t2() {
+		return "signin";
+	}
 	
 
 	@RequestMapping("/log_action") // 로그인 액션

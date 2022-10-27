@@ -144,9 +144,7 @@ public class userController {
 		 }
 		
 		
-		
-		
-		
+	
 		
 		//유저 자기정보 수정 컨트롤러
 		@RequestMapping("/MyPage_UpDate")
