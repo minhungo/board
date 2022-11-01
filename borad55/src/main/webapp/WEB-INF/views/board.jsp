@@ -388,5 +388,6 @@ font-weight:  400;
 
 <c:import url="footer.jsp"/>
 <script type="text/javascript" src="${path}/resources/js/js.js"></script>
+
 </body>
 </html>

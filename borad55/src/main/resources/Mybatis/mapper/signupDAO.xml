@@ -204,6 +204,12 @@ where signup_id=#{param6}
 
 </update>
 
+    <!-- 코인 충전 또는 사용 적용 -->
+    <update id="UpdateCoin">
+        update signup
+            set signup_coin = signup_coin + #{param1}
+        where signup_id = #{param2}
+    </update>
 
 </mapper>
 

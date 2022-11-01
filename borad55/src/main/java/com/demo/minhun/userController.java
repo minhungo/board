@@ -24,7 +24,7 @@ import com.demo.minhun.dto.signupDTO;
 
 
 
-//À¯Àú°¡ ½Å°íÇÏ°Å³ª,¼öÁ¤ÇÏ°Å³ª ÇÏ´Â À¯Àú ÄÁÆ®·Ñ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½Ï°Å³ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
 @Controller
 public class userController {
 	
@@ -49,10 +49,10 @@ public class userController {
 	
 	
 	 
-	 // À¯Àú ½Å°í Ã¢ userReport
+	 // ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ Ã¢ userReport
 	 @RequestMapping(value = "/userReport", method = RequestMethod.GET)
     public String userReport() {
-     System.out.println("À¯Àú½Å°íÃ¢ È£Ãâ");
+     System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½Ã¢ È£ï¿½ï¿½");
     
     return "userReport";
 	 }
@@ -63,7 +63,7 @@ public class userController {
 	 
 	
 	 
-	 // À¯Àú ½Å°í ±â´É
+	 // ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ ï¿½ï¿½ï¿½
 	 @RequestMapping(value = "/userReportaction", method = RequestMethod.POST)
 	 @ResponseBody
 	    public String userReportaction(@RequestParam("user_reportcheck") String user_reportcheck,
@@ -75,7 +75,7 @@ public class userController {
 	      sigupDAO.userReportDTO(user_reportcheck,signup_num);
 	      
 	   
-	      return "<script>alert('½Å°í µÇ¾ú½À´Ï´Ù');window.close();</script>";
+	      return "<script>alert('ï¿½Å°ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½');window.close();</script>";
 	   }
 	 
 	 
@@ -84,7 +84,7 @@ public class userController {
 	 
 	 
 	   
-	 //À¯Àú ÇÁ·ÎÇÊ º¯°æ
+	 //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@RequestMapping(value = "/imgloadaction", method = RequestMethod.POST)
 		 @ResponseBody
 		 public String imgloadaction (
@@ -102,9 +102,9 @@ public class userController {
 			 	
 			 	if(delfile.exists() && !originimg.getSignup_profle_img().equals("human1.png")) {
 			 		delfile.delete(); 
-		            System.out.println("ÆÄÀÏÀ» »èÁ¦ÇÏ¿´½À´Ï´Ù.");
+		            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		        } else {
-		            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+		            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		        }
 			 
 			 
@@ -124,30 +124,30 @@ public class userController {
 				 		
 				 		session.setAttribute("profile", user);
 				 		
-				 		// °¢ °Ô½ÃÆÇ, ´ñ±Û¿¡ id °ªÀ» ºñ±³ÇØ¼­ ¹Ù²ï ÇÁ·ÎÇÊ·Î ¾÷·Îµå
+				 		// ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½, ï¿½ï¿½Û¿ï¿½ id ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 				 		IBoardDAO.board_profle_update(memberImg, signup_id);
 				 		IReplyDAO.reply_profle_update(memberImg, signup_id);
 				 		
 				 		System.out.println("memberImg : " + memberImg);
 				 		System.out.println("signup_id : " + signup_id);
 				 		
-				 		return "<script>alert('ÇÁ·ÎÇÊ ÀúÀå ¼º°ø!'); location.href='/board'; </script>";
+				 		return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!'); location.href='/board'; </script>";
 				 		
 				 	}else if(user.getSignup_profle_img()==null){	
-				 		return "<script>alert('Ã·ºÎÆÄÀÏÀÌ ºñ¾îÀÖ½À´Ï´Ù.'); location.href='/board'; </script>";
+				 		return "<script>alert('Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.'); location.href='/board'; </script>";
 				 	}
 				 	
 				} catch (Exception e) {
 					e.printStackTrace();
-					return "<script>alert('·Î±×ÀÎ ¼¼¼ÇÀÌ ¸¸·áµÇ¾ú°Å³ª ÆÄÀÏÀÌ ºñ¾îÀÖ½À´Ï´Ù.'); location.href='/board'; </script>";
+					return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.'); location.href='/board'; </script>";
 				}
-			 return "<script>alert('·Î±×ÀÎ ¼¼¼ÇÀÌ ¸¸·áµÇ¾ú°Å³ª ÆÄÀÏÀÌ ºñ¾îÀÖ½À´Ï´Ù.'); location.href='/board'; </script>";
+			 return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.'); location.href='/board'; </script>";
 		 }
 		
 		
 	
 		
-		//À¯Àú ÀÚ±âÁ¤º¸ ¼öÁ¤ ÄÁÆ®·Ñ·¯
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 		@RequestMapping("/MyPage_UpDate")
 	  	@ResponseBody
 	     public String MyPage_UpDate (
@@ -165,10 +165,10 @@ public class userController {
 	  		
 	  		session.setAttribute("profile", user);
 	  	
-	  		return "<script>alert('Á¤º¸¼öÁ¤¿Ï·á'); window.close();</script>";
+	  		return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½'); window.close();</script>";
 	    }
 	 
-		//ÄÁÅØÆ® ¾î½º  (Áöµµ ÀüÈ­¹øÈ£)
+		//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½î½º  (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£)
 		@RequestMapping("/contact2")
 		public String contact2() {
 			return "contact2";
@@ -176,11 +176,12 @@ public class userController {
 		
 		
 		
-		//À¯Àú ¸¶ÀÌÆäÀÌÁö
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		@GetMapping("/userInformation2")
 		public String userInformation2() {
 			return "userInformation2";
 		}
+
 		
 
 }

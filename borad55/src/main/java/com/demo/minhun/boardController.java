@@ -29,9 +29,10 @@ import com.demo.minhun.dto.PageMaker;
 import com.demo.minhun.dto.ReplyDTO;
 import com.demo.minhun.dto.SearchCriteria;
 import com.demo.minhun.dto.signupDTO;
+import org.springframework.web.servlet.ModelAndView;
 
 
-//ÀÏ¹İ È¸¿øÀÌ ¾²´Â °Ô½ÃÆÇ ÆäÀÌÁö ÄÁÆ®·Ñ·¯
+//ï¿½Ï¹ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 
 
 @Controller
@@ -45,23 +46,28 @@ public class boardController {
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
-	
-	
-	
 
 
+	// ì½”ì¸ ì¶©ì „ ì°½
+	@RequestMapping("/PayCoin")
+	public ModelAndView chat() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("PayCoin");
+		return mv;
+	}
+
 	
 	
-	//À¯Àú ¸®½ºÆ®
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
 	
-	//¸ŞÀÎ ÄÁÆ®·Ñ·¯ 
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ 
 	@RequestMapping("/")
 	   public String main(Model model,
 	            @RequestParam(value = "page", defaultValue = "1") String page ,@RequestParam(value = "bgno" ,defaultValue = "1")int bgno  ) throws Exception {
 		
-		  //¸ŞÀÎ¿¡ ÀÖ´Â Ä«Å× °í¸®º° °Ô½ÃÆÇ ¸®½ºÆ® ÇÔ¼ö
+		  //ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ö´ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô¼ï¿½
 	         List<BoardDTO> list = IBoardDAO.mini();
 	         model.addAttribute("list", list);
 	         
@@ -74,8 +80,8 @@ public class boardController {
 	         List<BoardDTO> list4 = IBoardDAO.mini4();
 	         model.addAttribute("list4", list4);
 	         
-	         System.out.println("minilist È£Ãâ");
-	         System.out.println("¸ŞÀÎÆäÀÌÁö È£Ãâ");
+	         System.out.println("minilist È£ï¿½ï¿½");
+	         System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½");
 	         
 	         return "main2";
 	   }
@@ -95,7 +101,7 @@ public class boardController {
 		
 		List<BoardDTO> list = IBoardDAO.list(scri);
 		
-		System.out.println("¸®½ºÆ® ÇÔ¼öÈ£Ãâ¼º°ø");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô¼ï¿½È£ï¿½â¼ºï¿½ï¿½");
 		
 		model.addAttribute("list", list);
 		
@@ -113,14 +119,14 @@ public class boardController {
 	
 	
 	
-	//°Ô½ÃÆÇ ±Û¾²±â Æû
+	//ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("/writeForm")
 	public String writeForm() {	
 		return "writeForm";
 	}
 
 	
-	//±Û¾²±â ´©¸¦½Ã ±ÛÀÌ¿Ã¶ó°¡´Â ÄÁÆ®·Ñ·¯
+	//ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿Ã¶ó°¡´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping("/writeAction")
 	@ResponseBody
 	public String writeAction(
@@ -135,9 +141,9 @@ public class boardController {
 		int result = IBoardDAO.write(board_name, board_title, board_content, bgno, board_profle_img,board_writer_id);
 
 		if (result == 1) {
-			return "<script>alert('±ÛÀÛ¼º ¼º°ø!'); location.href='/board';</script>";
+			return "<script>alert('ï¿½ï¿½ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½!'); location.href='/board';</script>";
 		} else {
-			return "<script> alert('±ÛÀÛ¼º ½ÇÆĞ'); location.href='/writeForm';</script>";
+			return "<script> alert('ï¿½ï¿½ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½'); location.href='/writeForm';</script>";
 		}
 		
 	}
@@ -146,9 +152,9 @@ public class boardController {
 	
 	
 	
-	//±Û ¼öÁ¤Ã¢ ¶ç¿ì´Â ÄÁÆ®·Ñ·¯ 
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ 
 	
-	@RequestMapping("/update") // ±Û ¼öÁ¤
+	@RequestMapping("/update") // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public String update(
 			@RequestParam("board_idx") String board_idx, 
 			Model model, 
@@ -159,23 +165,23 @@ public class boardController {
 			throws Exception {
 	
 	
-		//Á¶È¸¼ö ²ø°í¿À±â
+		//ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		IBoardDAO.hit(board_idx);
-		//ÆäÀÌÂ¡Ã³¸® 
+		//ï¿½ï¿½ï¿½ï¿½Â¡Ã³ï¿½ï¿½ 
 		model.addAttribute("page", page);
-		//IDX±âÁØÀ¸·Î °Ô½ÃÆÇ ²ø°í¿À±â Äõ¸®¹® ÇÔ¼ö
+		//IDXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 		BoardDTO dto = IBoardDAO.viewDTO(board_idx);
 		model.addAttribute("dto", dto);
 		
-		//À¯Àú Ã¼Å© ·Î±×ÀÎ ¾ÈÇÏ¸é ¸ø¾¸
+		//ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
 	      if(usercheck==null) {
-	         return "<script>alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä'); location.href='/signin'; </script>";
+	         return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
 	    	  return "contentForm";
 	      }else {
-	    	  return "<script>alert('±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
@@ -184,7 +190,7 @@ public class boardController {
 	
 	
 	
-	//±Û ¼öÁ¤ ÇÏ´Â Æû
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½
 	@RequestMapping(value = "/updateAction",  method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAction(
@@ -199,18 +205,18 @@ public class boardController {
 
 		Object usercheck = session.getAttribute("profile");
 		if (usercheck == null) {
-			return "<script>alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä'); location.href='/signin';</script>";
+			return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin';</script>";
 		}
 
 		int result = IBoardDAO.updateDTO(board_idx, board_name, board_title, board_content);
 
 		if (result == 1) {
 
-			return "<script>alert('¼öÁ¤¿Ï·á!'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
+			return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½!'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
 					+ "&searchType=" + scri.getsearchType() + "&keyword=" + scri.getKeyword() + "';</script>";
 		} else {
 
-			return "<script>alert('¼öÁ¤½ÇÆĞ!'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
+			return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
 		}
 	}
 	
@@ -220,7 +226,7 @@ public class boardController {
 	
 	
 	
-     //±Û »èÁ¦ ÄÁÆ®·Ñ·¯
+     //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	
 	@RequestMapping("/deleteAction")
 	@ResponseBody
@@ -231,13 +237,13 @@ public class boardController {
 		
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
 	      if(usercheck==null) {
-	         return "<script>alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä'); location.href='/signin'; </script>";
+	         return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
 	    	   IBoardDAO.deleteDTO(board_idx);
-	    	  return "<script>alert('±Û »èÁ¦ ¼º°ø'); location.href='/board';</script>";
+	    	  return "<script>alert('ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'); location.href='/board';</script>";
 	      }else {
-	    	  return "<script>alert('±ÇÇÑÀÌ ¾ø½À´Ï´Ù.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
@@ -246,7 +252,7 @@ public class boardController {
 	
 	
 	
-	   // CKEditor ±ÛÀÛ¼º,¼öÁ¤ °ü·ÃµÈ api
+	   // CKEditor ï¿½ï¿½ï¿½Û¼ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ api
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request,HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
@@ -256,7 +262,7 @@ public class boardController {
  
         byte[] bytes=upload.getBytes();
  
-		String uploadPath = "C:\\workspace-sts-3.9.11.RELEASE\\borad55\\bin\\main\\static\\" + "ckEimg\\";	//  ´ë¯¸ì  ê²½ë¡œ  „¤  •( ´ ”   ™  ƒ „±)
+		String uploadPath = "C:\\workspace-sts-3.9.11.RELEASE\\borad55\\bin\\main\\static\\" + "ckEimg\\";	//  ï¿½ï¿½ë¯¸ï¿½  ê²½ë¡œ  ï¿½ï¿½ ï¿½ï¿½( ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½  ï¿½ï¿½ ï¿½ï¿½)
         OutputStream out=new FileOutputStream(new File(uploadPath+fileName));
  
         out.write(bytes);
@@ -267,7 +273,7 @@ public class boardController {
  
         String fileUrl= request.getContextPath()+"/ckEimg/"+fileName;
 
-        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"',' ÀÌ¹ÌÁö°¡ ¾÷·Îµå µÇ¾ú½À´Ï´Ù.')"+"</script>");
+        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"',' ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')"+"</script>");
 
         printWriter.flush();
 	}
@@ -278,7 +284,7 @@ public class boardController {
     
     
     
-   	//±Û º¸±â Æû 	
+   	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 	
    	@GetMapping("/readForm")
    	public String readForm(
    			@RequestParam("board_idx") String board_idx, 
@@ -287,7 +293,7 @@ public class boardController {
    			@ModelAttribute("scri") SearchCriteria scri,
    			@RequestParam(value = "page", defaultValue = "1") String page ) {
 
-   		// Á¶È¸¼ö Áõ°¡ , ÆäÀÌÂ¡
+   		// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ , ï¿½ï¿½ï¿½ï¿½Â¡
    		IBoardDAO.hit(board_idx);
    		scri.getKeyword();
    		model.addAttribute("page", page);
@@ -296,7 +302,7 @@ public class boardController {
    		BoardDTO dto = IBoardDAO.viewDTO(board_idx);
    		model.addAttribute("dto", dto);
    		
-   		// ´ñ±Û 
+   		// ï¿½ï¿½ï¿½ 
    		List<ReplyDTO> reply_list = IReplyDAO.reply_list(board_idx);
    		model.addAttribute("reply_list", reply_list);
 
@@ -308,13 +314,13 @@ public class boardController {
    	
    	
    	
-   	//°Ô½Ã±Û ½Å°í È­¸é ¶ç¿ì±â ÄÁÆ®·Ñ·¯
+   	//ï¿½Ô½Ã±ï¿½ ï¿½Å°ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
     @RequestMapping(value = "/report", method = RequestMethod.GET)
 	   public String report(@RequestParam("board_idx") String board_idx, Model model,
 	         @ModelAttribute("scri") SearchCriteria scri,
 	         @RequestParam(value = "page", defaultValue = "1") int page) {
 
-	      System.out.println("¸®Æı ÇÔ¼ö È£Ãâ ¼º°ø");
+	      System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
 	      BoardDTO dto = IBoardDAO.report_view(board_idx);
 
@@ -333,7 +339,7 @@ public class boardController {
     
     
    	
-    //°Ô½Ã±Û ½Å°í ¾×¼Ç
+    //ï¿½Ô½Ã±ï¿½ ï¿½Å°ï¿½ ï¿½×¼ï¿½
 	   @RequestMapping(value = "/reportaction", method = RequestMethod.GET)
 	   @ResponseBody
 	   public String reportaction(@RequestParam("board_idx") String board_idx, Model model,
@@ -345,7 +351,7 @@ public class boardController {
 
 	      IBoardDAO.reportDTO(board_reportcheck, board_idx);
 
-	      return "<script>alert('½Å°í µÇ¾ú½À´Ï´Ù');window.close();</script>";
+	      return "<script>alert('ï¿½Å°ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½');window.close();</script>";
 	      
 	   }
 	     

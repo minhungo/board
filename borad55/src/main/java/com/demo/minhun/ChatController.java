@@ -27,9 +27,7 @@ public class ChatController {
 	
 	List<Room> roomList = new ArrayList<Room>();
 	static int roomNumber = 0;
-	
 
-	
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
 		ModelAndView mv = new ModelAndView();

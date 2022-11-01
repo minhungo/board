@@ -21,6 +21,7 @@ public class signupDTO {
 	private int signup_point;
 	private Date signup_date;
 	private String signup_grade;
+	private int signup_coin;
 	
 	// 이미지 파일
 	private String signup_profle_img;

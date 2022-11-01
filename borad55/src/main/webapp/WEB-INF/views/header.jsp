@@ -57,11 +57,23 @@ crossorigin="anonymous">
    font-family:'맑은고딕'; position: absolute; right:100px; top:12px;" >
       
       <div class="container col" style="display:inline-block; width:360px; height:20px; text-align:center;  ">
-      <img src="resources/img/${profile.signup_profle_img}" width="50" height="50" style="display:inline-block;">
-      <div class="container" style="display:inline-block;  width:150px; padding:0px;  margin-right:30px;">
-      <span style="font-size:13px; text-align:left; color: gray"  ><b style="font-size:15px; color:black;" >${profile.signup_nickname}님</b>   안녕하세요</span>
-      
-      </div>
+          <img src="resources/img/${profile.signup_profle_img}" width="50" height="50" style="display:inline-block;">
+          <div class="container" style="display:inline-block;  width:150px; padding:0px;  margin-right:30px;">
+              <span style="font-size:13px; text-align:left; color: gray"  ><b style="font-size:15px; color:black;" >
+                  ${profile.signup_nickname}님</b>
+                  안녕하세요
+              </span>
+          </div>
+      <!-- 코인 출력 및 충전 signup 테이블에 signup_coin 으로 열값(number) 추가함 후에 css 조절 필요함-->
+          <span style="font-size:13px; text-align:left; color: black">My coin ${profile.signup_coin}</span>
+          <button type="button"
+              class="btn btn-primary"
+              style="display:inline-block; width:80px;
+                  height:30px; border:0px solid white; border-radius:20px;
+                  background-color:#c1c1c1; font-size:11px; position:absolute; left:295px; top:60px;" >
+            <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=600,height=800,top=100,left=500');return false;">
+            충전하기</a>
+          </button>
       
       
      <button class="btn btn-primary" style="display:inline-block; width:80px; 

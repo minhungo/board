@@ -3,6 +3,7 @@ package com.demo.minhun.dao;
 
 import java.util.List;
 
+import com.demo.minhun.dto.CoinDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -68,7 +69,8 @@ public interface SignupDAO {
 	public int MyPage_UpDate(String input_pw,String input_nickname,String input_email,String input_adr,String input_adr_point, String signup_id);
 
 	
-	
+	//코인 충전 또는 사용 적용
+	public int UpdateCoin(CoinDTO coinDTO);
 	
 	
 	
