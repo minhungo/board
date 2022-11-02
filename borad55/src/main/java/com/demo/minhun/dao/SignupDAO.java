@@ -70,8 +70,9 @@ public interface SignupDAO {
 
 	
 	//코인 충전 또는 사용 적용
-	public int UpdateCoin(CoinDTO coinDTO);
-	
+	public int UpdateCoin(Long signup_coin, String signup_id);
+
+	public signupDTO getMyInfo(String signup_id);
 	
 	
 	

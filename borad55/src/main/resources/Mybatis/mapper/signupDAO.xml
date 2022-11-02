@@ -207,9 +207,13 @@ where signup_id=#{param6}
     <!-- 코인 충전 또는 사용 적용 -->
     <update id="UpdateCoin">
         update signup
-            set signup_coin = signup_coin + #{param1}
-        where signup_id = #{param2}
+            set signup_coin = signup_coin + #{signup_coin}
+        where signup_id = #{signup_id}
     </update>
+
+    <select id="getMyInfo">
+        select (signup_id, signup_name, signup_nickname, signup_email, signup_adr, signup_adr_point, signup_data, signup_num, signup_profle_img) from signup where signup_id = #{signup_id}
+    </select>
 
 </mapper>
 

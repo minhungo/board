@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.demo.minhun.dao.SignupDAO;
 import com.demo.minhun.dto.signupDTO;
 
-//È¸¿ø°¡ÀÔ ÄÁÆ®·Ñ·¯
+//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 @Controller
 public class signupController {
 
@@ -29,7 +29,7 @@ public class signupController {
 	}
 	
 	
-	@RequestMapping("/signupAction") // È¸¿ø°¡ÀÔ 
+	@RequestMapping("/signupAction") // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	@ResponseBody
 	public String 
 			signup(@RequestParam("input_id") String signup_id, 
@@ -48,12 +48,12 @@ public class signupController {
 				signup_adr_point, signup_data,signup_profle_img);
 
 		if (result == 1) {
-			System.out.println("È¸¿ø°¡ÀÔ ¼º°ø!!");
-			return "<script>alert('È¸¿ø°¡ÀÔ ¼º°ø!!'); location.href='/board'; </script>";
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!");
+			return "<script>alert('È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!'); location.href='/board'; </script>";
 
 		} else {
-			System.out.println("È¸¿ø°¡ÀÔ ½ÇÆÐ!");
-			return "<script>alert('È¸¿ø°¡ÀÔ ½ÇÆÐ!'); location.href='/signup'; </script>";
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+			return "<script>alert('È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!'); location.href='/signup'; </script>";
 		}
 
 	}

@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

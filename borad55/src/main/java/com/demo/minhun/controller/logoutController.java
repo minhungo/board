@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import com.demo.minhun.dao.SignupDAO;
 import com.demo.minhun.dto.signupDTO;
 
 
-//·Î±×¾Æ¿ô ÄÁÆ®·Ñ·¯
+//ï¿½Î±×¾Æ¿ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 @Controller
 public class logoutController {
 
@@ -40,7 +40,7 @@ public class logoutController {
 	
 	
 
-	   @RequestMapping("/logout_action")// ·Î±×¾Æ¿ô ¾×¼Ç
+	   @RequestMapping("/logout_action")// ï¿½Î±×¾Æ¿ï¿½ ï¿½×¼ï¿½
 	   @ResponseBody
 	   public String signout(HttpSession session) {
 		  
@@ -57,13 +57,13 @@ public class logoutController {
 	                      }
 			         
 			         session.invalidate();
-			         //return "<script>alert('·Î±×¾Æ¿ô!!'); location.href='/signin'; </script>";
+			         //return "<script>alert('ï¿½Î±×¾Æ¿ï¿½!!'); location.href='/signin'; </script>";
 			         return "<script>location.href='/signin';</script>";
 			      }else {
-			         return "<script>alert('·Î±×ÀÎ »óÅÂ°¡ ¾Æ´Õ´Ï´Ù.'); location.href='/signin'; </script>";
+			         return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Õ´Ï´ï¿½.'); location.href='/signin'; </script>";
 			      }
 		} catch (Exception e) {
-			return "<script>alert('¼¼¼ÇÀÌ ¸¸·áµÇ¾ú½À´Ï´Ù.´Ù½Ã ·Î±×ÀÎ ÇÏ¼¼¿ä'); location.href='/signin'; </script>";
+			return "<script>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.ï¿½Ù½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin'; </script>";
 		}
 	
 	   }// logout_action

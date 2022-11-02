@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta name="viewport" content="width=device=width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -148,9 +150,53 @@
           height:30px; border:0px solid white; border-radius:20px;
           background-color:#c1c1c1; font-size:11px;" id="charge_kakao">충 전 하 기</button>
      </div>
-   
+
+<script type="text/javascript">
+    $('#charge_kakao').click(function () {
+        // getter
+        var IMP = window.IMP;
+        IMP.init('imp30545876');
+        var money = $('input[name="cp_item"]:checked').val();
+        var buyerId = "${profile.signup_id}";
+        console.log(money);
+
+        IMP.request_pay({
+                    pg: 'kakaopay',
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    pay_method : 'card',
+                    name: '카카오페이결제',
+                    amount: money,
+                    buyer_id: buyerId,
+                    buyer_email: "${profile.signup_email}",
+                    buyer_name: "${profile.signup_nickname}",
+                    buyer_addr: "${profile.signup_adr}",
+                    buyer_tel : "${profile.signup_email}",
+                    buyer_postcode: "${profile.signup_adr_point}"
+                }, function (rsp) {
+                    console.log(rsp);
+                    if (rsp.success) {
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+                        msg += '\n충전된 코인 갯수: ' + rsp.paid_amount / 100;
+                        $.ajax({
+                            type: "POST",
+                            url: "/charge/coin", //충전 금액값을 보낼 url 설정
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                "payAmount" : rsp.paid_amount / 100,
+                                "signupId" : buyerId
+                            }),
+                        });
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+                    }
+                    alert(msg);
+                    opener.parent.location.reload();
+                    window.close();
+                });
+            });
+</script>
 </body>
-
-<script type="text/javascript" src="${path}/resources/js/IMportJS.js"></script>
-
 </html>

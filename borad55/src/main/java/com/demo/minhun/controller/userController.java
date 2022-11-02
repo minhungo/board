@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.io.File;
 import java.util.ArrayList;

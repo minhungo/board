@@ -124,30 +124,24 @@ font-weight:  400;
          <img src="resources/image/iphone.png" width="500" height="550">
 
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px;">  
-      <div class="container row"
-         style="background-color: white; padding: 0px">
-
- 
-      
-
-
-               <c:if test="${empty profile.signup_id}">
-                  <c:forEach var="connectUser" items="${connectUser}">
-                     <div class="border-bottom " style="width: 230px; padding: 0px;" id="${connectUser.signup_nickname}" onclick="settingMenuToggle2(); test1('${connectUser.signup_nickname}','${profile.signup_id }');">
-                        <div class="chat_img ">
-                           <img src="resources/img/${connectUser.signup_profle_img}">
-                        </div>
-                        <span style="padding-left: 100px">${connectUser.signup_nickname}</span>
-                        <c:choose>
-      <c:when test="${connectUser.signup_grade eq 'bronze' }"><span   style="align:right;"><img src="resources/image/bronze.png" width="30" height="30" ></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'silver' }"><span   style="margin-right: 0px"><img src="resources/image/silver.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'gold' }"><span   style="margin-right: 0px"><img src="resources/image/gold.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'platinum' }"><span   style="margin-right: 0px"><img src="resources/image/platinum.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'diamond' }"><span   style="float:right: 0px"><img src="resources/image/diamond.png" width="35" height="35"></span></c:when>      
-      </c:choose>
-                     </div>
-                  </c:forEach>
-               </c:if>
+      <div class="container row" style="background-color: white; padding: 0px">
+           <c:if test="${empty profile.signup_id}">
+              <c:forEach var="connectUser" items="${connectUser}">
+                 <div class="border-bottom " style="width: 230px; padding: 0px;" id="${connectUser.signup_nickname}" onclick="settingMenuToggle2(); test1('${connectUser.signup_nickname}','${profile.signup_id }');">
+                    <div class="chat_img ">
+                       <img src="resources/img/${connectUser.signup_profle_img}">
+                    </div>
+                    <span style="padding-left: 100px">${connectUser.signup_nickname}</span>
+                    <c:choose>
+                      <c:when test="${connectUser.signup_grade eq 'bronze' }"><span   style="align:right;"><img src="resources/image/bronze.png" width="30" height="30" ></span></c:when>
+                      <c:when test="${connectUser.signup_grade eq 'silver' }"><span   style="margin-right: 0px"><img src="resources/image/silver.png" width="30" height="30"></span></c:when>
+                      <c:when test="${connectUser.signup_grade eq 'gold' }"><span   style="margin-right: 0px"><img src="resources/image/gold.png" width="30" height="30"></span></c:when>
+                      <c:when test="${connectUser.signup_grade eq 'platinum' }"><span   style="margin-right: 0px"><img src="resources/image/platinum.png" width="30" height="30"></span></c:when>
+                      <c:when test="${connectUser.signup_grade eq 'diamond' }"><span   style="float:right: 0px"><img src="resources/image/diamond.png" width="35" height="35"></span></c:when>
+                    </c:choose>
+                 </div>
+              </c:forEach>
+           </c:if>
 
                <c:if test="${!empty profile.signup_id}">
                   <c:forEach var="connectUser" items="${connectUser}">

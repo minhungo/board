@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.demo.minhun.dao.SignupDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,12 +41,17 @@ public class boardController {
 
 	@Autowired 
 	IBoardDAO IBoardDAO;
-	
+
+	@Autowired
+	SignupDAO signupDAO;
 	
 	signupDTO user;
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
+	
+	//���� ����Ʈ
+	public static List<signupDTO> userList=new ArrayList<signupDTO>();
 
 
 	// 코인 충전 창
@@ -55,11 +61,6 @@ public class boardController {
 		mv.setViewName("PayCoin");
 		return mv;
 	}
-
-	
-	
-	//���� ����Ʈ
-	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
 	
 	//���� ��Ʈ�ѷ� 

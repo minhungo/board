@@ -8,15 +8,15 @@
 <mapper namespace="com.demo.minhun.dao.CoinDAO">
 
 
-<insert id="ChargeCoin">
+<insert id="ChargeCoin" parameterType="com.demo.minhun.dto.CoinDTO">
     insert into
         coin (payAmount, payChargeDate, signupId)
     values
-        (#{param1}, current_date, #{param2})
+        (#{payAmount}, current_date, #{signupId})
 </insert>
 
 <select id="getMyCoinRecord" resultType="com.demo.minhun.dto.CoinDTO">
-    select sum(payAmount) from Coin where signupId in (#{param1})
+    select sum(payAmount) from Coin where signupId in (#{signupId})
        
 </select>
 

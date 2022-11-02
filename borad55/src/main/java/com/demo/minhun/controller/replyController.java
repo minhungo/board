@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +33,14 @@ public class replyController {
 	SignupDAO sigupDAO;
 	
 	
-	//À¯Àú ¸®½ºÆ®
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
 	
 	
 	
-          // ´ñ±Û ¾²±â Æû
-		@RequestMapping("/writeReplyAction") // ´ñ±Û ¾²±â
+          // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		@RequestMapping("/writeReplyAction") // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@ResponseBody
 		public String writeReplyAction(
 				@RequestParam("reply_content") String reply_content,
@@ -51,10 +51,10 @@ public class replyController {
 				HttpSession session) {
                 
 			
-			//À¯Àú°¡ ·Î±×ÀÎÀÎÁö ¾Æ´ÑÁö Ã¼Å©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ Ã¼Å©
 			Object usercheck = session.getAttribute("profile");
 			if (usercheck == null) {
-				return "<script>alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä'); location.href='/signin'; </script>";
+				return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin'; </script>";
 			}
 
 			int result = IReplyDAO.reply_write(reply_name, reply_content, reply_board_index, reply_signup_id,reply_profle_img);
@@ -67,7 +67,7 @@ public class replyController {
 				
 			} else {
 				
-				return "<script>alert('´ñ±Û ´Þ±â ½ÇÆÐ'); location.href='/readForm?board_idx=" + reply_board_index
+				return "<script>alert('ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ ï¿½ï¿½ï¿½ï¿½'); location.href='/readForm?board_idx=" + reply_board_index
 						+ "'; </script>";
 			}
 		}
@@ -78,8 +78,8 @@ public class replyController {
 		
 		
 		
-		//´ñ±Û»èÁ¦
-		@RequestMapping("/deleteReplyAction") // ´ñ±Û»èÁ¦
+		//ï¿½ï¿½Û»ï¿½ï¿½ï¿½
+		@RequestMapping("/deleteReplyAction") // ï¿½ï¿½Û»ï¿½ï¿½ï¿½
 		@ResponseBody
 		public String deleteReplyAction(
 				@RequestParam("reply_idx") String reply_idx,
@@ -87,10 +87,10 @@ public class replyController {
 				HttpServletRequest sr,
 				HttpSession session) {
 			
-			//À¯Àú°¡ ·Î±×ÀÎÀÎÁö ¾Æ´ÑÁö Ã¼Å©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ Ã¼Å©
 			Object usercheck = session.getAttribute("profile");
 		      if(usercheck==null) {
-		         return "<script>alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä'); location.href='/signin'; </script>";
+		         return "<script>alert('ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½'); location.href='/signin'; </script>";
 		      }
 			
 			int result = IReplyDAO.reply_deleteDTO(reply_idx);
@@ -101,7 +101,7 @@ public class replyController {
 				return "<script> location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 				
 			} else {
-				return "<script>alert('´ñ±Û »èÁ¦ ½ÇÆÐ'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+				return "<script>alert('ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 			}
 		}
 		
@@ -111,7 +111,7 @@ public class replyController {
 		
 		
 		 
-		   //´ñ±Û Ã¤ÅÃ  
+		   //ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½  
 		   @RequestMapping("/reply_selectAction") 
 		   @ResponseBody
 		   public String reply_SelectAction(@RequestParam("reply_idx") String reply_idx,
@@ -129,7 +129,7 @@ public class replyController {
 		            sigupDAO.signup_replyselect(reply_name);
 		            sigupDAO.signup_ReplyPointDown(board_name);            
 		         }else {
-		            return "<script>alert('ÀÛ¼ºÀÚ°¡ ¾Æ´ÔÀ¸·Î Ã¤ÅÃÇÒ¼ö ¾ø½À´Ï´Ù.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		            return "<script>alert('ï¿½Û¼ï¿½ï¿½Ú°ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }
 		              
 		       
@@ -139,11 +139,11 @@ public class replyController {
 		    	  	sigupDAO.signup_gradeUpdate(board_name);
 		            sigupDAO.signup_gradeUpdate(reply_name);
 		            
-		         return "<script>alert('Ã¤ÅÃ ¿Ï·á'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         return "<script>alert('Ã¤ï¿½ï¿½ ï¿½Ï·ï¿½'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		      else {
-		         System.out.println("Ã¤ÅÃ ½ÇÆÐ");
-		         return "<script>alert('Ã¤ÅÃ ½ÇÆÐ'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         System.out.println("Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		         return "<script>alert('Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		            
 		   }

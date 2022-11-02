@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,7 +28,7 @@ import com.demo.minhun.dto.SearchCriteria;
 import com.demo.minhun.dto.signupDTO;
 
 
-//°ü¸®ÀÚ ÆäÀÌÁö 
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 @Controller
 public class adminController {
 
@@ -51,7 +51,7 @@ public class adminController {
 	
 	
 	
-    //È¸¿øÀÌ ÀÛ¼ºÇÑ °Ô½ÃÆÇ µé °¡Á®¿À±â 
+    //È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 @RequestMapping(value = "/admin", method = RequestMethod.GET)
 	   public String admin (Model model, @ModelAttribute("scri") SearchCriteria scri,
 	   @RequestParam(value = "page", defaultValue = "1") String page ,@RequestParam(value = "bgno" ,defaultValue = "1")int bgno) throws Exception {
@@ -74,7 +74,7 @@ public class adminController {
 	 
 	 
 	 
-	 //°¡ÀÔÇÑ È¸¿ø ¸ñ·Ï
+	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
      @RequestMapping(value = "/adminpro", method = RequestMethod.GET)
      public String adminpro (Model model, @ModelAttribute("scri") SearchCriteria scri,
      @RequestParam(value = "page", defaultValue = "1") String page) throws Exception {
@@ -95,7 +95,7 @@ public class adminController {
      
      
      
-    // È¸¿øÀ¯Àú Á¤º¸ º¸±â
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
  	@RequestMapping(value = "/userInformation", method = RequestMethod.GET)
  	public String userInformation(@RequestParam("signup_num") String signup_num, Model model,
  			HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") String page,
@@ -115,7 +115,7 @@ public class adminController {
  	
  	
  	
- //±­¸®ÀÚ ÆäÀÌÁö¿¡¼­ È¸¿ø Å»Åð
+ //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ Å»ï¿½ï¿½
 	@RequestMapping("/deleteSignupaction")
 	@ResponseBody
 	public String deleteSignupaction(@RequestParam("signup_num") String signup_num, HttpServletRequest request,
@@ -124,7 +124,7 @@ public class adminController {
 
 		sigupDAO.deleteSignup(signup_num);
 
-		return "<script>alert('È¸¿øÀÌ Å»Åð µÇ¾ú½À´Ï´Ù'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
+		return "<script>alert('È¸ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
 	}
 		 
 	
@@ -133,7 +133,7 @@ public class adminController {
 	
 	
 	
-	 // °ü¸®ÀÚ ÆäÀÌÁö ½Å°íÀÚ´çÇÑ À¯Àú ¸í´Ü ¸®½ºÆ®
+	 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	 @RequestMapping(value = "/userReportlist", method = RequestMethod.GET)
 	 public String userReportlist(
 			 		 Model model, 
@@ -150,7 +150,7 @@ public class adminController {
 	      return "userReportlist";
 	   }
 	 
-	 //°ü¸®ÀÚÆäÀÌÁö¿¡ ½Å°íµÈ °Ô½Ã¹° ¸®½ºÆ® ÄÁÆ®·Ñ·¯
+	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	 @RequestMapping(value = "/adminreport", method = RequestMethod.GET)
      public String adminreport (Model model, @ModelAttribute("scri") SearchCriteria scri,
      @RequestParam(value = "page", defaultValue = "1") String page,@RequestParam(value = "bgno" ,defaultValue = "0")int bgno) throws Exception {
@@ -169,15 +169,15 @@ public class adminController {
 	 
 	 
 	 
-	 //À¯Àú Á¦ÀçÃ¢ ÄÁÆ®·Ñ·¯
+	 //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	 @RequestMapping(value = "sanctions" ,method = RequestMethod.GET)
 	   public String sanctions(Model model, @RequestParam("signup_num")int signup_num) {
-	      //ÇöÀç ½Ã°£
+	      //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	      
 	      Calendar cal = Calendar.getInstance();
 	      cal.setTime(new Date());
 	   
-	      //ÇöÀç½Ã°£ ÀÌÈÄ 3ÀÏ ,7ÀÏ ,30ÀÏ À» ±¸ÇÏ´Â ÇÔ¼ö
+	      //ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ ,7ï¿½ï¿½ ,30ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	      Calendar cal3 = Calendar.getInstance();
 	      Calendar cal7 = Calendar.getInstance();
 	      Calendar cal30 = Calendar.getInstance();
@@ -216,7 +216,7 @@ public class adminController {
 	 
 	 
 	 
-	 //À¯Àú Á¦Àç ÄÁÆ®·Ñ·¯
+	 //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	  @RequestMapping(value = "sanctionsAction",method = RequestMethod.POST)
 	  @ResponseBody
 	   public String sanctionsAction(
@@ -232,7 +232,7 @@ public class adminController {
 
 	      sigupDAO.sanctionsDTO(str_sanctions,and_sanctions,true_sanctions,signup_num);
 
-	      return "<script>alert('Á¦Àç µÇ¾ú½À´Ï´Ù');window.close();</script>";
+	      return "<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½');window.close();</script>";
 	   }
 	 
 	  
@@ -240,7 +240,7 @@ public class adminController {
 	  
 	  
 	  
-	  //Á¦Á¦µÈ À¯Àúµé ¸í´Ü ¸®½ºÆ® ÄÁÆ®·Ñ·¯
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	  @RequestMapping(value = "/sanctionslist", method = RequestMethod.GET)
 	     public String sanctionslist (Model model, @ModelAttribute("scri") SearchCriteria scri,
 	     @RequestParam(value = "page", defaultValue = "1") String page) throws Exception {
