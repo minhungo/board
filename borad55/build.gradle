@@ -15,6 +15,7 @@ configurations {
 }
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 dependencies {
 
@@ -47,5 +48,8 @@ dependencies {
 	implementation 'org.webjars:stomp-websocket:2.3.4'
 	// gson
 	implementation 'com.google.code.gson:gson:2.9.0'
+	// import
+	implementation 'com.github.iamport:iamport-rest-client-java:0.2.22'
+
 
 }

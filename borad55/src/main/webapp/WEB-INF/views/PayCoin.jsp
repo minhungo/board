@@ -144,16 +144,28 @@
         <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
         <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
         <p style="color: #ac2925; margin-top: 30px">코인은 1개당 100원이며 최소 5000원부터 최대 50,000원까지 충전 가능합니다</p>
+
         <button type="button"
           class="btn btn-primary"
-          style="display:inline-block; width:80px;
-          height:30px; border:0px solid white; border-radius:20px;
-          background-color:#c1c1c1; font-size:11px;" id="charge_kakao">충 전 하 기</button>
+          style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="charge_kakao">
+
+            충전하기
+
+          </button>
+
+        <button type="button"
+            class="btn btn-primary"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px;"
+            id="cancel_kakao">
+
+            닫기
+
+        </button>
      </div>
 
 <script type="text/javascript">
     $('#charge_kakao').click(function () {
-        // getter
+        // 코인 충전
         var IMP = window.IMP;
         IMP.init('imp30545876');
         var money = $('input[name="cp_item"]:checked').val();
@@ -172,31 +184,42 @@
                     buyer_addr: "${profile.signup_adr}",
                     buyer_tel : "${profile.signup_email}",
                     buyer_postcode: "${profile.signup_adr_point}"
-                }, function (rsp) {
-                    console.log(rsp);
-                    if (rsp.success) {
-                        var msg = '결제가 완료되었습니다.';
-                        msg += '\n결제 금액 : ' + rsp.paid_amount;
-                        msg += '\n충전된 코인 갯수: ' + rsp.paid_amount / 100;
-                        $.ajax({
-                            type: "POST",
-                            url: "/charge/coin", //충전 금액값을 보낼 url 설정
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                "payAmount" : rsp.paid_amount / 100,
-                                "signupId" : buyerId
-                            }),
-                        });
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-                    }
+                }, function (rsp) { // callback
+                    // console.log(rsp); 응답값확인용
+                    $.ajax({
+                        type: "post",
+                        url: "/verifyIamport/" + rsp.imp_uid ,
+                    }).done(function(data){
+                        // console.log(data); 응답값확인용
+                        if(money == data.response.amount){
+                            $.ajax({
+                                type: "POST",
+                                url: "/charge/coin", //충전 금액값을 보낼 url 설정
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    "payAmount" : data.response.amount / 100,
+                                    "signupId" : buyerId
+                                }),
+                                async : false
+                            });
+                            var msg = '결제가 완료되었습니다.';
+                            msg += '\n결제 금액 : ' + rsp.paid_amount;
+                            msg += '\n충전된 코인 갯수: ' + money / 100;
+                        }else{
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '\n결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.';
+                        }
+                    });
                     alert(msg);
                     opener.parent.location.reload();
                     window.close();
                 });
             });
+
+    $('#cancel_kakao').click(function () {
+        window.close();
+    });
 </script>
 </body>
 </html>
