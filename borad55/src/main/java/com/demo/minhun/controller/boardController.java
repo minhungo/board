@@ -11,25 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.demo.minhun.dao.CoinDAO;
 import com.demo.minhun.dao.SignupDAO;
+import com.demo.minhun.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.minhun.dao.IBoardDAO;
 import com.demo.minhun.dao.IReplyDAO;
-import com.demo.minhun.dto.BoardDTO;
-import com.demo.minhun.dto.PageMaker;
-import com.demo.minhun.dto.ReplyDTO;
-import com.demo.minhun.dto.SearchCriteria;
-import com.demo.minhun.dto.signupDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -46,6 +38,9 @@ public class boardController {
 	SignupDAO signupDAO;
 	
 	signupDTO user;
+
+	@Autowired
+	CoinDAO coinDAO;
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
@@ -56,9 +51,23 @@ public class boardController {
 
 	// 코인 충전 창
 	@RequestMapping("/PayCoin")
-	public ModelAndView chat() {
+	public ModelAndView chargeCoin() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("PayCoin");
+		mv.setViewName("/Pay/PayCoin");
+		return mv;
+	}
+
+	@GetMapping("/refund")
+	public ModelAndView refundCoin(@RequestParam String signup_id) {
+		System.out.println(signup_id);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/Pay/RefundCoin");
+		List<RefundDTO> record = coinDAO.getMyCoinRecord(signup_id);
+// db에서 아이디기준으로 충전기록 가져오는 거 확인함 사용기록도 추가 해야할지 고민해야함
+//		for(RefundDTO i : record){
+//			System.out.println(i);
+//		}
+		mv.addObject("my_record",record);
 		return mv;
 	}
 	

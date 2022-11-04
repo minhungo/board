@@ -15,8 +15,15 @@
         (#{payAmount}, current_date, #{signupId})
 </insert>
 
-<select id="getMyCoinRecord" resultType="com.demo.minhun.dto.CoinDTO">
-    select sum(payAmount) from Coin where signupId in (#{signupId})
+<select id="getMyCoinRecord" resultType="com.demo.minhun.dto.RefundDTO">
+    select
+        s.signup_id, s.signup_coin, c.payamount, c.paychargedate
+    from
+        signup s inner join coin c
+    on
+        s.signup_id = c.signupid
+    where
+        s.signup_id = #{signup_id}
 </select>
 
 

@@ -161,17 +161,26 @@
             닫기
 
         </button>
+
+        <button type="button"
+            class="btn btn-primary"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px; float:right"
+            id="refund_coin">
+
+            환불하기
+
+        </button>
      </div>
 
 <script type="text/javascript">
     // 유저 정보값을 이용하는 구조인데 js파일을 resource에서 가져오려했으나
     // 코인충전창이 새창으로 띄워지는 방식이라서 방법이 생각안나서 /body 바로 위에 직접 작성함
+    var buyerId = "${profile.signup_id}";
     $('#charge_kakao').click(function () {
         // 코인 충전
         var IMP = window.IMP;
         IMP.init('imp30545876');
         var money = $('input[name="cp_item"]:checked').val();
-        var buyerId = "${profile.signup_id}";
         console.log(money);
 
         IMP.request_pay({
@@ -214,13 +223,21 @@
                         }
                     });
                     alert(msg);
+
+                    // 아래 둘 다 부모창 새로고침 되는거 사용하기
                     opener.parent.location.reload();
+                    window.opener.location.href = window.opener.document.URL;
+
+                    // 현재 창 닫기
                     window.close();
                 });
             });
 
     $('#cancel_kakao').click(function () {
         window.close();
+    });
+    $('#refund_coin').click(function () {
+        window.location.href = '/refund?signup_id='+buyerId;
     });
 </script>
 </body>
