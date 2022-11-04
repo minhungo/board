@@ -164,6 +164,8 @@
      </div>
 
 <script type="text/javascript">
+    // 유저 정보값을 이용하는 구조인데 js파일을 resource에서 가져오려했으나
+    // 코인충전창이 새창으로 띄워지는 방식이라서 방법이 생각안나서 /body 바로 위에 직접 작성함
     $('#charge_kakao').click(function () {
         // 코인 충전
         var IMP = window.IMP;
