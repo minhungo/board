@@ -17,7 +17,6 @@
 
 <select id="getMyCoinRecord" resultType="com.demo.minhun.dto.CoinDTO">
     select sum(payAmount) from Coin where signupId in (#{signupId})
-       
 </select>
 
 

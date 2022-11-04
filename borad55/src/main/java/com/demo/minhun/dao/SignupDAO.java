@@ -73,6 +73,8 @@ public interface SignupDAO {
 	public int UpdateCoin(Long signup_coin, String signup_id);
 
 	public signupDTO getMyInfo(String signup_id);
+
+	public String getMyCoin(String signup_id);
 	
 	
 	

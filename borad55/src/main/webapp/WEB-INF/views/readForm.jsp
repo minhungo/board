@@ -691,7 +691,7 @@ function ReplyUpdateView() {
 							</c:if>
                         
                         
-                    
+                        <input type="hidden" id="select_signup_id" value="${profile.signup_id}">
                         <button type="button" class="btn btn-outline-primary" onclick="return selectAnswer();">
 						        채택
 						</button>
@@ -702,8 +702,8 @@ function ReplyUpdateView() {
                             </div>
                             <div id="close-area">X</div>
                             <div id="content">
-                                <p>답변 채택시 코인 1개를 채택된 답변을 작성한 작성자에게 줍니다</p>
-                                <p>가지고 있는 코인이 없을 경우 답변채택을 할 수 없습니다</p>
+                                <p>답변 채택시 채택된 답변을 작성한 작성자에게 코인 1개를 줍니다</p>
+                                <p>가지고 있는 코인이 없을 경우 답변 채택을 할 수 없습니다</p>
                             </div>
                             <div id="footer">
                                 <button type="button" id="select_answer" class="btn btn-outline-primary">

@@ -67,4 +67,14 @@ public class PayController {
         }
     }
 
+    @PostMapping("/getMyCoin")
+    public String getMyCoin(@RequestBody signupDTO signup){
+        // 내 코인 갯수 확인
+        String signupCoin = signupDAO.getMyCoin(signup.getSignup_id());
+        // int로 변환
+        //int myCoin = Integer.parseInt(signupCoin);
+        // 갯수 반환
+        return signupCoin;
+    }
+
 }
