@@ -126,8 +126,14 @@ public class replyController {
 		      System.out.println(usercheck.getSignup_nickname());
 		      
 		         if(usercheck.getSignup_nickname().equals(board_name)) {
+					 // 답변자 포인트 올리고 질문자 포인트 내리는 걸로 보임
 		            sigupDAO.signup_replyselect(reply_name);
-		            sigupDAO.signup_ReplyPointDown(board_name);            
+		            sigupDAO.signup_ReplyPointDown(board_name);
+
+					// 코인 차감
+					sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id());
+					// 코인 증가
+					sigupDAO.UpdateCoinByNickname((long) 1, reply_name);
 		         }else {
 		            return "<script>alert('�ۼ��ڰ� �ƴ����� ä���Ҽ� �����ϴ�.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }

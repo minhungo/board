@@ -206,17 +206,39 @@ where signup_id=#{param6}
 
     <!-- 코인 충전 또는 사용 적용 -->
     <update id="UpdateCoin">
-        update signup
-            set signup_coin = signup_coin + #{signup_coin}
-        where signup_id = #{signup_id}
+        update
+            signup
+        set
+            signup_coin = signup_coin + #{signup_coin}
+        where
+            signup_id = #{signup_id}
+    </update>
+
+    <update id="UpdateCoinByNickname">
+        update
+            signup
+        set
+            signup_coin = signup_coin + #{signup_coin}
+        where
+            signup_nickname = #{signup_nickname}
     </update>
 
     <select id="getMyInfo">
-        select (signup_id, signup_name, signup_nickname, signup_email, signup_adr, signup_adr_point, signup_data, signup_num, signup_profle_img) from signup where signup_id = #{signup_id}
+        select
+            signup_id, signup_name, signup_nickname, signup_email, signup_adr, signup_adr_point, signup_data, signup_num, signup_profle_img
+        from
+            signup
+        where
+            signup_id = #{signup_id}
     </select>
     <!-- 내 코인 갯수 가져오기 -->
     <select id="getMyCoin" resultType="String">
-        select signup_coin from signup where signup_id = #{signup_id}
+        select
+            signup_coin
+        from
+            signup
+        where
+            signup_id = #{signup_id}
     </select>
 
 </mapper>
