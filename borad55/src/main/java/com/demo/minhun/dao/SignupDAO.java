@@ -69,13 +69,11 @@ public interface SignupDAO {
 	public int MyPage_UpDate(String input_pw,String input_nickname,String input_email,String input_adr,String input_adr_point, String signup_id);
 
 	
-	//코인 충전 또는 사용 적용
-	public int UpdateCoin(Long signup_coin, String signup_id);
-	public int UpdateCoinByNickname(Long signup_coin, String signup_nickname);
-
-	public signupDTO getMyInfo(String signup_id);
-
-	public String getMyCoin(String signup_id);
+//  코인 충전 또는 사용 적용 session적용 불편해서 model로 변경
+//	public int UpdateCoin(Long signup_coin, String signup_id, String payImpUid, String payMerchantUid);
+//	public int UpdateCoinByNickname(Long signup_coin, String signup_nickname);
+//	public signupDTO getMyInfo(String signup_id);
+//	public String getMyCoin(String signup_id);
 	
 	
 	

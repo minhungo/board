@@ -2,6 +2,7 @@ package com.demo.minhun.controller;
 
 import com.demo.minhun.dao.CoinDAO;
 import com.demo.minhun.dao.SignupDAO;
+import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.CoinDTO;
 import com.demo.minhun.dto.signupDTO;
 import com.siot.IamportRestClient.IamportClient;
@@ -26,9 +27,6 @@ public class PayController {
     @Autowired
     CoinDAO coinDAO;
 
-    @Autowired
-    SignupDAO signupDAO;
-
     /** 프론트에서 받은 PG사 결괏값을 통해 아임포트 토큰 발행 **/
     @PostMapping("/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(@PathVariable String imp_uid) throws IamportResponseException, IOException {
@@ -39,8 +37,16 @@ public class PayController {
         return iamportClient.paymentByImpUid(imp_uid);
     }
 
+    // 로그인 후 소지한 코인 갯수 확인
+    @PostMapping("/MyCoin")
+    public String getCurrentCoin(@RequestBody ChargeNRefundDTO CNRDTO){
+        ChargeNRefundDTO cnrDTO = coinDAO.getMyCurrentCoinById(CNRDTO.getSignup_id());
+        String MyCoin = String.valueOf(cnrDTO.getCurrentCoin());
+        return MyCoin;
+    }
+
     @PostMapping("/charge/coin")
-    public void chargeCoin(@RequestBody CoinDTO coinDTO, HttpServletRequest request){
+    public void chargeCoin(@RequestBody CoinDTO coinDTO){
 
         // js 로 보내준 dto 값 확인
         System.out.println(coinDTO);
@@ -51,30 +57,22 @@ public class PayController {
 //        CoinDTO coinDTO = new CoinDTO();
 //        coinDTO.setPayAmount(payAmount);
 //        coinDTO.setSignupId(signupId);
+//        Long currentCoin = coinDTO.getCurrentCoin();
+//        coinDTO.setCurrentCoin(currentCoin);
 
         // 전체 유저 코인 충전 기록
         coinDAO.ChargeCoin(coinDTO);
-        Long signup_coin = coinDTO.getPayAmount();
-        String signup_id = coinDTO.getSignupId();
-        // 충전한 유저 정보 업데이트
-        signupDAO.UpdateCoin(signup_coin, signup_id);
 
-        // 세션 업데이트 부분 현재는 적용안됨 업데이트된 유저정보를 적용하고 싶은데 어떻게 하는지 모르겠음
-        HttpSession session = request.getSession(false);
-        if(session == null){
-            signupDTO user = signupDAO.getMyInfo(signup_id);
-            session.setAttribute("profile", user);
-        }
     }
 
-    @PostMapping("/getMyCoin")
-    public String getMyCoin(@RequestBody signupDTO signup){
-        // 내 코인 갯수 확인
-        String signupCoin = signupDAO.getMyCoin(signup.getSignup_id());
-        // int로 변환
-        //int myCoin = Integer.parseInt(signupCoin);
-        // 갯수 반환
-        return signupCoin;
-    }
+//    @PostMapping("/getMyCoin")
+//    public String getMyCoin(@RequestBody signupDTO signup){
+//        // 내 코인 갯수 확인
+//        //String signupCoin = signupDAO.getMyCoin(signup.getSignup_id());
+//        // int로 변환
+//        //int myCoin = Integer.parseInt(signupCoin);
+//        // 갯수 반환
+//        return signupCoin;
+//    }
 
 }

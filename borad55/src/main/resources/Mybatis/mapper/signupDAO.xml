@@ -204,7 +204,9 @@ where signup_id=#{param6}
 
 </update>
 
-    <!-- 코인 충전 또는 사용 적용 -->
+    <!-- 사용 안해서 주석 처리함 나중에 어떻게 될지 모름 -->
+    <!-- 코인 충전 또는 사용 적용
+
     <update id="UpdateCoin">
         update
             signup
@@ -231,7 +233,7 @@ where signup_id=#{param6}
         where
             signup_id = #{signup_id}
     </select>
-    <!-- 내 코인 갯수 가져오기 -->
+     내 코인 갯수 가져오기
     <select id="getMyCoin" resultType="String">
         select
             signup_coin
@@ -239,7 +241,7 @@ where signup_id=#{param6}
             signup
         where
             signup_id = #{signup_id}
-    </select>
+    </select>-->
 
 </mapper>
 

@@ -2,6 +2,8 @@ package com.demo.minhun.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.demo.minhun.dao.CoinDAO;
+import com.demo.minhun.dto.CoinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,9 @@ public class signupController {
 	SignupDAO sigupDAO;
 	
 	signupDTO user;
+
+	@Autowired
+	CoinDAO coinDAO;
 	
 	
 	
@@ -49,6 +54,13 @@ public class signupController {
 
 		if (result == 1) {
 			System.out.println("ȸ������ ����!!");
+			CoinDTO coinDTO = new CoinDTO();
+			coinDTO.setSignupId(signup_id);
+			coinDTO.setPayAmount(0l);
+			coinDTO.setPayImpUid("회원가입");
+			coinDTO.setPayMerchantUid("축하선물");
+			coinDTO.setCurrentCoin(100l);
+			coinDAO.ChargeCoin(coinDTO);
 			return "<script>alert('ȸ������ ����!!'); location.href='/board'; </script>";
 
 		} else {

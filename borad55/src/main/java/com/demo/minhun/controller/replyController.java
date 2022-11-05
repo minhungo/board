@@ -131,9 +131,9 @@ public class replyController {
 		            sigupDAO.signup_ReplyPointDown(board_name);
 
 					// 코인 차감
-					sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id());
-					// 코인 증가
-					sigupDAO.UpdateCoinByNickname((long) 1, reply_name);
+					//sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id(), "답변채택", "1개차감");
+					// 코인 증감
+					//sigupDAO.UpdateCoinByNickname((long) 1, reply_name);
 		         }else {
 		            return "<script>alert('�ۼ��ڰ� �ƴ����� ä���Ҽ� �����ϴ�.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }

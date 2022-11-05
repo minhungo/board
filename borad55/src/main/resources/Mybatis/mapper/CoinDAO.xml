@@ -7,24 +7,79 @@
 
 <mapper namespace="com.demo.minhun.dao.CoinDAO">
 
+    <!-- 코인 충전 또는 사용 적용 -->
+    <insert id="ChargeCoin" parameterType="com.demo.minhun.dto.ChargeNRefundDTO">
+        insert into
+            coin (payAmount, payChargeDate, signupId, payImpUid, payMerchantUid, currentCoin)
+        values
+            (#{payAmount}, current_date, #{signupId}, #{payImpUid}, #{payMerchantUid}, #{currentCoin})
+    </insert>
 
-<insert id="ChargeCoin" parameterType="com.demo.minhun.dto.CoinDTO">
-    insert into
-        coin (payAmount, payChargeDate, signupId)
-    values
-        (#{payAmount}, current_date, #{signupId})
-</insert>
+    <!-- 내 코인 충전 및 사용 기록 가져오기 (ID)-->
+    <select id="getMyCoinRecordById" resultType="com.demo.minhun.dto.ChargeNRefundDTO">
+        select
+            s.signup_id, c.payAmount, c.payChargeDate, c.payImpUid, c.payMerchantUid ,c.currentCoin
+        from
+            signup s inner join coin c
+        on
+            s.signup_id = c.signupId
+        where
+            s.signup_id = #{signup_id}
+        order by
+            c.payChargeDate desc nulls last
+    </select>
 
-<select id="getMyCoinRecord" resultType="com.demo.minhun.dto.RefundDTO">
-    select
-        s.signup_id, s.signup_coin, c.payamount, c.paychargedate
-    from
-        signup s inner join coin c
-    on
-        s.signup_id = c.signupid
-    where
-        s.signup_id = #{signup_id}
-</select>
+    <!-- 가장 최신 코인 현황 가져오기 (ID)-->
+    <select id="getMyCurrentCoinById" resultType="com.demo.minhun.dto.ChargeNRefundDTO">
+        select
+            g.signup_id, g.currentCoin
+        from
+            (select
+                *
+            from
+                signup s inner join coin c
+            on
+                s.signup_id = c.signupId
+            where
+                s.signup_id = #{signup_id}
+            order by
+                c.payChargeDate desc nulls last) g
+        where
+            rowNum = 1
+    </select>
+
+    <!-- 내 코인 충전 및 사용 기록 가져오기 (Nickname)-->
+    <select id="getMyCoinRecordByNickname" resultType="com.demo.minhun.dto.ChargeNRefundDTO">
+        select
+            s.signup_id, c.payAmount, c.payChargeDate, c.payImpUid, c.payMerchantUid ,c.currentCoin
+        from
+            signup s inner join coin c
+        on
+            s.signup_id = c.signupId
+        where
+            s.signup_nickname = #{signup_nickname}
+        order by
+            c.payChargeDate desc nulls last
+    </select>
+
+    <!-- 가장 최신 코인 현황 가져오기 (Nickname)-->
+    <select id="getMyCurrentCoinByNickname" resultType="com.demo.minhun.dto.ChargeNRefundDTO">
+        select
+            g.signup_id, g.currentCoin
+        from
+            (select
+                *
+            from
+                signup s inner join coin c
+            on
+                s.signup_id = c.signupId
+            where
+                s.signup_nickname = #{signup_nickname}
+            order by
+                c.payChargeDate desc nulls last) g
+        where
+            rowNum = 1
+    </select>
 
 
 </mapper>

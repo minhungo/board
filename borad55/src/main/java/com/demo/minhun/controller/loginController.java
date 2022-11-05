@@ -8,18 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.demo.minhun.dao.*;
+import com.demo.minhun.dto.ChargeNRefundDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.demo.minhun.dao.IBoardDAO;
-import com.demo.minhun.dao.IReplyDAO;
-import com.demo.minhun.dao.LikeDAO;
-import com.demo.minhun.dao.SignupDAO;
 import com.demo.minhun.dto.signupDTO;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 //로그인 컨트롤러
@@ -40,6 +41,9 @@ public class loginController {
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
+
+    @Autowired
+    CoinDAO coinDAO;
 	
 	
 	signupDTO user;
@@ -60,15 +64,15 @@ public class loginController {
     @ResponseBody
     public String 
              signin(
-             @RequestParam("login_id") String signup_id, 
-             @RequestParam("login_pw") String signup_pw,
-             HttpServletRequest request,
-             HttpServletResponse response ,
-             HttpSession httpSession,
-             String and_sanction, 
-             String str_sanctions, 
-             String ture_sanction, 
-             String signup_num) {
+            @RequestParam("login_id") String signup_id,
+            @RequestParam("login_pw") String signup_pw,
+            HttpServletRequest request,
+            HttpServletResponse response ,
+            HttpSession httpSession,
+            String and_sanction,
+            String str_sanctions,
+            String ture_sanction,
+            String signup_num) {
 		
       response.setContentType("text/html; charset=UTF-8");
       
@@ -154,7 +158,7 @@ public class loginController {
             
             
             session.setAttribute("connectUser", userList);
-                
+
              return "<script>alert('로그인 성공'); location.href='/board'; </script>";
              
            	}

@@ -134,6 +134,7 @@
 <body>
      <div class="card-body bg-white mt-0 shadow">
         <p style="font-weight: bold">카카오페이를 통한 코인 충전</p>
+        <input type="hidden" id="hiddenMyCoin" value=""/>
         <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>
         <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
         <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label>
@@ -176,62 +177,115 @@
     // 유저 정보값을 이용하는 구조인데 js파일을 resource에서 가져오려했으나
     // 코인충전창이 새창으로 띄워지는 방식이라서 방법이 생각안나서 /body 바로 위에 직접 작성함
     var buyerId = "${profile.signup_id}";
-    $('#charge_kakao').click(function () {
-        // 코인 충전
-        var IMP = window.IMP;
-        IMP.init('imp30545876');
-        var money = $('input[name="cp_item"]:checked').val();
-        console.log(money);
+    var currentCoin;
+    $(function (){
+        var select_usercoin = "${profile.signup_id}";
+        $.ajax({
+            url : '/MyCoin',
+            type : 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data : JSON.stringify({
+                signup_id : select_usercoin
+            }),
+            success : function(result) {
+                $("#hiddenMyCoin").val(result);
+                currentCoin = result;
+                
+                $('#charge_kakao').click(function () {
+                    // 코인 충전
+                    var IMP = window.IMP;
+                    IMP.init('imp30545876');
+                    var money = $('input[name="cp_item"]:checked').val();
+                    console.log(money);
 
-        IMP.request_pay({
-                    pg: 'kakaopay',
-                    merchant_uid: 'merchant_' + new Date().getTime(),
-                    pay_method : 'card',
-                    name: '카카오페이결제',
-                    amount: money,
-                    buyer_id: buyerId,
-                    buyer_email: "${profile.signup_email}",
-                    buyer_name: "${profile.signup_nickname}",
-                    buyer_addr: "${profile.signup_adr}",
-                    buyer_tel : "${profile.signup_email}",
-                    buyer_postcode: "${profile.signup_adr_point}"
-                }, function (rsp) { // callback
-                    // console.log(rsp); 응답값확인용
-                    $.ajax({
-                        type: "post",
-                        url: "/verifyIamport/" + rsp.imp_uid ,
-                    }).done(function(data){
-                        // console.log(data); 응답값확인용
-                        if(money == data.response.amount){
-                            $.ajax({
-                                type: "POST",
-                                url: "/charge/coin", //충전 금액값을 보낼 url 설정
-                                dataType: 'json',
-                                contentType: 'application/json',
-                                data: JSON.stringify({
-                                    "payAmount" : data.response.amount / 100,
-                                    "signupId" : buyerId
-                                }),
-                                async : false
+                    IMP.request_pay({
+                                pg: 'kakaopay',
+                                merchant_uid: 'merchant_' + new Date().getTime(),
+                                pay_method : 'card',
+                                name: '카카오페이결제',
+                                amount: money,
+                                buyer_id: buyerId,
+                                buyer_email: "${profile.signup_email}",
+                                buyer_name: "${profile.signup_nickname}",
+                                buyer_addr: "${profile.signup_adr}",
+                                buyer_tel : "${profile.signup_email}",
+                                buyer_postcode: "${profile.signup_adr_point}",
+                            }, function (rsp) { // callback
+                            	if ( rsp.success ) {
+                                // console.log(rsp); 응답값확인용
+            	                    $.ajax({
+            	                        type: "post",
+            	                        url: "/verifyIamport/" + rsp.imp_uid ,
+            	                    }).done(function(data){
+            	                        console.log(data); //응답값확인용
+            	                        if(money == data.response.amount){
+            	                        	var coin = money / 100;
+            	                        	var total = parseInt(currentCoin) + coin;
+            	                            $.ajax({
+            	                                type: "POST",
+            	                                url: "/charge/coin", //충전 금액값을 보낼 url 설정
+            	                                dataType: 'json',
+            	                                contentType: 'application/json',
+            	                                data: JSON.stringify({
+            	                                    "payAmount" : data.response.amount,
+            	                                    "signupId" : buyerId,
+            	                                    "payImpUid" : data.response.impUid,
+            	                                    "payMerchantUid" : data.response.merchantUid,
+            	                                    "currentCoin" : total
+            	                                }),
+            	                                async : false
+            	                            });
+            	                            var msg = '결제가 완료되었습니다.';
+            	                            msg += '\n결제 금액 : ' + rsp.paid_amount;
+            	                            msg += '\n충전된 코인 갯수: ' + money / 100;
+            	                            
+            	                            alert(msg);
+            	                            
+            	                         	// 아래 둘 다 부모창 새로고침 되는거 사용하기
+            	            		        // opener.parent.location.reload();
+            	            		        window.opener.location.href = window.opener.document.URL;
+            	            		
+            	            		        // 현재 창 닫기
+            	            		        window.close();
+            	            		        
+            	                        }else{
+            	                            var msg = '결제에 실패하였습니다.';
+            	                            msg += '\n결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.';
+            	                            
+            	                            alert(msg);
+            	                            
+            	                         	// 아래 둘 다 부모창 새로고침 되는거 사용하기
+            	            		        // opener.parent.location.reload();
+            	            		        window.opener.location.href = window.opener.document.URL;
+            	            		
+            	            		        // 현재 창 닫기
+            	            		        window.close();
+            	                        }
+            	                    });
+                            	} else {
+                            		var msg = '결제에 실패하였습니다.';
+                                    msg += '\n잠시 후에 다시 시도해주세요.';
+                            		
+                            		alert(msg);
+                            		
+                            		// 아래 둘 다 부모창 새로고침 되는거 사용하기
+                    		        // opener.parent.location.reload();
+                    		        window.opener.location.href = window.opener.document.URL;
+                    		
+                    		        // 현재 창 닫기
+                    		        window.close();
+
+                            	}
                             });
-                            var msg = '결제가 완료되었습니다.';
-                            msg += '\n결제 금액 : ' + rsp.paid_amount;
-                            msg += '\n충전된 코인 갯수: ' + money / 100;
-                        }else{
-                            var msg = '결제에 실패하였습니다.';
-                            msg += '\n결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.';
-                        }
-                    });
-                    alert(msg);
-
-                    // 아래 둘 다 부모창 새로고침 되는거 사용하기
-                    opener.parent.location.reload();
-                    window.opener.location.href = window.opener.document.URL;
-
-                    // 현재 창 닫기
-                    window.close();
-                });
-            });
+                    
+                        });
+            },
+            error : function() {
+                alert("네트워크 통신 오류가 발생하였습니다.\n소지한 코인을 확인할 수 없습니다.");
+            }
+        });
+    });
 
     $('#cancel_kakao').click(function () {
         window.close();

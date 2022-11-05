@@ -62,7 +62,7 @@ public class boardController {
 		System.out.println(signup_id);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/Pay/RefundCoin");
-		List<RefundDTO> record = coinDAO.getMyCoinRecord(signup_id);
+		List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
 // db에서 아이디기준으로 충전기록 가져오는 거 확인함 사용기록도 추가 해야할지 고민해야함
 //		for(RefundDTO i : record){
 //			System.out.println(i);
