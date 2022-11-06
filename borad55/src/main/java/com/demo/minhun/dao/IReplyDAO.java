@@ -25,6 +25,8 @@ public interface IReplyDAO {
 	
 	// 채택
 	public int reply_selectDTO(String reply_idx);
+
+	public int checkSelect(String reply_idx);
 	
 	// 댓글 프로필 업데이트 
 	public int reply_profle_update(String board_profle_img, String signup_id);

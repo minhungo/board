@@ -10,7 +10,7 @@ import java.util.List;
 public interface CoinDAO {
 
     //  코인 충전
-    public int ChargeCoin(CoinDTO coinDTO);
+    public int ChargeCoin(ChargeNRefundDTO coinDTO);
 
     // 코인 기록 가져오기
     public List<ChargeNRefundDTO> getMyCoinRecordById(String signup_id);

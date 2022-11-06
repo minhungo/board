@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -135,25 +136,40 @@
      <div class="card-body bg-white mt-0 shadow">
         <h2>코인환불</h2>
         <p style="color: #ac2925; margin-top: 30px">결제 후 7일이 지난 주문은 환불이 불가합니다</p>
-        <table>
-            <thead>
+        <table class="table table-hover">
+            <thead class="table-light">
                 <tr>
-                    <th>현재 가지고 있는 코인</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>결제일</th>
-                    <th>결제금액</th>
-                    <th>환불가능</th>
+                    <th scope="col" colspan="3" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
+                    <th><h4><b><i>${curCoin.currentCoin}</i></b></h4></th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th scope="row">결제일</th>
+                    <th>결제금액</th>
+                    <th>주문번호</th>
+                    <th>환불가능</th>
                 </tr>
+
+                <c:forEach var="myRecord" items="${myRecord}">
+                <tr>
+                    <td scope="row"><c:out value='${myRecord.payChargeDate}'/></td>
+                    <td><c:out value='${myRecord.payAmount}'/></td>
+                    <td><c:out value='${myRecord.payMerchantUid}'/></td>
+
+                    <c:if test="${myRecord.isPossibleRefund eq 1}">
+                        <td>환불가능</td>
+                    </c:if>
+                    <c:if test="${myRecord.isPossibleRefund eq 0}">
+                        <td>환불불가</td>
+                    </c:if>
+
+                </tr>
+                </c:forEach>
+
             </tbody>
+
         </table>
 
         <button type="button"

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,12 +64,31 @@ public class boardController {
 		System.out.println(signup_id);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/Pay/RefundCoin");
+		ChargeNRefundDTO curCoin = coinDAO.getMyCurrentCoinById(signup_id);
 		List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
 // db에서 아이디기준으로 충전기록 가져오는 거 확인함 사용기록도 추가 해야할지 고민해야함
 //		for(RefundDTO i : record){
 //			System.out.println(i);
 //		}
-		mv.addObject("my_record",record);
+
+		LocalDateTime now = LocalDateTime.now();
+		int sevenDaysAgo = now.minusDays(7).getDayOfYear();
+		for(ChargeNRefundDTO i : record){
+			int chargeDate = i.getPayChargeDate().getDayOfYear();
+			// 충전일이 7일전보다 이전일이라면 환불 불가
+			boolean result = chargeDate > sevenDaysAgo;
+			if(result){
+				i.setIsPossibleRefund(1l);
+			}else{
+				i.setIsPossibleRefund(0l);
+			}
+		}
+
+		mv.addObject("myRecord",record);
+		mv.addObject("curCoin",curCoin);
+//		System.out.println(record);
+//		System.out.println(curCoin);
+
 		return mv;
 	}
 	

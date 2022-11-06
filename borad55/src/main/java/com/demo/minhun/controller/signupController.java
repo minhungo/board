@@ -3,6 +3,7 @@ package com.demo.minhun.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.demo.minhun.dao.CoinDAO;
+import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.CoinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,13 +55,13 @@ public class signupController {
 
 		if (result == 1) {
 			System.out.println("ȸ������ ����!!");
-			CoinDTO coinDTO = new CoinDTO();
-			coinDTO.setSignupId(signup_id);
-			coinDTO.setPayAmount(0l);
-			coinDTO.setPayImpUid("회원가입");
-			coinDTO.setPayMerchantUid("축하선물");
-			coinDTO.setCurrentCoin(100l);
-			coinDAO.ChargeCoin(coinDTO);
+			ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
+			cnrDTO.setSignupId(signup_id);
+			cnrDTO.setPayAmount(0l);
+			cnrDTO.setPayImpUid("회원가입");
+			cnrDTO.setPayMerchantUid("축하선물");
+			cnrDTO.setCurrentCoin(100l);
+			coinDAO.ChargeCoin(cnrDTO);
 			return "<script>alert('ȸ������ ����!!'); location.href='/board'; </script>";
 
 		} else {

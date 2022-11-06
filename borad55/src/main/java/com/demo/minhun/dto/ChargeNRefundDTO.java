@@ -3,6 +3,7 @@ package com.demo.minhun.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 public class ChargeNRefundDTO {
@@ -34,7 +35,7 @@ public class ChargeNRefundDTO {
     private Long payAmount;
 
     // 결제일
-    private LocalDate payChargeDate;
+    private LocalDateTime payChargeDate;
 
     // 결제자 아이디
     private String signupId;
@@ -47,4 +48,7 @@ public class ChargeNRefundDTO {
 
     // 현재 코인 갯수
     private Long currentCoin;
+
+    private Long isPossibleRefund;
+
 }

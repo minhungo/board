@@ -1,16 +1,19 @@
 package com.demo.minhun.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.demo.minhun.dao.CoinDAO;
+import com.demo.minhun.dto.ChargeNRefundDTO;
+import com.demo.minhun.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.demo.minhun.dao.IBoardDAO;
 import com.demo.minhun.dao.IReplyDAO;
@@ -31,6 +34,9 @@ public class replyController {
 
 	@Autowired
 	SignupDAO sigupDAO;
+
+	@Autowired
+	CoinDAO coinDAO;
 	
 	
 	//���� ����Ʈ
@@ -130,10 +136,36 @@ public class replyController {
 		            sigupDAO.signup_replyselect(reply_name);
 		            sigupDAO.signup_ReplyPointDown(board_name);
 
+					// 주문번호(PayMerchantUid) 생성 날짜 계산
+					LocalDateTime localDateTime = LocalDateTime.now();
+
+					// 답변 채택하는 사람 찾기
+					// 기본 코인 1개 너무 작아서 5개로 변경
+					ChargeNRefundDTO minusCnrDTO = coinDAO.getMyCurrentCoinByNickname(board_name);
+					minusCnrDTO.setSignupId(minusCnrDTO.getSignup_id());
+					minusCnrDTO.setPayAmount(-500l);
+					minusCnrDTO.setPayImpUid("답변채택사용");
+					minusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
+					minusCnrDTO.setCurrentCoin(minusCnrDTO.getCurrentCoin() - 5l);
+					System.out.println(minusCnrDTO);
 					// 코인 차감
+					coinDAO.ChargeCoin(minusCnrDTO);
 					//sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id(), "답변채택", "1개차감");
+
+
+					// 답변한 사람찾기
+					// 기본 코인 1개 너무 작아서 5개로 변경
+					ChargeNRefundDTO plusCnrDTO = coinDAO.getMyCurrentCoinByNickname(reply_name);
+					plusCnrDTO.setSignupId(plusCnrDTO.getSignup_id());
+					plusCnrDTO.setPayAmount(500l);
+					plusCnrDTO.setPayImpUid("답변채택보상");
+					plusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
+					plusCnrDTO.setCurrentCoin(plusCnrDTO.getCurrentCoin() + 5l);
+					System.out.println(plusCnrDTO);
 					// 코인 증감
+					coinDAO.ChargeCoin(plusCnrDTO);
 					//sigupDAO.UpdateCoinByNickname((long) 1, reply_name);
+
 		         }else {
 		            return "<script>alert('�ۼ��ڰ� �ƴ����� ä���Ҽ� �����ϴ�.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }
@@ -153,6 +185,13 @@ public class replyController {
 		      }
 		            
 		   }
-		   
 
+
+	// 이미 채택한 답변인지 확인하는 용도	   
+	@PostMapping("/checkSelect")
+	@ResponseBody
+	public int checkSelect(@RequestBody ReplyDTO replyDTO){
+		int result = IReplyDAO.checkSelect(String.valueOf(replyDTO.getReply_idx()));
+		return result;
+	}
 }

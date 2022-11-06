@@ -46,10 +46,10 @@ public class PayController {
     }
 
     @PostMapping("/charge/coin")
-    public void chargeCoin(@RequestBody CoinDTO coinDTO){
+    public void chargeCoin(@RequestBody ChargeNRefundDTO chargeNRefundDTO){
 
         // js 로 보내준 dto 값 확인
-        System.out.println(coinDTO);
+        System.out.println(chargeNRefundDTO);
 
 //        폼에서 DTO를 못 가져와서 변수를 하나씩 가져와서 DTO를 생성하려 했던 흔적
 //        System.out.println(payAmount);
@@ -61,18 +61,18 @@ public class PayController {
 //        coinDTO.setCurrentCoin(currentCoin);
 
         // 전체 유저 코인 충전 기록
-        coinDAO.ChargeCoin(coinDTO);
+        coinDAO.ChargeCoin(chargeNRefundDTO);
 
     }
 
-//    @PostMapping("/getMyCoin")
-//    public String getMyCoin(@RequestBody signupDTO signup){
-//        // 내 코인 갯수 확인
-//        //String signupCoin = signupDAO.getMyCoin(signup.getSignup_id());
-//        // int로 변환
-//        //int myCoin = Integer.parseInt(signupCoin);
-//        // 갯수 반환
-//        return signupCoin;
-//    }
+    @PostMapping("/getMyCoin")
+    public String getMyCoin(@RequestBody ChargeNRefundDTO cnrDTO){
+        // 내 코인 갯수 확인
+        ChargeNRefundDTO getCoin = coinDAO.getMyCurrentCoinById(cnrDTO.getSignup_id());
+        // int로 변환
+        String myCoin = getCoin.getCurrentCoin().toString();
+        // 갯수 반환
+        return myCoin;
+    }
 
 }
