@@ -88,7 +88,9 @@ public class boardController {
 			boolean resultCoinSum = Long.valueOf(curCoin) >= (i.getPayAmount()/100l);
 			// 충전 주문을 통한 지불인지 확인
 			boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
-
+			if(i.getPossibleRefund() == 5l){
+				continue;
+			}
 			if(!resultIsCharge) {
 				i.setPossibleRefund(4l); // 환불대상이 아닙니다
 			}

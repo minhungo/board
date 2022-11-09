@@ -12,7 +12,7 @@
         insert into
             coin (payAmount, payChargeDate, signupId, payImpUid, payMerchantUid, possibleRefund)
         values
-            (#{payAmount}, current_date, #{signupId}, #{payImpUid}, #{payMerchantUid}, #{currentCoin})
+            (#{payAmount}, current_date, #{signupId}, #{payImpUid}, #{payMerchantUid}, #{possibleRefund})
     </insert>
 
     <!-- 코인 환불 -->
@@ -20,7 +20,7 @@
         update
             coin
         set
-            possibleRefund = #{possibleRefund} and payAmount = #{payAmount}
+            possibleRefund = #{possibleRefund}, payAmount = #{payAmount}
         where
             payImpUid = #{payImpUid}
     </update>
@@ -97,23 +97,25 @@
         order by
             c.payChargeDate desc nulls last
     </select>
-<!--    <select id="getMyCurrentCoinByNickname" resultType="com.demo.minhun.dto.ChargeNRefundDTO">-->
-<!--        select-->
-<!--            g.signup_id, g.currentCoin-->
-<!--        from-->
-<!--            (select-->
-<!--                *-->
-<!--            from-->
-<!--                signup s inner join coin c-->
-<!--            on-->
-<!--                s.signup_id = c.signupId-->
-<!--            where-->
-<!--                s.signup_nickname = #{signup_nickname}-->
-<!--            order by-->
-<!--                c.payChargeDate desc nulls last) g-->
-<!--        where-->
-<!--            rowNum = 1-->
-<!--    </select>-->
+
+    <!-- nickname 으로 id 찾기 -->
+    <select id="getMyIdByNickname" resultType="com.demo.minhun.dto.ChargeNRefundDTO">
+        select
+            g.signup_id
+        from
+            (select
+                *
+            from
+                signup s inner join coin c
+            on
+                s.signup_id = c.signupId
+            where
+                s.signup_nickname = #{signup_nickname}
+            order by
+                c.payChargeDate desc nulls last) g
+        where
+            rowNum = 1
+    </select>
 
 
 </mapper>

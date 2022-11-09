@@ -141,13 +141,12 @@ public class replyController {
 
 					// 답변 채택하는 사람 찾기
 					// 기본 코인 1개 너무 작아서 5개로 변경
-					ChargeNRefundDTO minusCnrDTO = coinDAO.getMyCurrentCoinByNickname(board_name);
+					ChargeNRefundDTO minusCnrDTO = coinDAO.getMyIdByNickname(board_name);
 					minusCnrDTO.setSignupId(minusCnrDTO.getSignup_id());
 					minusCnrDTO.setPayAmount(-500l);
 					minusCnrDTO.setPayImpUid("답변채택사용");
 					minusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
-					minusCnrDTO.setCurrentCoin(minusCnrDTO.getCurrentCoin() - 5l);
-					minusCnrDTO.setPossibleRefund(4l);
+					minusCnrDTO.setPossibleRefund(5l);
 					System.out.println(minusCnrDTO);
 					// 코인 차감
 					coinDAO.ChargeCoin(minusCnrDTO);
@@ -156,13 +155,12 @@ public class replyController {
 
 					// 답변한 사람찾기
 					// 기본 코인 1개 너무 작아서 5개로 변경
-					ChargeNRefundDTO plusCnrDTO = coinDAO.getMyCurrentCoinByNickname(reply_name);
+					ChargeNRefundDTO plusCnrDTO = coinDAO.getMyIdByNickname(reply_name);
 					plusCnrDTO.setSignupId(plusCnrDTO.getSignup_id());
 					plusCnrDTO.setPayAmount(500l);
 					plusCnrDTO.setPayImpUid("답변채택보상");
 					plusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
-					plusCnrDTO.setCurrentCoin(plusCnrDTO.getCurrentCoin() + 5l);
-					plusCnrDTO.setPossibleRefund(4l);
+					plusCnrDTO.setPossibleRefund(5l);
 					System.out.println(plusCnrDTO);
 					// 코인 증감
 					coinDAO.ChargeCoin(plusCnrDTO);

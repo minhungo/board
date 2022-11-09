@@ -231,7 +231,8 @@
             	                                    "payAmount" : data.response.amount,
             	                                    "signupId" : buyerId,
             	                                    "payImpUid" : data.response.impUid,
-            	                                    "payMerchantUid" : data.response.merchantUid
+            	                                    "payMerchantUid" : data.response.merchantUid,
+            	                                    "possibleRefund" : 1
             	                                })
             	                            });
             	                            var msg = '결제가 완료되었습니다.';

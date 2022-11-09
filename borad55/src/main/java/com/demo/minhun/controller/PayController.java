@@ -47,12 +47,12 @@ public class PayController {
         iamportClient = new IamportClient("1460706830363650","4oao8E1KszL9M6nNMEIHzvcq636SMGz41zVlv3JsmJrfdvHeZOuHVWH1QaMjKKyb7Yl9uTwrdYOUEqYZ");
 
         // 환불 서비스 로직
-//        int cnrCTO = coinDAO.getMyCurrentCoinById(mydata.getImp_uid());
-//        cnrCTO.setPossibleRefund(4l);
-//        Long minusCoin = (cnrCTO.getCurrentCoin() - ((Integer.parseInt(mydata.getAmount().toString())/100)));
-//        cnrCTO.setCurrentCoin(cnrCTO.getCurrentCoin() - minusCoin);
-//        System.out.println(cnrCTO);
-//        coinDAO.refundCoin(cnrCTO);
+        ChargeNRefundDTO cnrCTO = new ChargeNRefundDTO();
+        cnrCTO.setPossibleRefund(0l);
+        cnrCTO.setPayAmount(0l);
+        cnrCTO.setPayImpUid(mydata.getImp_uid());
+        System.out.println(cnrCTO);
+        coinDAO.refundCoin(cnrCTO);
 
         return iamportClient.cancelPaymentByImpUid(cancelData);
     }

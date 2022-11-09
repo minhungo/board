@@ -19,4 +19,6 @@ public interface CoinDAO {
     public List<ChargeNRefundDTO> getMyCoinRecordByNickname(String signup_nickname);
     public ChargeNRefundDTO getMyCurrentCoinByNickname(String signup_nickname);
 
+    public ChargeNRefundDTO getMyIdByNickname(String signup_id);
+
 }

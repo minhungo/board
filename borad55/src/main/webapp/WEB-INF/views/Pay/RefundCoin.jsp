@@ -156,6 +156,7 @@
                 </tr>
 
                 <c:forEach var="myRecord" items="${myRecord}">
+                <c:if test="${myRecord.possibleRefund ne 5}">
                 <tr>
                     <td scope="row"><c:out value='${myRecord.localDateTimeToDate}'/></td>
                     <td><c:out value='${myRecord.payAmount}'/></td>
@@ -177,6 +178,7 @@
                         <td>환불대상이 아닙니다</td>
                     </c:if>
                 </tr>
+                </c:if>
                 </c:forEach>
 
             </tbody>
