@@ -147,6 +147,7 @@ public class replyController {
 					minusCnrDTO.setPayImpUid("답변채택사용");
 					minusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					minusCnrDTO.setCurrentCoin(minusCnrDTO.getCurrentCoin() - 5l);
+					minusCnrDTO.setPossibleRefund(4l);
 					System.out.println(minusCnrDTO);
 					// 코인 차감
 					coinDAO.ChargeCoin(minusCnrDTO);
@@ -161,6 +162,7 @@ public class replyController {
 					plusCnrDTO.setPayImpUid("답변채택보상");
 					plusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					plusCnrDTO.setCurrentCoin(plusCnrDTO.getCurrentCoin() + 5l);
+					plusCnrDTO.setPossibleRefund(4l);
 					System.out.println(plusCnrDTO);
 					// 코인 증감
 					coinDAO.ChargeCoin(plusCnrDTO);

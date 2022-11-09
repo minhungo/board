@@ -2,7 +2,6 @@ package com.demo.minhun.dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 @Data
@@ -47,8 +46,13 @@ public class ChargeNRefundDTO {
     private String payMerchantUid;
 
     // 현재 코인 갯수
+    // 컨트롤러를 통해서 가져온 값(기록) 중 결제금액을 클라이언트에서 보기 편한 형태로 가공해서 환불페이지로 넘길때 필요한 변수
     private Long currentCoin;
 
-    private Long isPossibleRefund;
+    // 환불 가능한지 판단용 number 가능 : 1 , 불가 : 그 외 숫자
+    private Long possibleRefund;
+
+    // 컨트롤러를 통해서 가져온 값(기록) 중 시간을 클라이언트에서 보기 편한 형태로 가공해서 환불페이지로 넘길때 필요한 변수
+    private String localDateTimeToDate;
 
 }

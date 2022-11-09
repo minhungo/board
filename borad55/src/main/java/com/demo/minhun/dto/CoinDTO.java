@@ -22,10 +22,10 @@ public class CoinDTO {
     // 아임포트에서 구분하는 pk
     private String payImpUid;
 
-    // 환불하기 위한 클라이언트로부터 전달받은 주문번호
+    // 환불하기 위해서 클라이언트로부터 전달받은 주문번호
     private String payMerchantUid;
 
-    // 현재 코인 갯수
-    private Long currentCoin;
+    // 환불 가능한지 판단용 number 가능 : 1 , 불가 : 그 외 숫자
+    private Long possibleRefund;
 
 }

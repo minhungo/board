@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.time.Duration;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +65,7 @@ public class boardController {
 		System.out.println(signup_id);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/Pay/RefundCoin");
-		ChargeNRefundDTO curCoin = coinDAO.getMyCurrentCoinById(signup_id);
+		int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
 		List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
 // db에서 아이디기준으로 충전기록 가져오는 거 확인함 사용기록도 추가 해야할지 고민해야함
 //		for(RefundDTO i : record){
@@ -72,16 +73,32 @@ public class boardController {
 //		}
 
 		LocalDateTime now = LocalDateTime.now();
+
 		int sevenDaysAgo = now.minusDays(7).getDayOfYear();
 		for(ChargeNRefundDTO i : record){
+			// 환불페이지에서 T는 지우고 초(s)까지만 보여주도록 하기위한 format
+			Date date = java.sql.Timestamp.valueOf(i.getPayChargeDate());
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+			i.setLocalDateTimeToDate(simpleDateFormat.format(date));
+
 			int chargeDate = i.getPayChargeDate().getDayOfYear();
 			// 충전일이 7일전보다 이전일이라면 환불 불가
-			boolean result = chargeDate > sevenDaysAgo;
-			if(result){
-				i.setIsPossibleRefund(1l);
-			}else{
-				i.setIsPossibleRefund(0l);
+			boolean resultDate = chargeDate > sevenDaysAgo;
+			// 현재 소지한 코인보다 환불해야하는 코인의 갯수가 더 많다면 환불 불가
+			boolean resultCoinSum = Long.valueOf(curCoin) >= (i.getPayAmount()/100l);
+			// 충전 주문을 통한 지불인지 확인
+			boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
+
+			if(!resultIsCharge) {
+				i.setPossibleRefund(4l); // 환불대상이 아닙니다
 			}
+			if(!resultDate) {
+				i.setPossibleRefund(3l); // 환불이 가능한 기간이 지났습니다
+			}
+			if(!resultCoinSum) {
+				i.setPossibleRefund(2l); // 환불가능한 코인의 갯수가 부족합니다
+			}
+			System.out.println(i.getPossibleRefund());
 		}
 
 		mv.addObject("myRecord",record);

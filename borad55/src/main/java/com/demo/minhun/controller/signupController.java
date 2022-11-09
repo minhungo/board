@@ -57,16 +57,18 @@ public class signupController {
 			System.out.println("ȸ������ ����!!");
 			ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
 			cnrDTO.setSignupId(signup_id);
-			cnrDTO.setPayAmount(0l);
+			cnrDTO.setPayAmount(10000l);
 			cnrDTO.setPayImpUid("회원가입");
-			cnrDTO.setPayMerchantUid("축하선물");
-			cnrDTO.setCurrentCoin(100l);
+			cnrDTO.setPayMerchantUid("회원가입 축하선물");
+			cnrDTO.setPossibleRefund(4l);
 			coinDAO.ChargeCoin(cnrDTO);
 			return "<script>alert('ȸ������ ����!!'); location.href='/board'; </script>";
 
 		} else {
+
 			System.out.println("ȸ������ ����!");
 			return "<script>alert('ȸ������ ����!'); location.href='/signup'; </script>";
+
 		}
 
 	}

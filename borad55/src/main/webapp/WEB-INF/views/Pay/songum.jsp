@@ -14,7 +14,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <meta charset="UTF-8">
-   <title>Refund</title>
+   <title>songum</title>
 <style>
     *{ margin:0px; padding:0px; font-family:Helvetica, Arial, sans-serif;}
     ul{
@@ -135,15 +135,12 @@
 <body>
      <div class="card-body bg-white mt-0 shadow">
         <h2>코인환불</h2>
-        <p style="color: #ac2925; margin-top: 30px">결제 후 7일이 지난 주문은 환불이 불가합니다.</p>
-        <p style="color: #ac2925;">환불은 각각의 주문건마다 1건씩 처리됩니다.</p>
-        <p style="color: #ac2925;">환불시 전체금액 중 결제수수료 10%를 제외한 금액만 환불됩니다.</p>
-
+        <p style="color: #ac2925; margin-top: 30px">결제 후 7일이 지난 주문은 환불이 불가합니다</p>
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
                     <th scope="col" colspan="3" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
-                    <th><h4><b><i>${curCoin}</i></b></h4></th>
+                    <th><h4><b><i>${curCoin.currentCoin}</i></b></h4></th>
                 </tr>
             </thead>
 
@@ -152,30 +149,22 @@
                     <th scope="row">결제일</th>
                     <th>결제금액</th>
                     <th>주문번호</th>
-                    <th>비 고</th>
+                    <th>환불가능</th>
                 </tr>
 
                 <c:forEach var="myRecord" items="${myRecord}">
                 <tr>
-                    <td scope="row"><c:out value='${myRecord.localDateTimeToDate}'/></td>
+                    <td scope="row"><c:out value='${myRecord.payChargeDate}'/></td>
                     <td><c:out value='${myRecord.payAmount}'/></td>
                     <td><c:out value='${myRecord.payMerchantUid}'/></td>
 
-                    <c:if test="${myRecord.possibleRefund eq 0}">
-                        <td>환불완료</td>
+                    <c:if test="${myRecord.isPossibleRefund eq 1}">
+                        <td>환불가능</td>
                     </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 1}">
-                        <td><label><input type="radio" name="refundImpUid" value="${myRecord.payImpUid}"> 환불가능</label></td>
+                    <c:if test="${myRecord.isPossibleRefund eq 0}">
+                        <td>환불불가</td>
                     </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 2}">
-                        <td>환불가능한 코인의 갯수가 부족합니다</td>
-                    </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 3}">
-                        <td>환불이 가능한 기간이 지났습니다</td>
-                    </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 4}">
-                        <td>환불대상이 아닙니다</td>
-                    </c:if>
+
                 </tr>
                 </c:forEach>
 
@@ -201,6 +190,14 @@
         </button>
      </div>
 
-<script type="text/javascript" src="${path}/resources/js/refund.js"></script>
+<script type="text/javascript">
+    // 환불하기
+    $('#refund').click(function () {
+        alert("여기에 환불로직짜야함");
+    });
+    $('#cancel').click(function () {
+        window.close();
+    });
+</script>
 </body>
 </html>

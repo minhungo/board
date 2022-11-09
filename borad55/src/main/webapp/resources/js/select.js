@@ -32,38 +32,38 @@ function selectAnswer(item) {
                     success : function(result) {
                         if(result > 0){
                             modal.style.display = 'block';
-                                document.body.style.overflow = 'hidden';
+                            document.body.style.overflow = 'hidden';
 
-                                const select_answer = document.getElementById('select_answer');
-                                const cancel_select = document.getElementById('select_cancel');
-                                const close_Btn = document.getElementById('close-area');
+                            const select_answer = document.getElementById('select_answer');
+                            const cancel_select = document.getElementById('select_cancel');
+                            const close_Btn = document.getElementById('close-area');
 
-                                cancel_select.addEventListener("click", e => {
+                            cancel_select.addEventListener("click", e => {
+                                modal.style.display = "none";
+                                document.body.style.overflow = 'auto';
+                                return false;
+                            });
+
+                            close_Btn.addEventListener("click", e => {
+                                modal.style.display = "none";
+                                document.body.style.overflow = 'auto';
+                                return false;
+                            });
+
+                            select_answer.addEventListener("click", e => {
+                                modal.style.display = "none";
+                                document.body.style.overflow = 'auto';
+                                return true;
+                            });
+
+                            // esc 로 모달 내리기
+                            window.addEventListener("keyup", e => {
+                                if(modal.style.display === "flex" && e.key === "Escape") {
                                     modal.style.display = "none";
-                                    document.body.style.overflow = 'auto';
+                                    document.body.style.overflow = 'auto';;
                                     return false;
-                                });
-
-                                close_Btn.addEventListener("click", e => {
-                                    modal.style.display = "none";
-                                    document.body.style.overflow = 'auto';
-                                    return false;
-                                });
-
-                                select_answer.addEventListener("click", e => {
-                                    modal.style.display = "none";
-                                    document.body.style.overflow = 'auto';
-                                    return true;
-                                });
-
-                                // esc 로 모달 내리기
-                                window.addEventListener("keyup", e => {
-                                    if(modal.style.display === "flex" && e.key === "Escape") {
-                                        modal.style.display = "none";
-                                        document.body.style.overflow = 'auto';;
-                                        return false;
-                                    }
-                                });
+                                }
+                            });
                         }else{
                             alert("현재 소지한 코인이 없습니다.\n답변채택에는 기본 코인1개가 필요합니다.\n코인을 충전해주세요")
                         }

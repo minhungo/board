@@ -13,7 +13,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <meta charset="UTF-8">
-   <title>PayCoin</title>
+   <title>Charge</title>
 <style>
     *{ margin:0px; padding:0px; font-family:Helvetica, Arial, sans-serif;}
     ul{
@@ -221,7 +221,7 @@
             	                        console.log(data); //응답값확인용
             	                        if(money == data.response.amount){
             	                        	var coin = money / 100;
-            	                        	var total = parseInt(currentCoin) + coin;
+            	                        	// var total = parseInt(currentCoin) + coin;
             	                            $.ajax({
             	                                type: "POST",
             	                                url: "/charge/coin", //충전 금액값을 보낼 url 설정
@@ -231,10 +231,8 @@
             	                                    "payAmount" : data.response.amount,
             	                                    "signupId" : buyerId,
             	                                    "payImpUid" : data.response.impUid,
-            	                                    "payMerchantUid" : data.response.merchantUid,
-            	                                    "currentCoin" : total
-            	                                }),
-            	                                async : false
+            	                                    "payMerchantUid" : data.response.merchantUid
+            	                                })
             	                            });
             	                            var msg = '결제가 완료되었습니다.';
             	                            msg += '\n결제 금액 : ' + rsp.paid_amount;

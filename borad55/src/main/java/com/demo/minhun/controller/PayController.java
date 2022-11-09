@@ -2,11 +2,13 @@ package com.demo.minhun.controller;
 
 import com.demo.minhun.dao.CoinDAO;
 import com.demo.minhun.dao.SignupDAO;
+import com.demo.minhun.dto.CancelDTO;
 import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.CoinDTO;
 import com.demo.minhun.dto.signupDTO;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +39,30 @@ public class PayController {
         return iamportClient.paymentByImpUid(imp_uid);
     }
 
+    @PostMapping("/cancelIamport")
+    public IamportResponse<Payment> cancelByImpUid(@RequestBody CancelDTO mydata) throws IamportResponseException, IOException {
+
+        CancelData cancelData = new CancelData(mydata.getImp_uid(),mydata.isImpUid(),mydata.getAmount());
+
+        iamportClient = new IamportClient("1460706830363650","4oao8E1KszL9M6nNMEIHzvcq636SMGz41zVlv3JsmJrfdvHeZOuHVWH1QaMjKKyb7Yl9uTwrdYOUEqYZ");
+
+        // 환불 서비스 로직
+//        int cnrCTO = coinDAO.getMyCurrentCoinById(mydata.getImp_uid());
+//        cnrCTO.setPossibleRefund(4l);
+//        Long minusCoin = (cnrCTO.getCurrentCoin() - ((Integer.parseInt(mydata.getAmount().toString())/100)));
+//        cnrCTO.setCurrentCoin(cnrCTO.getCurrentCoin() - minusCoin);
+//        System.out.println(cnrCTO);
+//        coinDAO.refundCoin(cnrCTO);
+
+        return iamportClient.cancelPaymentByImpUid(cancelData);
+    }
+
     // 로그인 후 소지한 코인 갯수 확인
     @PostMapping("/MyCoin")
     public String getCurrentCoin(@RequestBody ChargeNRefundDTO CNRDTO){
-        ChargeNRefundDTO cnrDTO = coinDAO.getMyCurrentCoinById(CNRDTO.getSignup_id());
-        String MyCoin = String.valueOf(cnrDTO.getCurrentCoin());
+        int currentCoin = coinDAO.getMyCurrentCoinById(CNRDTO.getSignup_id());
+        System.out.println(currentCoin);
+        String MyCoin = String.valueOf(currentCoin/100);
         return MyCoin;
     }
 
@@ -68,9 +89,9 @@ public class PayController {
     @PostMapping("/getMyCoin")
     public String getMyCoin(@RequestBody ChargeNRefundDTO cnrDTO){
         // 내 코인 갯수 확인
-        ChargeNRefundDTO getCoin = coinDAO.getMyCurrentCoinById(cnrDTO.getSignup_id());
+        int getCoin = coinDAO.getMyCurrentCoinById(cnrDTO.getSignup_id());
         // int로 변환
-        String myCoin = getCoin.getCurrentCoin().toString();
+        String myCoin = String.valueOf(getCoin);
         // 갯수 반환
         return myCoin;
     }
