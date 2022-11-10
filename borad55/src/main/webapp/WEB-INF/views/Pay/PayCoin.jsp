@@ -152,11 +152,19 @@
 
             충전하기
 
-          </button>
+        </button>
+
+        <button type="button"
+          class="btn btn-primary"
+          style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="exchange">
+
+            환전하기
+
+        </button>
 
         <button type="button"
             class="btn btn-primary"
-            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px;"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px; float:right"
             id="cancel_kakao">
 
             닫기
@@ -165,7 +173,7 @@
 
         <button type="button"
             class="btn btn-primary"
-            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px; float:right"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px;"
             id="refund_coin">
 
             환불하기
@@ -180,6 +188,7 @@
     var currentCoin;
     $(function (){
         var select_usercoin = "${profile.signup_id}";
+
         $.ajax({
             url : '/MyCoin',
             type : 'POST',
@@ -193,6 +202,9 @@
                 currentCoin = result;
                 
                 $('#charge_kakao').click(function () {
+
+                    // if radio 체크없이 실행시 alert 과 함께 다시 체크하도록 돌려보냄
+
                     // 코인 충전
                     var IMP = window.IMP;
                     IMP.init('imp30545876');
@@ -291,6 +303,10 @@
     });
     $('#refund_coin').click(function () {
         window.location.href = '/refund?signup_id='+buyerId;
+    });
+
+    $('#exchange').click(function () {
+        window.location.href = '/change?signup_id='+buyerId;
     });
 </script>
 </body>

@@ -60,6 +60,17 @@ public class boardController {
 		return mv;
 	}
 
+	@GetMapping("/change")
+	public ModelAndView change(@RequestParam String signup_id){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/Pay/change");
+
+		int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
+		mv.addObject("curCoin",curCoin);
+
+		return mv;
+	}
+
 	@GetMapping("/refund")
 	public ModelAndView refundCoin(@RequestParam String signup_id) {
 		System.out.println(signup_id);

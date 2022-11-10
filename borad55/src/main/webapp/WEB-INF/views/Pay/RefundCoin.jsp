@@ -159,7 +159,12 @@
                 <c:if test="${myRecord.possibleRefund ne 5}">
                 <tr>
                     <td scope="row"><c:out value='${myRecord.localDateTimeToDate}'/></td>
-                    <td><c:out value='${myRecord.payAmount}'/></td>
+                    <c:if test="${myRecord.possibleRefund eq 4}">
+                        <td>0</td>
+                    </c:if>
+                    <c:if test="${myRecord.possibleRefund ne 4}">
+                        <td><c:out value='${myRecord.payAmount}'/></td>
+                    </c:if>
                     <td><c:out value='${myRecord.payMerchantUid}'/></td>
 
                     <c:if test="${myRecord.possibleRefund eq 0}">

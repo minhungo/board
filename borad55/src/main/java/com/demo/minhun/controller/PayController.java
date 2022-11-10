@@ -29,7 +29,7 @@ public class PayController {
     @Autowired
     CoinDAO coinDAO;
 
-    /** 프론트에서 받은 PG사 결괏값을 통해 아임포트 토큰 발행 **/
+
     @PostMapping("/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(@PathVariable String imp_uid) throws IamportResponseException, IOException {
         // 아임포트 결제 검증용 생성자에 토큰 발급 및 정상결제검증을 위해 apikey와 apisecret 를 매개변수로해서 생성자 생성

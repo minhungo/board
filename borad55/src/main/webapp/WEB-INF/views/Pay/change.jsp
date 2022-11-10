@@ -135,39 +135,36 @@
 <body>
      <div class="card-body bg-white mt-0 shadow">
         <h2>코인환불</h2>
-        <p style="color: #ac2925; margin-top: 30px">결제 후 7일이 지난 주문은 환불이 불가합니다</p>
+        <p style="color: #ac2925; margin-top: 30px">코인 1개당 100원이며 환전시 수수료 10%를 제외한 금액을 환전합니다</p>
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col" colspan="3" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
-                    <th><h4><b><i>${curCoin.currentCoin}</i></b></h4></th>
+                    <th scope="col"><h4><b><i>현재 소지한 코인</i></b></h4></th>
+                    <th><h4><b><i>${curCoin} </i> 개</b></h4></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <th scope="row">결제일</th>
-                    <th>결제금액</th>
-                    <th>주문번호</th>
-                    <th>환불가능</th>
+                    <th scope="row">환불할 코인</th>
+                    <td><input type="number" min="0" max="${curCoin}" id="changeCoin"/> 개</td>
                 </tr>
-
-                <c:forEach var="myRecord" items="${myRecord}">
                 <tr>
-                    <td scope="row"><c:out value='${myRecord.payChargeDate}'/></td>
-                    <td><c:out value='${myRecord.payAmount}'/></td>
-                    <td><c:out value='${myRecord.payMerchantUid}'/></td>
-
-                    <c:if test="${myRecord.isPossibleRefund eq 1}">
-                        <td>환불가능</td>
-                    </c:if>
-                    <c:if test="${myRecord.isPossibleRefund eq 0}">
-                        <td>환불불가</td>
-                    </c:if>
-
+                    <th scope="row">입금 은행</th>
+                    <td><input type="text" id="bank"/></td>
                 </tr>
-                </c:forEach>
-
+                <tr>
+                    <th scope="row">입금계좌번호</th>
+                    <td><input type="number" id="account_num"/></td>
+                </tr>
+                <tr>
+                    <th scope="row">성명</th>
+                    <td><input type="text" id="account_num"/></td>
+                </tr>
+                <tr>
+                    <th scope="row">주민등록번호 앞6자리</th>
+                    <td><input type="number" id="account_num"/></td>
+                </tr>
             </tbody>
 
         </table>
@@ -176,9 +173,9 @@
           class="btn btn-primary"
           style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="refund">
 
-            환불하기
+            환전하기
 
-          </button>
+        </button>
 
         <button type="button"
             class="btn btn-primary"
@@ -193,7 +190,13 @@
 <script type="text/javascript">
     // 환불하기
     $('#refund').click(function () {
-        alert("여기에 환불로직짜야함");
+        const coin = $('#changeCoin').val();
+        if(coin == ''){
+            alert('환전할 코인 갯수를 입력해주세요');
+            $('#changeCoin').focus();
+            return false;
+        }
+        alert(coin);
     });
     $('#cancel').click(function () {
         window.close();
