@@ -51,6 +51,23 @@ public class boardController {
 	//���� ����Ʈ
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();
 
+	//
+//	@RequestMapping("/getToken")
+//	public ModelAndView getToken() {
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("/Pay/getToken");
+//		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
+//		return mv;
+//	}
+
+	@RequestMapping("/getTokenTwoLeg")
+	public ModelAndView getToken() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/Pay/getTokenTwoLeg");
+		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
+		mv.addObject("clientSecret","0b3f2d48-e48e-4033-8de0-a952d3dbcdac");
+		return mv;
+	}
 
 	// 코인 충전 창
 	@RequestMapping("/PayCoin")

@@ -69,7 +69,7 @@ function selectAnswer(item) {
                         }
                     },
                     error : function() {
-                        alert("네트워크 통신 오류가 발생하였습니다.\n잠시 후에 다시 시도해주세요");
+                        alert("네트워크 통신 오류가 발생하였습니다.\n로그인 후 다시 시도해주세요");
                     }
                 });
             }else{

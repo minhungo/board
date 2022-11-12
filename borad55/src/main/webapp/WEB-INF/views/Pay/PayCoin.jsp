@@ -173,6 +173,15 @@
 
         <button type="button"
             class="btn btn-primary"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px; float:right"
+            id="getToken">
+
+            토큰
+
+        </button>
+
+        <button type="button"
+            class="btn btn-primary"
             style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px;"
             id="refund_coin">
 
@@ -307,6 +316,10 @@
 
     $('#exchange').click(function () {
         window.location.href = '/change?signup_id='+buyerId;
+    });
+
+    $('#getToken').click(function () {
+        window.location.href = '/getTokenTwoLeg';
     });
 </script>
 </body>
