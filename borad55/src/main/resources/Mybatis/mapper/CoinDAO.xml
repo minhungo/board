@@ -7,7 +7,7 @@
 
 <mapper namespace="com.demo.minhun.dao.CoinDAO">
 
-    <!-- 코인 충전, 답변채택 -->
+    <!-- 코인 충전, 답변채택, 환전신청 -->
     <insert id="ChargeCoin" parameterType="com.demo.minhun.dto.ChargeNRefundDTO">
         insert into
             coin (payAmount, payChargeDate, signupId, payImpUid, payMerchantUid, possibleRefund)

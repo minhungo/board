@@ -14,7 +14,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <meta charset="UTF-8">
-   <title>songum</title>
+   <title>changeCoin</title>
 <style>
     *{ margin:0px; padding:0px; font-family:Helvetica, Arial, sans-serif;}
     ul{
@@ -134,7 +134,7 @@
 </head>
 <body>
      <div class="card-body bg-white mt-0 shadow">
-        <h2>코인환불</h2>
+        <h2>코인환전</h2>
         <p style="color: #ac2925; margin-top: 30px">코인 1개당 100원이며 환전시 수수료 10%를 제외한 금액을 환전합니다</p>
         <table class="table table-hover">
             <thead class="table-light">
@@ -146,12 +146,15 @@
 
             <tbody>
                 <tr>
-                    <th scope="row">환불할 코인</th>
+                    <th scope="row">환전할 코인</th>
                     <td><input type="number" min="0" max="${curCoin}" id="changeCoin"/> 개</td>
                 </tr>
                 <tr>
                     <th scope="row">입금 은행</th>
-                    <td><input type="text" id="bank"/></td>
+                    <td><select name="bank_name" id="bank_name">
+                                     <option value="">선택</option>
+                                     <option value="오픈은행">오픈은행</option>
+                                   </select></td>
                 </tr>
                 <tr>
                     <th scope="row">입금계좌번호</th>
@@ -159,19 +162,22 @@
                 </tr>
                 <tr>
                     <th scope="row">성명</th>
-                    <td><input type="text" id="account_num"/></td>
+                    <td><input type="text" id="account_name"/></td>
                 </tr>
                 <tr>
                     <th scope="row">주민등록번호 앞6자리</th>
-                    <td><input type="number" id="account_num"/></td>
+                    <td><input type="number" id="account_holder_info"/></td>
                 </tr>
+                <input type="hidden" id="scope" value="oob"/>
+                <input type="hidden" id="account_holder_info_type" value=" "/>
             </tbody>
 
         </table>
 
         <button type="button"
           class="btn btn-primary"
-          style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="refund">
+          style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;"
+          id="refund">
 
             환전하기
 
@@ -190,13 +196,81 @@
 <script type="text/javascript">
     // 환불하기
     $('#refund').click(function () {
-        const coin = $('#changeCoin').val();
+        let coin = $('#changeCoin').val();
+        let Scope = $('#scope').val();
+        let accountHolderInfoType = $('#account_holder_info_type').val();
+        let accountName = $('#account_name').val();
+        let accountHolderInfo = $('#account_holder_info').val();
+        let bankName = $('#bank_name').val();
+        let accountNum = $('#account_num').val();
+
         if(coin == ''){
             alert('환전할 코인 갯수를 입력해주세요');
             $('#changeCoin').focus();
             return false;
+        }else if(coin > ${curCoin}){
+            alert('환전할 코인의 갯수가 가지고 계신 코인보다 많습니다.');
+            $('#changeCoin').focus();
+            return false;
+        }else if(coin == 0){
+            alert('환전할 코인의 갯수는 0개보다 많아야합니다.');
+            $('#changeCoin').focus();
+            return false;
         }
-        alert(coin);
+
+        if(bankName == ''){
+            alert("은행을 선택해주세요.");
+            return false;
+        }
+        if(accountNum == ''){
+            alert("계좌번호를 입력해주세요.");
+            return false;
+        }
+        if(accountName == ''){
+            alert("성명을 입력해주세요.");
+            return false;
+        }
+        if(accountHolderInfo == ''){
+            alert("주민등록번호 앞 6자리를 입력해주세요.");
+            return false;
+        }
+
+
+        $.ajax({
+            url : "/callback",
+            type : 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data : JSON.stringify({
+                scope : Scope,
+                account_holder_info_type : accountHolderInfoType,
+                account_name : accountName,
+                account_holder_info : accountHolderInfo,
+                bank_name : bankName,
+                account_num : accountNum,
+                coinAmount : coin,
+                signupID : "${profile.signup_id}"
+            }),
+            success : function(data) {
+                var accountInfo = data;
+                console.log(accountInfo);
+                if(
+                    (accountInfo.account_holder_name == accountName)
+                    &&(accountInfo.bank_name == bankName)
+                    &&(accountInfo.account_num == accountNum)
+                    &&(accountInfo.account_holder_info == accountHolderInfo)
+                ) {
+                    alert('환전 신청 완료되었습니다.\n소요기간은 약 2주입니다.');
+                    window.close();
+                }else{
+                    alert('입력하신 정보와 계좌 정보가 다릅니다.');
+                }
+
+            },
+            error : function(err) {
+                alert('네트워크 통신에 실패하였습니다.\n 잠시후에 다시 시도해주세요.');
+            }
+        }); // end ajax
     });
     $('#cancel').click(function () {
         window.close();

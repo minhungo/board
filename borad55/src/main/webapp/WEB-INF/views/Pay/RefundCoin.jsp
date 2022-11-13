@@ -156,11 +156,11 @@
                 </tr>
 
                 <c:forEach var="myRecord" items="${myRecord}">
-                <c:if test="${myRecord.possibleRefund ne 5}">
+                <c:if test="${myRecord.possibleRefund ne 5 && myRecord.possibleRefund ne 9}">
                 <tr>
                     <td scope="row"><c:out value='${myRecord.localDateTimeToDate}'/></td>
                     <c:if test="${myRecord.possibleRefund eq 4}">
-                        <td>0</td>
+                        <td>100개</td>
                     </c:if>
                     <c:if test="${myRecord.possibleRefund ne 4}">
                         <td><c:out value='${myRecord.payAmount}'/></td>

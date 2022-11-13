@@ -127,6 +127,14 @@
         border-radius: 10px;
         box-shadow: inset 0px 0px 5px white;
       }
+
+    td{
+        width: 120px;
+        padding: 10px;
+    }
+    label{
+        width: 100px;
+    }
     </style>
 
 
@@ -135,17 +143,75 @@
      <div class="card-body bg-white mt-0 shadow">
         <p style="font-weight: bold">카카오페이를 통한 코인 충전</p>
         <input type="hidden" id="hiddenMyCoin" value=""/>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span>20,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span>25,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span>30,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
-        <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
-        <p style="color: #ac2925; margin-top: 30px">코인은 1개당 100원이며 최소 5000원부터 최대 50,000원까지 충전 가능합니다</p>
+        <table>
 
+            <tr>
+                <td>
+                    <input type="radio" value="5000" class="btn-check" id="success-outlined1" name="options-outlined" autocomplete="off">
+                    <label class="btn btn-outline-success" for="success-outlined1"><span>5,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined2" name="options-outlined" autocomplete="off" value="10000">
+                    <label class="btn btn-outline-success" for="success-outlined2"><span>10,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined3" name="options-outlined" autocomplete="off" value="15000">
+                    <label class="btn btn-outline-success" for="success-outlined3"><span>15,000원</span></label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined4" name="options-outlined" autocomplete="off" value="20000">
+                    <label class="btn btn-outline-success" for="success-outlined4"><span>20,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined5" name="options-outlined" autocomplete="off" value="25000">
+                    <label class="btn btn-outline-success" for="success-outlined5"><span>25,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined6" name="options-outlined" autocomplete="off" value="30000">
+                    <label class="btn btn-outline-success" for="success-outlined6"><span>30,000원</span></label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined7" name="options-outlined" autocomplete="off" value="35000">
+                    <label class="btn btn-outline-success" for="success-outlined7"><span>35,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined8" name="options-outlined" autocomplete="off" value="40000">
+                    <label class="btn btn-outline-success" for="success-outlined8"><span>40,000원</span></label>
+                </td>
+
+                <td>
+                    <input type="radio" class="btn-check" id="success-outlined9" name="options-outlined" autocomplete="off" value="50000">
+                    <label class="btn btn-outline-success" for="success-outlined9"><span>45,000원</span></label>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3" style="text-align: center;">
+                    <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="35000">
+                    <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 20px;"><span>50,000원</span></label>
+
+                    <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="40000">
+                    <label class="btn btn-outline-success" for="success-outlined11"><span>100,000원</span></label>
+                </td>
+
+            </tr>
+
+        </table>
+
+        <p style="color: #ac2925; margin-top: 30px">코인은 1개당 100원이며 최소 5000원부터 최대 100,000원까지 충전 가능합니다</p>
+
+        <br>
         <button type="button"
           class="btn btn-primary"
           style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="charge_kakao">
@@ -168,15 +234,6 @@
             id="cancel_kakao">
 
             닫기
-
-        </button>
-
-        <button type="button"
-            class="btn btn-primary"
-            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px; float:right"
-            id="getToken">
-
-            토큰
 
         </button>
 
@@ -217,7 +274,7 @@
                     // 코인 충전
                     var IMP = window.IMP;
                     IMP.init('imp30545876');
-                    var money = $('input[name="cp_item"]:checked').val();
+                    var money = $('input[name="options-outlined"]:checked').val();
                     console.log(money);
 
                     IMP.request_pay({
@@ -316,10 +373,6 @@
 
     $('#exchange').click(function () {
         window.location.href = '/change?signup_id='+buyerId;
-    });
-
-    $('#getToken').click(function () {
-        window.location.href = '/getTokenTwoLeg';
     });
 </script>
 </body>

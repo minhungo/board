@@ -133,17 +133,79 @@
 
 </head>
 <body>
-     <form id="authorizeFrm" name="authorizeFrm" method="get" action="/callback">
-         <input type="hidden" name="client_id" value="${clientId}"/>
-         <input type="hidden" name="client_secret" value="${clientSecret}"/>
-         <input type="hidden" name="scope" value="oob"/>
+     <input type="hidden" id="scope" value="oob"/>
 
-         <input type="hidden" name="account_holder_info_type" value=" "/>
-         성명<input type="text" name="account_name"/><br>
-         주민등록번호 앞 6자리<input type="number" name="account_holder_info"/><br>
-         은행명<input type="text" name="bank_name"/><br>
-         계좌번호<input type="number" name="account_num"/><br>
-         <button type="submit">계좌실명조회</button>
-     </form>
+     <input type="hidden" id="account_holder_info_type" value=" "/>
+     성명<input type="text" id="account_name"/><br>
+     주민등록번호 앞 6자리<input type="number" id="account_holder_info"/><br>
+     은행명<select name="bank_name" id="bank_name">
+             <option value="">선택</option>
+             <option value="오픈은행">오픈은행</option>
+           </select><br>
+     계좌번호<input type="number" id="account_num"/><br>
+     <button type="button" onclick="return checkMyAccount()">계좌실명조회</button>
+
+     <script>
+        function checkMyAccount() {
+            var Scope = $('#scope').val();
+            var accountHolderInfoType = $('#account_holder_info_type').val();
+            var accountName = $('#account_name').val();
+            var accountHolderInfo = $('#account_holder_info').val();
+            var bankName = $('#bank_name').val();
+            var accountNum = $('#account_num').val();
+
+            if(accountName == ''){
+                alert("성명을 입력해주세요.");
+                return false;
+            }
+            if(accountHolderInfo == ''){
+                alert("주민등록번호 앞 6자리를 입력해주세요.");
+                return false;
+            }
+            if(bankName == ''){
+                alert("은행을 선택해주세요.");
+                return false;
+            }
+            if(accountNum == ''){
+                alert("계좌번호를 입력해주세요.");
+                return false;
+            }
+
+            $.ajax({
+                url : "/callback",
+                type : 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data : JSON.stringify({
+                    scope : Scope,
+                    account_holder_info_type : accountHolderInfoType,
+                    account_name : accountName,
+                    account_holder_info : accountHolderInfo,
+                    bank_name : bankName,
+                    account_num : accountNum
+                }),
+                success : function(data) {
+                    var accountInfo = data;
+                    console.log(accountInfo);
+                    if(
+                        (accountInfo.account_holder_name == accountName)
+                        &&(accountInfo.bank_name == bankName)
+                        &&(accountInfo.account_num == accountNum)
+                        &&(accountInfo.account_holder_info == accountHolderInfo)
+                    ) {
+                        alert('환전 신청 완료되었습니다.');
+                        window.close();
+                    }else{
+                        alert('입력하신 정보와 계좌 정보가 다릅니다.');
+                    }
+
+                },
+                error : function(err) {
+                    alert('네트워크 통신에 실패하였습니다.\n 잠시후에 다시 시도해주세요.');
+                }
+            }); // end ajax
+
+        } // end Function
+     </script>
 </body>
 </html>

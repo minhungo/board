@@ -144,13 +144,11 @@
          </tr>
          </thead>
          <tbody>
-         <c:forEach var="account" items="${account}">
          <tr>
              <th>${account.account_num}</th>
              <td>${account.bank_name}</td>
              <td>${account.account_holder_name}</td>
          </tr>
-         </c:forEach>
          </tbody>
      </table>
          <a type="button" href="/">뒤로가기</a>

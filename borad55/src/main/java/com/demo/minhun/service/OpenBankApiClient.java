@@ -28,6 +28,8 @@ public class OpenBankApiClient {
     private String redirect_uri = "http://localhost:8888/callback";
     private String base_url = "https://testapi.openbanking.or.kr/v2.0";
 
+    private String real_url = "https://openapi.openbanking.or.kr/v2.0";
+
     /**
      * 헤더에 엑세스 토큰넣기 3-leg
      */
@@ -76,7 +78,7 @@ public class OpenBankApiClient {
         //http 헤더 오브젝트 생성
         httpHeaders.add("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
         //httpBody 오브젝트 생성
-        bankRequestTokenTwoLeg.setBankRequestToken(clientId,client_secret,"oob","client_credentials");
+        bankRequestTokenTwoLeg.setBankRequestToken(clientId,client_secret,bankRequestTokenTwoLeg.getScope(),"client_credentials");
         //헤더의 컨텐트 타입이 application/x-www-form-urlencoded;charset=UTF-8이므로 객체를 집어넣을수 없음.. 그러므로 MultiValueMap 사용 해야함
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("client_id",bankRequestTokenTwoLeg.getClient_id());

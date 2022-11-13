@@ -51,7 +51,6 @@ public class boardController {
 	//���� ����Ʈ
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();
 
-	//
 //	@RequestMapping("/getToken")
 //	public ModelAndView getToken() {
 //		ModelAndView mv = new ModelAndView();
@@ -60,14 +59,14 @@ public class boardController {
 //		return mv;
 //	}
 
-	@RequestMapping("/getTokenTwoLeg")
-	public ModelAndView getToken() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/Pay/getTokenTwoLeg");
-		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
-		mv.addObject("clientSecret","0b3f2d48-e48e-4033-8de0-a952d3dbcdac");
-		return mv;
-	}
+//	@RequestMapping("/getTokenTwoLeg")
+//	public ModelAndView getToken() {
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("/Pay/getTokenTwoLeg");
+//		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
+//		mv.addObject("clientSecret","0b3f2d48-e48e-4033-8de0-a952d3dbcdac");
+//		return mv;
+//	}
 
 	// 코인 충전 창
 	@RequestMapping("/PayCoin")
@@ -95,10 +94,6 @@ public class boardController {
 		mv.setViewName("/Pay/RefundCoin");
 		int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
 		List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
-// db에서 아이디기준으로 충전기록 가져오는 거 확인함 사용기록도 추가 해야할지 고민해야함
-//		for(RefundDTO i : record){
-//			System.out.println(i);
-//		}
 
 		LocalDateTime now = LocalDateTime.now();
 
@@ -116,8 +111,8 @@ public class boardController {
 			boolean resultCoinSum = Long.valueOf(curCoin) >= (i.getPayAmount()/100l);
 			// 충전 주문을 통한 지불인지 확인
 			boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
-			if(i.getPossibleRefund() == 5l){
-				continue;
+			if((i.getPossibleRefund() == 5l) || (i.getPossibleRefund() == 4l) || (i.getPossibleRefund() == 9l)){
+				continue; // 답변,회원가입,환전신청 걸러내기
 			}
 			if(!resultIsCharge) {
 				i.setPossibleRefund(4l); // 환불대상이 아닙니다

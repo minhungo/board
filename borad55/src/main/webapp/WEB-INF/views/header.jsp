@@ -72,8 +72,8 @@ crossorigin="anonymous">
               style="display:inline-block; width:80px;
                   height:30px; border:0px solid white; border-radius:20px;
                   background-color:#c1c1c1; font-size:11px; position:absolute; left:295px; top:60px;" >
-            <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=600,height=800,top=100,left=500');return false;">
-            충전하기</a>
+            <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=800,height=1000,top=100,left=500');return false;">
+            코 인</a>
           </button>
       
       

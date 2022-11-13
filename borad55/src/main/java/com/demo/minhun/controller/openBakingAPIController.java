@@ -1,20 +1,30 @@
 package com.demo.minhun.controller;
 
+import com.demo.minhun.dao.CoinDAO;
+import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.openbank.*;
 import com.demo.minhun.service.OpenBankService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class openBakingAPIController {
+
+    @Autowired
+    CoinDAO coinDAO;
 
     private final HttpSession session;
 
@@ -38,10 +48,9 @@ public class openBakingAPIController {
      * grant_type
      */
 
-    private String useCode = "0900401111"; // 핀테크번호+U -> 거래고유번호 생성기
+    private String useCode = "M202202192"; // 이용기관번호+U+랜덤9자리 -> 거래고유번호 생성기
     private String clientId = "1edae6d3-8b2c-485c-be9c-8782bb64fd74";
     private String client_secret = "0b3f2d48-e48e-4033-8de0-a952d3dbcdac";
-    private String access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDE1OTY4Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NzU5MjI4ODMsImp0aSI6IjI0YjUzNTE4LTA2ZmQtNDI2Ny05YTdjLWMyODAwYTg4Yjk4MCJ9.sh7LwrLuq4ltnaud-CKkEoHckEkbrY_rjbSidfU7n8M";
 
     private String redirect_uri = "http://localhost:8888/callback";
     private String base_url = "https://testapi.openbanking.or.kr/v2.0";
@@ -74,21 +83,24 @@ public class openBakingAPIController {
 //    }
 
     // 토큰요청 및 실명 계좌 조회
-    @GetMapping("/callback")
-    public String getToken(BankRequestTokenTwoLeg bankRequestTokenTwoLeg, Model model){
+    @PostMapping("/callback")
+    public checkMyAccountResponseDTO getToken(@RequestBody BankRequestTokenTwoLeg bankRequestTokenTwoLeg){
         System.out.println(bankRequestTokenTwoLeg);
 
         BankReponseTokenTwoLeg token = openBankService.requestTokenTwoLeg(bankRequestTokenTwoLeg);
         System.out.println("access token : "+token.getAccess_token());
 
         Random r = new Random();
-        int num = r.nextInt(999999999);
+        String num = "";
+        for (int ranI=0; ranI<9; ranI++){
+            num += r.nextInt(9);
+        }
         String Code = useCode + "U" + num;
 
         checkMyAccountRequestDTO cmarDTO = new checkMyAccountRequestDTO();
         cmarDTO.setAccess_token(token.getAccess_token());
         cmarDTO.setBank_tran_id(Code);
-        cmarDTO.setBank_code_std("090");
+        cmarDTO.setBank_code_std("097"); // 오픈뱅크 코드는 097
         cmarDTO.setAccount_num(bankRequestTokenTwoLeg.getAccount_num());
         cmarDTO.setAccount_holder_info_type(bankRequestTokenTwoLeg.getAccount_holder_info_type());
         cmarDTO.setAccount_holder_info(bankRequestTokenTwoLeg.getAccount_holder_info());
@@ -99,32 +111,28 @@ public class openBakingAPIController {
         cmarDTO.setTran_dtime(now);
 
         checkMyAccountResponseDTO account = openBankService.checkMyAccount(cmarDTO);
-        model.addAttribute("account", account);
+        if(
+                (account.getAccount_holder_info().equals(bankRequestTokenTwoLeg.getAccount_holder_info()))
+                &&(account.getAccount_holder_name().equals(bankRequestTokenTwoLeg.getAccount_name()))
+                &&(account.getAccount_num().equals(bankRequestTokenTwoLeg.getAccount_num()))
+                &&(account.getBank_name().equals(bankRequestTokenTwoLeg.getBank_name()))
+        ){
+            // 환전 신청한 기록 coin 테이블에 입력
+            ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
+            cnrDTO.setPossibleRefund(9l); // 환전
+            cnrDTO.setPayAmount(-Long.parseLong(bankRequestTokenTwoLeg.getCoinAmount()));
+            cnrDTO.setSignupId(bankRequestTokenTwoLeg.getSignupID());
+            cnrDTO.setPayImpUid("환전신청");
+            LocalDateTime localDateTime = LocalDateTime.now();
+            cnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
+            System.out.println(cnrDTO);
+            //coinDAO.ChargeCoin(cnrDTO);
+            
+            // email로 내용 받기
+            
+        }
 
-        System.out.println(account);
-
-        return "Pay/checkMyAccount";
+        return account;
     }
-
-
-//    /**
-//     * 계좌이체
-//     * 계좌이체 처리 테스트에 등록된 값만 계좌이체가능!!
-//     */
-//    @GetMapping("/transfer")
-//    public String openTransfer(Model model, String bank_tran_id,String access_token, String fintech_use_num, String account_num, String req_client_name){
-//        /**
-//         * 20000, 100000원만 등록되어있음
-//         */
-//        //계좌번호 마스킹된값 제거(계좌번호 보여주는건 계약된 사용자만가능(그래서 마스킹된 3자리 잘라서 보내주고 클라이언트에서 3자리 더해줌
-//        model.addAttribute("token", access_token);
-//        model.addAttribute("transferForm",new AccountTransferRequestDto(openBankutil.getRandomNumber(bank_tran_id),fintech_use_num,req_client_name,openBankutil.trimAccountNum(account_num, account_num.length()),openBankutil.trimAccountNum(account_num, account_num.length())));
-//        return "v1/transferForm";
-//    }
-//
-//    @PostMapping("/transfer")
-//    public @ResponseBody AccountTransferResponseDto transfer(String access_token, AccountTransferRequestDto accountTransferRequestDto){
-//        return openBankService.accountTransfer(access_token,accountTransferRequestDto);
-//    }
 
 }

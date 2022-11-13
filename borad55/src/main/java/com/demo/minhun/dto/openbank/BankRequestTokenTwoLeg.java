@@ -34,6 +34,9 @@ public class BankRequestTokenTwoLeg {
     private String bank_code_std;
     private String bank_tran_id;
     private String tran_dtime;
+    private String bank_name;
+    private String coinAmount;
+    private String signupID;
 
 
     public void setBankRequestToken(String client_id,String client_secret, String scope, String grant_type){
