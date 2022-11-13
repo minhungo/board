@@ -40,6 +40,14 @@
       where reply_idx = #{param1}
 </update>
 
+<select id="checkSelect" resultType="int">
+	select
+		reply_select
+	from
+		reply
+	where
+		reply_idx = #{reply_idx}
+</select>
 
 
 <!-- 댓글 프로필 값 변경 코드 -->
