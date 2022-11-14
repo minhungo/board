@@ -128,12 +128,27 @@
         box-shadow: inset 0px 0px 5px white;
       }
 
-    td{
+    table{
+        text-align: center;
+        margin: 0 auto;
+        width: 500px;
+    }
+    thead tr th{
+        padding-top: 20px;
+    }
+    thead tr th img{
+        padding-bottom: 10px;
+    }
+    tbody tr td{
         width: 120px;
         padding: 10px;
     }
     label{
         width: 100px;
+    }
+    tfoot tr td{
+        color: #ac2925;
+        padding-top: 30px;
     }
     </style>
 
@@ -141,75 +156,104 @@
 </head>
 <body>
      <div class="card-body bg-white mt-0 shadow">
-        <p style="font-weight: bold">카카오페이를 통한 코인 충전</p>
         <input type="hidden" id="hiddenMyCoin" value=""/>
         <table>
 
-            <tr>
-                <td>
-                    <input type="radio" value="5000" class="btn-check" id="success-outlined1" name="options-outlined" autocomplete="off">
-                    <label class="btn btn-outline-success" for="success-outlined1"><span>5,000원</span></label>
-                </td>
+            <thead>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined2" name="options-outlined" autocomplete="off" value="10000">
-                    <label class="btn btn-outline-success" for="success-outlined2"><span>10,000원</span></label>
-                </td>
+                <tr>
+                    <th colspan="3">
+                        <img src="resources/image/payment_icon_yellow_small.png">
+                        <p style="font-weight: bold">현재 코인충전결제는 카카오페이만 지원합니다.</p>
+                        <p style="font-weight: bold">빠른 시일내로 결제서비스를 확장하도록 하겠습니다.</p>
+                        <p style="font-weight: bold">고객 여러분들의 너른 양해 부탁드립니다.</p>
+                    </th>
+                </tr>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined3" name="options-outlined" autocomplete="off" value="15000">
-                    <label class="btn btn-outline-success" for="success-outlined3"><span>15,000원</span></label>
-                </td>
-            </tr>
+            </thead>
 
-            <tr>
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined4" name="options-outlined" autocomplete="off" value="20000">
-                    <label class="btn btn-outline-success" for="success-outlined4"><span>20,000원</span></label>
-                </td>
+            <tbody>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined5" name="options-outlined" autocomplete="off" value="25000">
-                    <label class="btn btn-outline-success" for="success-outlined5"><span>25,000원</span></label>
-                </td>
+                <tr>
+                    <td>
+                        <input type="radio" value="5000" class="btn-check" id="success-outlined1" name="options-outlined" autocomplete="off">
+                        <label class="btn btn-outline-success" for="success-outlined1"><span>5,000원</span></label>
+                    </td>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined6" name="options-outlined" autocomplete="off" value="30000">
-                    <label class="btn btn-outline-success" for="success-outlined6"><span>30,000원</span></label>
-                </td>
-            </tr>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined2" name="options-outlined" autocomplete="off" value="10000">
+                        <label class="btn btn-outline-success" for="success-outlined2"><span>10,000원</span></label>
+                    </td>
 
-            <tr>
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined7" name="options-outlined" autocomplete="off" value="35000">
-                    <label class="btn btn-outline-success" for="success-outlined7"><span>35,000원</span></label>
-                </td>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined3" name="options-outlined" autocomplete="off" value="15000">
+                        <label class="btn btn-outline-success" for="success-outlined3"><span>15,000원</span></label>
+                    </td>
+                </tr>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined8" name="options-outlined" autocomplete="off" value="40000">
-                    <label class="btn btn-outline-success" for="success-outlined8"><span>40,000원</span></label>
-                </td>
+                <tr>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined4" name="options-outlined" autocomplete="off" value="20000">
+                        <label class="btn btn-outline-success" for="success-outlined4"><span>20,000원</span></label>
+                    </td>
 
-                <td>
-                    <input type="radio" class="btn-check" id="success-outlined9" name="options-outlined" autocomplete="off" value="50000">
-                    <label class="btn btn-outline-success" for="success-outlined9"><span>45,000원</span></label>
-                </td>
-            </tr>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined5" name="options-outlined" autocomplete="off" value="25000">
+                        <label class="btn btn-outline-success" for="success-outlined5"><span>25,000원</span></label>
+                    </td>
 
-            <tr>
-                <td colspan="3" style="text-align: center;">
-                    <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="35000">
-                    <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 20px;"><span>50,000원</span></label>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined6" name="options-outlined" autocomplete="off" value="30000">
+                        <label class="btn btn-outline-success" for="success-outlined6"><span>30,000원</span></label>
+                    </td>
+                </tr>
 
-                    <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="40000">
-                    <label class="btn btn-outline-success" for="success-outlined11"><span>100,000원</span></label>
-                </td>
+                <tr>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined7" name="options-outlined" autocomplete="off" value="35000">
+                        <label class="btn btn-outline-success" for="success-outlined7"><span>35,000원</span></label>
+                    </td>
 
-            </tr>
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined8" name="options-outlined" autocomplete="off" value="40000">
+                        <label class="btn btn-outline-success" for="success-outlined8"><span>40,000원</span></label>
+                    </td>
+
+                    <td>
+                        <input type="radio" class="btn-check" id="success-outlined9" name="options-outlined" autocomplete="off" value="50000">
+                        <label class="btn btn-outline-success" for="success-outlined9"><span>45,000원</span></label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="35000">
+                        <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 20px;"><span>50,000원</span></label>
+
+                        <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="40000">
+                        <label class="btn btn-outline-success" for="success-outlined11"><span>100,000원</span></label>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+            <tfoot>
+
+                <tr>
+                    <td colspan="3">
+                        <p>
+                            코인은 1개당 100원이며, 최소 5000원부터
+                        </p>
+                        <p>
+                            최대 100,000원까지 충전 가능합니다.
+                        </p>
+                    </td>
+                </tr>
+
+            </tfoot>
 
         </table>
-
-        <p style="color: #ac2925; margin-top: 30px">코인은 1개당 100원이며 최소 5000원부터 최대 100,000원까지 충전 가능합니다</p>
 
         <br>
         <button type="button"
@@ -230,6 +274,15 @@
 
         <button type="button"
             class="btn btn-primary"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px;"
+            id="refund_coin">
+
+            환불하기
+
+        </button>
+
+        <button type="button"
+            class="btn btn-primary"
             style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px; float:right"
             id="cancel_kakao">
 
@@ -237,14 +290,6 @@
 
         </button>
 
-        <button type="button"
-            class="btn btn-primary"
-            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:red; font-size:14px;"
-            id="refund_coin">
-
-            환불하기
-
-        </button>
      </div>
 
 <script type="text/javascript">
@@ -266,16 +311,22 @@
             success : function(result) {
                 $("#hiddenMyCoin").val(result);
                 currentCoin = result;
+
+                var money = $('input[name="options-outlined"]:checked').val();
+                console.log(money);
+
                 
                 $('#charge_kakao').click(function () {
 
                     // if radio 체크없이 실행시 alert 과 함께 다시 체크하도록 돌려보냄
+                    if(money == undefined){
+                        alert("충전금액을 선택해주세요.");
+                        return false;
+                    }
 
                     // 코인 충전
                     var IMP = window.IMP;
                     IMP.init('imp30545876');
-                    var money = $('input[name="options-outlined"]:checked').val();
-                    console.log(money);
 
                     IMP.request_pay({
                                 pg: 'kakaopay',

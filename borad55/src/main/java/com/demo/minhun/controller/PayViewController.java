@@ -50,7 +50,7 @@ public class PayViewController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/Pay/change");
 
-        int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
+        int curCoin = (coinDAO.getMyPossibleRefundCoinById(signup_id)/100);
         mv.addObject("curCoin",curCoin);
 
         return mv;

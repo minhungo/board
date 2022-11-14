@@ -139,7 +139,7 @@
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col"><h4><b><i>현재 소지한 코인</i></b></h4></th>
+                    <th scope="col"><h4><b><i>현재 환전가능한 코인</i></b></h4></th>
                     <th><h4><b><i>${curCoin} </i> 개</b></h4></th>
                 </tr>
             </thead>

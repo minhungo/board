@@ -52,6 +52,20 @@
         order by
             c.payChargeDate desc nulls last
     </select>
+
+    <!-- 환전 가능한 가장 최신 코인 현황 가져오기 (ID)-->
+    <select id="getMyPossibleRefundCoinById" resultType="int">
+        select
+            sum(c.payAmount)
+        from
+            signup s inner join coin c
+        on
+            s.signup_id = c.signupId
+        where
+            s.signup_id = #{signup_id} AND c.possibleRefund not in (4)
+        order by
+            c.payChargeDate desc nulls last
+    </select>
 <!--    <select id="getMyCurrentCoinById" resultType="com.demo.minhun.dto.ChargeNRefundDTO">-->
 <!--        select-->
 <!--            g.signup_id, g.currentCoin-->

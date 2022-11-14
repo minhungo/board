@@ -16,6 +16,7 @@ public interface CoinDAO {
     // 코인 기록 가져오기
     public List<ChargeNRefundDTO> getMyCoinRecordById(String signup_id);
     public int getMyCurrentCoinById(String signup_id);
+    public int getMyPossibleRefundCoinById(String signup_id);
     public List<ChargeNRefundDTO> getMyCoinRecordByNickname(String signup_nickname);
     public ChargeNRefundDTO getMyCurrentCoinByNickname(String signup_nickname);
 
