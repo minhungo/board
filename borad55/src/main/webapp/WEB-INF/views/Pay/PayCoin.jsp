@@ -341,18 +341,27 @@
             	                        }
             	                    });
                             	} else {
-                            		var msg = '결제에 실패하였습니다.';
-                                    msg += '\n잠시 후에 다시 시도해주세요.';
-                            		
-                            		alert(msg);
-                            		
-                            		// 아래 둘 다 부모창 새로고침 되는거 사용하기
-                    		        // opener.parent.location.reload();
-                    		        window.opener.location.href = window.opener.document.URL;
-                    		
-                    		        // 현재 창 닫기
-                    		        window.close();
+                            	    var err = rsp.error_msg;
+                            	    if(err == "[결제포기] 사용자가 결제를 취소하셨습니다"){
+                                        var msg = '결제를 취소하였습니다.';
+                                        alert(msg);
+                                        window.opener.location.href = window.opener.document.URL;
 
+                                        // 현재 창 닫기
+                                        window.close();
+                            	    }else{
+                                        var msg = '결제에 실패하였습니다.';
+                                        msg += '\n잠시 후에 다시 시도해주세요.';
+
+                                        alert(msg);
+
+                                        // 아래 둘 다 부모창 새로고침 되는거 사용하기
+                                        // opener.parent.location.reload();
+                                        window.opener.location.href = window.opener.document.URL;
+
+                                        // 현재 창 닫기
+                                        window.close();
+                                    }
                             	}
                             });
                     
