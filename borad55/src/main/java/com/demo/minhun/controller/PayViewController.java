@@ -98,8 +98,6 @@ public class PayViewController {
 
         mv.addObject("myRecord",record);
         mv.addObject("curCoin",curCoin);
-//		System.out.println(record);
-//		System.out.println(curCoin);
 
         return mv;
     }
@@ -123,7 +121,7 @@ public class PayViewController {
             boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
 
             if(resultIsCharge) {
-                i.setPayImpUid("코인 충전"); // 환불대상이 아닙니다
+                i.setPayImpUid("코인 충전"); // 코인 충전기록이라고 알려줌
             }
         }
 
