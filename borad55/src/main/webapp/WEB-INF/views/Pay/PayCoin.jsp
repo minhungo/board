@@ -228,7 +228,7 @@
                 <tr>
                     <td colspan="3" style="text-align: center;">
                         <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="35000">
-                        <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 20px;"><span>50,000원</span></label>
+                        <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 60px;"><span>50,000원</span></label>
 
                         <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="40000">
                         <label class="btn btn-outline-success" for="success-outlined11"><span>100,000원</span></label>
@@ -278,6 +278,15 @@
             id="refund_coin">
 
             환불하기
+
+        </button>
+
+        <button type="button"
+            class="btn btn-primary"
+            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;"
+            id="record_coin">
+
+            코인기록
 
         </button>
 
@@ -426,6 +435,9 @@
     });
     $('#refund_coin').click(function () {
         window.location.href = '/refund?signup_id='+buyerId;
+    });
+    $('#record_coin').click(function () {
+        window.location.href = '/record?signup_id='+buyerId;
     });
     $('#exchange').click(function () {
         window.location.href = '/change?signup_id='+buyerId;

@@ -65,40 +65,70 @@ public class PayViewController {
         List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
 
         LocalDateTime now = LocalDateTime.now();
+        LocalDateTime seven = now.minusDays(7);
 
-        int sevenDaysAgo = now.minusDays(7).getDayOfYear();
         for(ChargeNRefundDTO i : record){
             // 환불페이지에서 T는 지우고 초(s)까지만 보여주도록 하기위한 format
             Date date = java.sql.Timestamp.valueOf(i.getPayChargeDate());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm");
             i.setLocalDateTimeToDate(simpleDateFormat.format(date));
 
-            int chargeDate = i.getPayChargeDate().getDayOfYear();
+            LocalDateTime chargeDate = i.getPayChargeDate();
+
             // 충전일이 7일전보다 이전일이라면 환불 불가
-            boolean resultDate = chargeDate > sevenDaysAgo;
+            int resultDate = seven.compareTo(chargeDate);
             // 현재 소지한 코인보다 환불해야하는 코인의 갯수가 더 많다면 환불 불가
             boolean resultCoinSum = Long.valueOf(curCoin) >= (i.getPayAmount()/100l);
             // 충전 주문을 통한 지불인지 확인
             boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
+
             if((i.getPossibleRefund() == 5l) || (i.getPossibleRefund() == 4l) || (i.getPossibleRefund() == 9l)){
                 continue; // 답변,회원가입,환전신청 걸러내기
             }
             if(!resultIsCharge) {
                 i.setPossibleRefund(4l); // 환불대상이 아닙니다
             }
-            if(!resultDate) {
+            if(resultDate == 1) {
                 i.setPossibleRefund(3l); // 환불이 가능한 기간이 지났습니다
             }
             if(!resultCoinSum) {
                 i.setPossibleRefund(2l); // 환불가능한 코인의 갯수가 부족합니다
             }
-            System.out.println(i.getPossibleRefund());
         }
 
         mv.addObject("myRecord",record);
         mv.addObject("curCoin",curCoin);
 //		System.out.println(record);
 //		System.out.println(curCoin);
+
+        return mv;
+    }
+
+    @GetMapping("/record")
+    public ModelAndView recordCoin(@RequestParam String signup_id) {
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/Pay/RecordCoin");
+
+        int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
+        List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
+
+        for(ChargeNRefundDTO i : record){
+            
+            Date date = java.sql.Timestamp.valueOf(i.getPayChargeDate());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm");
+            i.setLocalDateTimeToDate(simpleDateFormat.format(date));
+
+            // 충전 주문을 통한 지불인지 확인
+            boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
+
+            if(resultIsCharge) {
+                i.setPayImpUid("코인 충전"); // 환불대상이 아닙니다
+            }
+        }
+
+        mv.addObject("myRecord",record);
+        mv.addObject("curCoin",curCoin);
 
         return mv;
     }

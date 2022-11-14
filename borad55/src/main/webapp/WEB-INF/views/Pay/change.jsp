@@ -156,26 +156,32 @@
             <tbody>
                 <tr>
                     <th scope="row">환전할 코인</th>
-                    <td><input type="number" min="0" max="${curCoin}" id="changeCoin"/> Coin</td>
+                    <td><input type="number" min="0" max="${curCoin}" id="changeCoin" placeholder="0"/> Coin</td>
                 </tr>
                 <tr>
                     <th scope="row">입금 은행</th>
-                    <td><select name="bank_name" id="bank_name">
-                                     <option value="">선택</option>
-                                     <option value="오픈은행">오픈은행</option>
-                                   </select></td>
+                    <td>
+                        <select name="bank_name" id="bank_name">
+                             <option value="">선택</option>
+                             <option value="오픈은행">오픈은행</option>
+                             <option value="오픈은행">금결원api는</option>
+                             <option value="오픈은행">테스트할때</option>
+                             <option value="오픈은행">오픈은행만</option>
+                             <option value="오픈은행">지원합니다</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">입금계좌번호</th>
-                    <td><input type="number" id="account_num"/></td>
+                    <td><input type="number" id="account_num" placeholder="'-'를 제외하고 입력해주세요."/></td>
                 </tr>
                 <tr>
                     <th scope="row">성명</th>
-                    <td><input type="text" id="account_name"/></td>
+                    <td><input type="text" id="account_name" placeholder="홍길동"/></td>
                 </tr>
                 <tr>
-                    <th scope="row">주민등록번호 앞6자리</th>
-                    <td><input type="number" id="account_holder_info"/></td>
+                    <th scope="row">주민등록번호 앞 6자리</th>
+                    <td><input type="number" id="account_holder_info" placeholder="880101"/></td>
                 </tr>
                 <input type="hidden" id="scope" value="oob"/>
                 <input type="hidden" id="account_holder_info_type" value=" "/>
