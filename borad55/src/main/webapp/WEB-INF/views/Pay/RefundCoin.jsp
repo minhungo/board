@@ -128,6 +128,11 @@
         border-radius: 10px;
         box-shadow: inset 0px 0px 5px white;
       }
+
+    #pStyle1{
+        color: #ac2925;
+        margin: 30px 0 30px 10px;
+    }
     </style>
 
 
@@ -135,15 +140,17 @@
 <body>
      <div class="card-body bg-white mt-0 shadow">
         <h2>코인환불</h2>
-        <p style="color: #ac2925; margin-top: 30px">결제 후 7일이 지난 주문은 환불이 불가합니다.</p>
-        <p style="color: #ac2925;">환불은 각각의 주문건마다 1건씩 처리됩니다.</p>
-        <p style="color: #ac2925;">환불시 전체금액 중 결제수수료 10%를 제외한 금액만 환불됩니다.</p>
+        <div id="pStyle1">
+            <p>결제 후 7일이 지난 주문은 환불이 불가합니다.</p>
+            <p>환불은 각각의 주문건마다 1건씩 처리됩니다.</p>
+            <p>환불시 전체금액 중 결제수수료 10%를 제외한 금액만 환불됩니다.</p>
+        </div>
 
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
                     <th scope="col" colspan="3" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
-                    <th><h4><b><i>${curCoin}</i></b></h4></th>
+                    <th><h4><b><i>${curCoin}</i> Coin</b></h4></th>
                 </tr>
             </thead>
 

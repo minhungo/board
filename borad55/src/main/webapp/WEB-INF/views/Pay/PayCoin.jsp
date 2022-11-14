@@ -312,11 +312,8 @@
                 $("#hiddenMyCoin").val(result);
                 currentCoin = result;
 
-                var money = $('input[name="options-outlined"]:checked').val();
-                console.log(money);
-
-                
                 $('#charge_kakao').click(function () {
+                    var money = $('input[name="options-outlined"]:checked').val();
 
                     // if radio 체크없이 실행시 alert 과 함께 다시 체크하도록 돌려보냄
                     if(money == undefined){
@@ -365,8 +362,8 @@
             	                                })
             	                            });
             	                            var msg = '결제가 완료되었습니다.';
-            	                            msg += '\n결제 금액 : ' + rsp.paid_amount;
-            	                            msg += '\n충전된 코인 갯수: ' + money / 100;
+            	                            msg += '\n결제 금액 : ' + rsp.paid_amount + ' 원';
+            	                            msg += '\n충전된 코인 갯수: ' + money / 100 + ' Coin';
             	                            
             	                            alert(msg);
             	                            
@@ -430,10 +427,10 @@
     $('#refund_coin').click(function () {
         window.location.href = '/refund?signup_id='+buyerId;
     });
-
     $('#exchange').click(function () {
         window.location.href = '/change?signup_id='+buyerId;
     });
+
 </script>
 </body>
 </html>
