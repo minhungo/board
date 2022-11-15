@@ -204,44 +204,22 @@ where signup_id=#{param6}
 
 </update>
 
-    <!-- 사용 안해서 주석 처리함 나중에 어떻게 될지 모름 -->
-    <!-- 코인 충전 또는 사용 적용
-
-    <update id="UpdateCoin">
-        update
-            signup
-        set
-            signup_coin = signup_coin + #{signup_coin}
-        where
-            signup_id = #{signup_id}
-    </update>
-
-    <update id="UpdateCoinByNickname">
-        update
-            signup
-        set
-            signup_coin = signup_coin + #{signup_coin}
-        where
-            signup_nickname = #{signup_nickname}
-    </update>
-
-    <select id="getMyInfo">
+    <!-- 가입 경로 통계 -->
+    <select id="getSingupData" resultType="com.demo.minhun.dto.getSignupDataDTO">
         select
-            signup_id, signup_name, signup_nickname, signup_email, signup_adr, signup_adr_point, signup_data, signup_num, signup_profle_img
+            SIGNUP_DATA, TO_CHAR(SIGNUP_DATE, 'YYYY-MM') as recentdate, count(*) as cnt
         from
             signup
         where
-            signup_id = #{signup_id}
+            signup_id not in ('admin')
+        and
+            SIGNUP_DATE between TO_DATE('2022-09', 'YYYY-MM')
+                            AND TO_DATE('2023-01', 'YYYY-MM')
+        GROUP BY
+            TO_CHAR(SIGNUP_DATE, 'YYYY-MM'), SIGNUP_DATA
+        order by
+            TO_CHAR(SIGNUP_DATE, 'YYYY-MM'), SIGNUP_DATA
     </select>
-     내 코인 갯수 가져오기
-    <select id="getMyCoin" resultType="String">
-        select
-            signup_coin
-        from
-            signup
-        where
-            signup_id = #{signup_id}
-    </select>-->
 
 </mapper>
 

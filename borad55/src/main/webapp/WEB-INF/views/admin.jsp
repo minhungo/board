@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- 
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link href="${path}/resources/css/styles.css" rel="stylesheet"/>        
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
 <style>
 
 th,td{
@@ -101,20 +102,29 @@ font-weight:  400;
                                 document.write(year+"년 "+month+"월 "+date+"일 "+hours+"시 "+minutes+"분 ");
                             </script>
                         </h1>
+
                         <div class="row">
-                        
-                        
-                        <!-- 차트 값 넣어야함 -->
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+
+                            <!-- 차트 값 넣어야함 -->
+                                <div class="col-xl-6"  style="float: left;">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                            가입 경로 통계
+                                        </div>
+                                        <div class="card-body"><canvas id="myPieChart"></canvas></div>
                                     </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="40"></canvas></div>
                                 </div>
-                            </div>
-                       <!-- 차트 값 넣어야함 --> 
+                                <div class="col-xl-6"  style="float: right;">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                            충전 금액 통계
+                                        </div>
+                                        <div class="card-body"><canvas id="myBarChart"></canvas></div>
+                                    </div>
+                                </div>
+                           <!-- 차트 값 넣어야함 -->
                             
                         </div>
                         
@@ -182,7 +192,7 @@ font-weight:  400;
       
       
      <!-- 검색 -->
-      			<div>
+      		<div>
                <select name="searchType" class="me-2" style="width: 80px; height: 40px; float: left; margin-left:30px;">
                <option value="title"<c:out value="${scri.searchType eq 'board_title' ? 'selected' : ''}"/>>제목</option>
                     <option value="content"<c:out value="${scri.searchType eq 'board_content' ? 'selected' : ''}"/>>내용</option>
@@ -202,7 +212,7 @@ font-weight:  400;
                   style="float: left; height: 40px; width: 80px; border-radius: 6px; background-color: #392f31; margin-left: 930px;">
                   <span class="txt_white">글쓰기</span>
                </button>
-               </div>
+            </div>
        <!-- 검색 -->
       
       
@@ -248,10 +258,7 @@ font-weight:  400;
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${path}/resources/assets/demo/chart-area-demo.js"></script>
         <script src="${path}/resources/assets/demo/chart-bar-demo.js"></script>
-        <script src="${path}/resources/assets/demo/chart-pie-demo.js"></script>
 
         <script>
             var today = new Date();

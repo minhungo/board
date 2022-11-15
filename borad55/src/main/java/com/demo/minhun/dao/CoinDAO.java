@@ -2,6 +2,7 @@ package com.demo.minhun.dao;
 
 import com.demo.minhun.dto.CoinDTO;
 import com.demo.minhun.dto.ChargeNRefundDTO;
+import com.demo.minhun.dto.getAllUserRecordDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface CoinDAO {
 
+    public List<getAllUserRecordDTO> AllUserChargeRecord();
     //  코인 충전
     public int ChargeCoin(ChargeNRefundDTO coinDTO);
     // 코인 환불

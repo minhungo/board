@@ -67,12 +67,15 @@ crossorigin="anonymous">
           <span style="font-size:13px; text-align:left; color: black" id="MyCoin"></span>
           <input type="hidden" id="hiddenMyCoin" value=""/>
           <button type="button"
-              class="btn btn-primary"
-              style="display:inline-block; width:80px;
+                  class="btn btn-primary"
+                  style="display:inline-block; width:80px;
                   height:30px; border:0px solid white; border-radius:20px;
                   background-color:#c1c1c1; font-size:11px; position:absolute; left:295px; top:60px;" >
-            <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=600,height=650,top=100,left=500');return false;">
-            코 인</a>
+
+              <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=600,height=650,top=100,left=500');return false;">
+                  코 인
+              </a>
+
           </button>
       
       

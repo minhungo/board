@@ -7,6 +7,18 @@
 
 <mapper namespace="com.demo.minhun.dao.CoinDAO">
 
+    <!-- 유저 전체 충전 기록 가져오기 -->
+    <select id="AllUserChargeRecord" resultType="com.demo.minhun.dto.getAllUserRecordDTO">
+        select
+            payamount, count(signupid) as cnt
+        from
+            coin
+        where
+            PayImpUid like 'imp%' and payamount not in (0)
+        GROUP BY
+            payamount
+    </select>
+
     <!-- 코인 충전, 답변채택, 환전신청 -->
     <insert id="ChargeCoin" parameterType="com.demo.minhun.dto.ChargeNRefundDTO">
         insert into
