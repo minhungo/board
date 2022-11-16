@@ -139,4 +139,10 @@ public class IboardDAOImpl  implements IBoardDAO{
 		return 0;
 	}
 
+	@Override
+	public int userReportcount(String user_reportcheck, String signup_nickname) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

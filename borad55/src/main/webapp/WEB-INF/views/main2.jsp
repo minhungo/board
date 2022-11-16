@@ -125,13 +125,15 @@ td {
 
 
 <div class="container-fluid row" style="background-color:skyblu; height:1300px; margin:auto;">
+
+
 <div class="container" style="background-color:white; width:300px; height:800px; margin-top:70px; ">
-         <img src="resources/image/iphone.png" width="500" height="550">
+
 
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px; margin-top:500px ">  
       <div class="container row"
          style="background-color: white; padding: 0px">
-
+      
 
                <c:if test="${empty profile.signup_id}">
                   <c:forEach var="connectUser" items="${connectUser}">
@@ -177,15 +179,13 @@ td {
 
       <!-- 제일 큰 컨테이너 -->
       <div class="container row "
-         style="background-color: white; width: 1200px; height: 1100px;">
-
-
-
-
+         style="background-color: white; width: 1200px; height: 400px;">
 
          <!-- 중간 컨테이너 -->
          <div class="container "
             style="background-color: white; width: 570px; margin: 20px auto; padding: 0px;">
+            
+            
             
       
             

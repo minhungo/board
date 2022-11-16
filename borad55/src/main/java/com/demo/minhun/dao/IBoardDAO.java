@@ -13,8 +13,8 @@ import com.demo.minhun.dto.SearchCriteria;
 
 
 
-//싱글톤 사용을 위한 인터페이스
-//@Mapper : mybatis와 인터페이스 함수 연결 어노테이션
+//�떛湲��넠 �궗�슜�쓣 �쐞�븳 �씤�꽣�럹�씠�뒪
+//@Mapper : mybatis�� �씤�꽣�럹�씠�뒪 �븿�닔 �뿰寃� �뼱�끂�뀒�씠�뀡
 
 @Mapper 
 public interface IBoardDAO {
@@ -27,38 +27,38 @@ public interface IBoardDAO {
 	public int deleteDTO(String board_idx);
     public int hit(String board_idx);
     
-    //메인 미니 질문 게시판
+    //硫붿씤 誘몃땲 吏덈Ц 寃뚯떆�뙋
     public List<BoardDTO> mini();
-    //메인 미니 자유게시판
+    //硫붿씤 誘몃땲 �옄�쑀寃뚯떆�뙋
     public List<BoardDTO> mini2();
-    //메인 조회수 게시판
+    //硫붿씤 議고쉶�닔 寃뚯떆�뙋
     public List<BoardDTO> mini3();
-    //메인 추천수 게시판 
+    //硫붿씤 異붿쿇�닔 寃뚯떆�뙋 
     public List<BoardDTO>mini4();
     
-    //board table 댓글 수 카운터 함수 +
+    //board table �뙎湲� �닔 移댁슫�꽣 �븿�닔 +
   	public int board_reply_plus(String board_idx);
   	
-  	//board table 댓글 수 카운터 함수 -
+  	//board table �뙎湲� �닔 移댁슫�꽣 �븿�닔 -
   	public int board_reply_minus(String board_idx);
     
   	
-    //신고 액션
+    //�떊怨� �븸�뀡
     public int reportDTO(String board_reportcheck, String board_idx);
     
-    //신고게시판 리스트
+    //�떊怨좉쾶�떆�뙋 由ъ뒪�듃
     public List<BoardDTO> reportlist(SearchCriteria scri) throws Exception;
     
-    //신고 게시판 총 개수
+    //�떊怨� 寃뚯떆�뙋 珥� 媛쒖닔
     public int reportCount(SearchCriteria scri);
  
-    //신고 페이지
+    //�떊怨� �럹�씠吏�
     public BoardDTO report_view(String board_idx);
     
-    // 프로필 변경 시 게시판에 자신의 프로필 값도 변경
+    // �봽濡쒗븘 蹂�寃� �떆 寃뚯떆�뙋�뿉 �옄�떊�쓽 �봽濡쒗븘 媛믩룄 蹂�寃�
     public int board_profle_update(String board_profle_img, String board_name);
     
-    
+    public int userReportcount(String user_reportcheck ,String signup_nickname);
 
     
 }

@@ -39,14 +39,14 @@ public class replyController {
 	CoinDAO coinDAO;
 	
 	
-	//���� ����Ʈ
+	//占쏙옙占쏙옙 占쏙옙占쏙옙트
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
 	
 	
 	
-          // ��� ���� ��
-		@RequestMapping("/writeReplyAction") // ��� ����
+          // 占쏙옙占� 占쏙옙占쏙옙 占쏙옙
+		@RequestMapping("/writeReplyAction") // 占쏙옙占� 占쏙옙占쏙옙
 		@ResponseBody
 		public String writeReplyAction(
 				@RequestParam("reply_content") String reply_content,
@@ -57,10 +57,10 @@ public class replyController {
 				HttpSession session) {
                 
 			
-			//������ �α������� �ƴ��� üũ
+			//占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙占쏙옙占쏙옙 占싣댐옙占쏙옙 체크
 			Object usercheck = session.getAttribute("profile");
 			if (usercheck == null) {
-				return "<script>alert('�α��� �� �̿��ϼ���'); location.href='/signin'; </script>";
+				return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
 			}
 
 			int result = IReplyDAO.reply_write(reply_name, reply_content, reply_board_index, reply_signup_id,reply_profle_img);
@@ -73,7 +73,7 @@ public class replyController {
 				
 			} else {
 				
-				return "<script>alert('��� �ޱ� ����'); location.href='/readForm?board_idx=" + reply_board_index
+				return "<script>alert('占쏙옙占� 占쌨깍옙 占쏙옙占쏙옙'); location.href='/readForm?board_idx=" + reply_board_index
 						+ "'; </script>";
 			}
 		}
@@ -84,8 +84,8 @@ public class replyController {
 		
 		
 		
-		//��ۻ���
-		@RequestMapping("/deleteReplyAction") // ��ۻ���
+		//占쏙옙芳占쏙옙占�
+		@RequestMapping("/deleteReplyAction") // 占쏙옙芳占쏙옙占�
 		@ResponseBody
 		public String deleteReplyAction(
 				@RequestParam("reply_idx") String reply_idx,
@@ -93,10 +93,10 @@ public class replyController {
 				HttpServletRequest sr,
 				HttpSession session) {
 			
-			//������ �α������� �ƴ��� üũ
+			//占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙占쏙옙占쏙옙 占싣댐옙占쏙옙 체크
 			Object usercheck = session.getAttribute("profile");
 		      if(usercheck==null) {
-		         return "<script>alert('�α��� �� �̿��ϼ���'); location.href='/signin'; </script>";
+		         return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
 		      }
 			
 			int result = IReplyDAO.reply_deleteDTO(reply_idx);
@@ -107,7 +107,7 @@ public class replyController {
 				return "<script> location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 				
 			} else {
-				return "<script>alert('��� ���� ����'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+				return "<script>alert('占쏙옙占� 占쏙옙占쏙옙 占쏙옙占쏙옙'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 			}
 		}
 		
@@ -117,7 +117,7 @@ public class replyController {
 		
 		
 		 
-		   //��� ä��  
+		   //占쏙옙占� 채占쏙옙  
 		   @RequestMapping("/reply_selectAction") 
 		   @ResponseBody
 		   public String reply_SelectAction(@RequestParam("reply_idx") String reply_idx,
@@ -132,42 +132,42 @@ public class replyController {
 		      System.out.println(usercheck.getSignup_nickname());
 		      
 		         if(usercheck.getSignup_nickname().equals(board_name)) {
-					 // 답변자 포인트 올리고 질문자 포인트 내리는 걸로 보임
+					 // �떟蹂��옄 �룷�씤�듃 �삱由ш퀬 吏덈Ц�옄 �룷�씤�듃 �궡由щ뒗 嫄몃줈 蹂댁엫
 		            sigupDAO.signup_replyselect(reply_name);
 		            sigupDAO.signup_ReplyPointDown(board_name);
 
-					// 주문번호(PayMerchantUid) 생성 날짜 계산
+					// 二쇰Ц踰덊샇(PayMerchantUid) �깮�꽦 �궇吏� 怨꾩궛
 					LocalDateTime localDateTime = LocalDateTime.now();
 
-					// 답변 채택하는 사람 찾기
-					// 기본 코인 1개 너무 작아서 5개로 변경
+					// �떟蹂� 梨꾪깮�븯�뒗 �궗�엺 李얘린
+					// 湲곕낯 肄붿씤 1媛� �꼫臾� �옉�븘�꽌 5媛쒕줈 蹂�寃�
 					ChargeNRefundDTO minusCnrDTO = coinDAO.getMyIdByNickname(board_name);
 					minusCnrDTO.setSignupId(minusCnrDTO.getSignup_id());
 					minusCnrDTO.setPayAmount(-500l);
-					minusCnrDTO.setPayImpUid("답변채택사용");
+					minusCnrDTO.setPayImpUid("�떟蹂�梨꾪깮�궗�슜");
 					minusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					minusCnrDTO.setPossibleRefund(5l);
 					System.out.println(minusCnrDTO);
-					// 코인 차감
+					// 肄붿씤 李④컧
 					coinDAO.ChargeCoin(minusCnrDTO);
-					//sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id(), "답변채택", "1개차감");
+					//sigupDAO.UpdateCoin((long) -1, usercheck.getSignup_id(), "�떟蹂�梨꾪깮", "1媛쒖감媛�");
 
 
-					// 답변한 사람찾기
-					// 기본 코인 1개 너무 작아서 5개로 변경
+					// �떟蹂��븳 �궗�엺李얘린
+					// 湲곕낯 肄붿씤 1媛� �꼫臾� �옉�븘�꽌 5媛쒕줈 蹂�寃�
 					ChargeNRefundDTO plusCnrDTO = coinDAO.getMyIdByNickname(reply_name);
 					plusCnrDTO.setSignupId(plusCnrDTO.getSignup_id());
 					plusCnrDTO.setPayAmount(500l);
-					plusCnrDTO.setPayImpUid("답변채택보상");
+					plusCnrDTO.setPayImpUid("�떟蹂�梨꾪깮蹂댁긽");
 					plusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					plusCnrDTO.setPossibleRefund(5l);
 					System.out.println(plusCnrDTO);
-					// 코인 증감
+					// 肄붿씤 利앷컧
 					coinDAO.ChargeCoin(plusCnrDTO);
 					//sigupDAO.UpdateCoinByNickname((long) 1, reply_name);
 
 		         }else {
-		            return "<script>alert('�ۼ��ڰ� �ƴ����� ä���Ҽ� �����ϴ�.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		            return "<script>alert('占쌜쇽옙占쌘곤옙 占싣댐옙占쏙옙占쏙옙 채占쏙옙占쌀쇽옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }
 		              
 		       
@@ -177,17 +177,17 @@ public class replyController {
 		    	  	sigupDAO.signup_gradeUpdate(board_name);
 		            sigupDAO.signup_gradeUpdate(reply_name);
 		            
-		         return "<script>alert('ä�� �Ϸ�'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         return "<script>alert('채占쏙옙 占싹뤄옙'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		      else {
-		         System.out.println("ä�� ����");
-		         return "<script>alert('ä�� ����'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         System.out.println("채占쏙옙 占쏙옙占쏙옙");
+		         return "<script>alert('채占쏙옙 占쏙옙占쏙옙'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		            
 		   }
 
 
-	// 이미 채택한 답변인지 확인하는 용도	   
+	// �씠誘� 梨꾪깮�븳 �떟蹂��씤吏� �솗�씤�븯�뒗 �슜�룄	   
 	@PostMapping("/checkSelect")
 	@ResponseBody
 	public int checkSelect(@RequestBody ReplyDTO replyDTO){

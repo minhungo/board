@@ -111,7 +111,7 @@ font-weight:  400;
                      <th style="width: 800px; height: 50px;">제목</th>
                      <th style="width: 150px; height: 50px;">작성자</th>
                      <th style="width: 300px; height: 50px;">작성일</th>
-                     <th style="width: 200px; height: 50px;">재제사유</th>
+                     <th style="width: 200px; height: 50px;">신고사유</th>
                   </tr>
                </thead>
                <c:forEach var="BoardDTO" items="${ list }">
@@ -172,20 +172,9 @@ font-weight:  400;
                      
                      <button  id="searchButton" style="float: left; margin-left: 12px; height:40px; width:80px; border-radius: 6px; background-color:#392f31;"
                         type="submit"><span class="txt_white">검색</span></button>
-
-
-               </div>
-       <!-- 검색 -->
-      
-      
-      
       	
-      
-            
-<!-- -------페이징처리 -->
-<br>
-<br>
-            <nav aria-label="...">
+      	<br><br>
+    <nav aria-label="...">
                <ul class="pagination justify-content-center">
 
                   <c:if test="${pageMaker.prev}">
@@ -202,21 +191,14 @@ font-weight:  400;
                         href="adminreport${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
                   </c:if>
                </ul>
-            </nav>
-
-
-           
-               
-               
-               
-               
-               
-               
-               
-               
-                
+            </nav>	
      
         </div>
+           </main>
+        
+
+               </div>
+      
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>

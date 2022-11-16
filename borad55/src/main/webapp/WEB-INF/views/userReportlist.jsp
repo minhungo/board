@@ -34,6 +34,7 @@ font-weight:  400;
 
 </head>
 <body class="sb-nav-fixed">
+
     <form role="Form" method="get">
  <!-- 여기 밑이 header nav 영역-->       
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -118,11 +119,10 @@ font-weight:  400;
                   <th style="width:300px; height: 50px;">email</th>
                   <th style="width:200px; height: 50px;">가입날짜</th>
                   <th style="width:300px; height: 50px;">가입경로</th>
-                  <th style="width:200px; height: 50px;">신고내역</th>
+                  <th style="width:200px; height: 50px;">신고횟수</th>
                   <th style="width:200px; height: 50px;">제재하기</th>
                </tr>
                </thead>
-
 
           	 <!-- 신고 유저 리스트 -->
                <c:forEach var="signupDTO" items="${ list }">
@@ -169,13 +169,7 @@ font-weight:  400;
                          <button  id="searchButton" style="height:40px; width:80px; border-radius: 6px; background-color:#392f31; margin-left:0px;"
                         type="submit"><span class="txt_white">검색</span></button>
                                
-                </main>
-
-            </div>
-        </div>
-       <!-- 검색 -->
-  
-  
+                             <br><br>    
   <nav aria-label="...">
                <ul class="pagination justify-content-center">
 
@@ -194,6 +188,13 @@ font-weight:  400;
                   </c:if>
                </ul>
             </nav>
+                               
+                </main>
+
+            </div>
+        </div>
+       <!-- 검색 -->
+  
 
 <br>  
 <br>  

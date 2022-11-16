@@ -15,6 +15,10 @@ crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
 	
+<style type="text/css">
+
+
+</style>
 </head>
 <header>
 	<nav class="header" style="font-family: 'DynaPuff', cursive; height:110px;">
@@ -23,12 +27,17 @@ crossorigin="anonymous">
 		<a href="/"><img src="resources/image/slow.png"></a>
 		</div>
 		
+
+
 <nav class="nabar" style="position:absolute; left:710px;">
 	
 	<ul class="navbar_menu" >
 	<li><a href="/board">전체 게시판</a>
 	</li>
 	<li><a href="/board?bgnopage=1">Q&A</a>
+	<ul class="submenu">
+         
+        </ul>
 	</li>
 	<li><a href="/board?bgnopage=2">자유게시판</a>
 	</li>

@@ -28,7 +28,7 @@ import com.demo.minhun.dto.SearchCriteria;
 import com.demo.minhun.dto.signupDTO;
 
 
-//������ ������ 
+//占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 
 @Controller
 public class adminController {
 
@@ -51,7 +51,7 @@ public class adminController {
 	
 	
 	
-    //ȸ���� �ۼ��� �Խ��� �� �������� 
+    //회占쏙옙占쏙옙 占쌜쇽옙占쏙옙 占쌉쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 
 	 @RequestMapping(value = "/admin", method = RequestMethod.GET)
 	   public String admin (Model model, @ModelAttribute("scri") SearchCriteria scri,
 	   @RequestParam(value = "page", defaultValue = "1") String page ,@RequestParam(value = "bgno" ,defaultValue = "1")int bgno) throws Exception {
@@ -74,7 +74,7 @@ public class adminController {
 	 
 	 
 	 
-	 //������ ȸ�� ���
+	 //占쏙옙占쏙옙占쏙옙 회占쏙옙 占쏙옙占�
      @RequestMapping(value = "/adminpro", method = RequestMethod.GET)
      public String adminpro (Model model, @ModelAttribute("scri") SearchCriteria scri,
      @RequestParam(value = "page", defaultValue = "1") String page) throws Exception {
@@ -95,7 +95,7 @@ public class adminController {
      
      
      
-    // ȸ������ ���� ����
+    // 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
  	@RequestMapping(value = "/userInformation", method = RequestMethod.GET)
  	public String userInformation(@RequestParam("signup_num") String signup_num, Model model,
  			HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") String page,
@@ -115,7 +115,7 @@ public class adminController {
  	
  	
  	
- //������ ���������� ȸ�� Ż��
+ //占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 회占쏙옙 탈占쏙옙
 	@RequestMapping("/deleteSignupaction")
 	@ResponseBody
 	public String deleteSignupaction(@RequestParam("signup_num") String signup_num, HttpServletRequest request,
@@ -124,7 +124,7 @@ public class adminController {
 
 		sigupDAO.deleteSignup(signup_num);
 
-		return "<script>alert('ȸ���� Ż�� �Ǿ����ϴ�'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
+		return "<script>alert('회占쏙옙占쏙옙 탈占쏙옙 占실억옙占쏙옙占싹댐옙'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
 	}
 		 
 	
@@ -133,7 +133,7 @@ public class adminController {
 	
 	
 	
-	 // ������ ������ �Ű��ڴ��� ���� ��� ����Ʈ
+	 // 관리자 페이지 신고자당한 유저 명단 리스트
 	 @RequestMapping(value = "/userReportlist", method = RequestMethod.GET)
 	 public String userReportlist(
 			 		 Model model, 
@@ -150,7 +150,8 @@ public class adminController {
 	      return "userReportlist";
 	   }
 	 
-	 //�������������� �Ű�� �Խù� ����Ʈ ��Ʈ�ѷ�
+	 
+	 //占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占신곤옙占� 占쌉시뱄옙 占쏙옙占쏙옙트 占쏙옙트占싼뤄옙
 	 @RequestMapping(value = "/adminreport", method = RequestMethod.GET)
      public String adminreport (Model model, @ModelAttribute("scri") SearchCriteria scri,
      @RequestParam(value = "page", defaultValue = "1") String page,@RequestParam(value = "bgno" ,defaultValue = "0")int bgno) throws Exception {
@@ -169,15 +170,15 @@ public class adminController {
 	 
 	 
 	 
-	 //���� ����â ��Ʈ�ѷ�
+	 //占쏙옙占쏙옙 占쏙옙占쏙옙창 占쏙옙트占싼뤄옙
 	 @RequestMapping(value = "sanctions" ,method = RequestMethod.GET)
 	   public String sanctions(Model model, @RequestParam("signup_num")int signup_num) {
-	      //���� �ð�
+	      //占쏙옙占쏙옙 占시곤옙
 	      
 	      Calendar cal = Calendar.getInstance();
 	      cal.setTime(new Date());
 	   
-	      //����ð� ���� 3�� ,7�� ,30�� �� ���ϴ� �Լ�
+	      //占쏙옙占쏙옙챨占� 占쏙옙占쏙옙 3占쏙옙 ,7占쏙옙 ,30占쏙옙 占쏙옙 占쏙옙占싹댐옙 占쌉쇽옙
 	      Calendar cal3 = Calendar.getInstance();
 	      Calendar cal7 = Calendar.getInstance();
 	      Calendar cal30 = Calendar.getInstance();
@@ -216,7 +217,7 @@ public class adminController {
 	 
 	 
 	 
-	 //���� ���� ��Ʈ�ѷ�
+	 //占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙트占싼뤄옙
 	  @RequestMapping(value = "sanctionsAction",method = RequestMethod.POST)
 	  @ResponseBody
 	   public String sanctionsAction(
@@ -232,15 +233,13 @@ public class adminController {
 
 	      sigupDAO.sanctionsDTO(str_sanctions,and_sanctions,true_sanctions,signup_num);
 
-	      return "<script>alert('���� �Ǿ����ϴ�');window.close();</script>";
+	      return "<script>alert('占쏙옙占쏙옙 占실억옙占쏙옙占싹댐옙');window.close();</script>";
 	   }
 	 
 	  
+
 	  
-	  
-	  
-	  
-	  //������ ������ ��� ����Ʈ ��Ʈ�ѷ�
+	  //제제된 유저들 명단 리스트 컨트롤러
 	  @RequestMapping(value = "/sanctionslist", method = RequestMethod.GET)
 	     public String sanctionslist (Model model, @ModelAttribute("scri") SearchCriteria scri,
 	     @RequestParam(value = "page", defaultValue = "1") String page) throws Exception {
@@ -249,11 +248,13 @@ public class adminController {
 	        model.addAttribute("list", list);
 	        PageMaker pageMaker = new PageMaker();
 	        pageMaker.setCri(scri);
-	        pageMaker.setTotalCount(sigupDAO.signupCount(scri));
+	        model.addAttribute(page);
+	        pageMaker.setTotalCount(sigupDAO.signupCount2(scri));
 	        model.addAttribute("pageMaker", pageMaker);
 	        return "sanctionslist";
+	        
+	
 	    }
-	    
 	 
 	 
 	 

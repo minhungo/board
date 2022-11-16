@@ -24,7 +24,7 @@ import com.demo.minhun.dto.signupDTO;
 
 
 
-//������ �Ű��ϰų�,�����ϰų� �ϴ� ���� ��Ʈ��
+//占쏙옙占쏙옙占쏙옙 占신곤옙占싹거놂옙,占쏙옙占쏙옙占싹거놂옙 占싹댐옙 占쏙옙占쏙옙 占쏙옙트占쏙옙
 @Controller
 public class userController {
 	
@@ -46,45 +46,10 @@ public class userController {
 	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
-	
-	
-	 
-	 // ���� �Ű� â userReport
-	 @RequestMapping(value = "/userReport", method = RequestMethod.GET)
-    public String userReport() {
-     System.out.println("�����Ű�â ȣ��");
-    
-    return "userReport";
-	 }
-
-	 
-	 
-	 
-	 
-	
-	 
-	 // ���� �Ű� ���
-	 @RequestMapping(value = "/userReportaction", method = RequestMethod.POST)
-	 @ResponseBody
-	    public String userReportaction(@RequestParam("user_reportcheck") String user_reportcheck,
-	          @RequestParam("signup_num") int signup_num) {
-	      
-	      System.out.println("userReportDTO : "+user_reportcheck);
-	      System.out.println("userReportDTO : "+signup_num);
-	      
-	      sigupDAO.userReportDTO(user_reportcheck,signup_num);
-	      
-	   
-	      return "<script>alert('�Ű� �Ǿ����ϴ�');window.close();</script>";
-	   }
-	 
-	 
-	 
-	 
-	 
+ 
 	 
 	   
-	 //���� ������ ����
+	 //占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 		@RequestMapping(value = "/imgloadaction", method = RequestMethod.POST)
 		 @ResponseBody
 		 public String imgloadaction (
@@ -102,9 +67,9 @@ public class userController {
 			 	
 			 	if(delfile.exists() && !originimg.getSignup_profle_img().equals("human1.png")) {
 			 		delfile.delete(); 
-		            System.out.println("������ �����Ͽ����ϴ�.");
+		            System.out.println("占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.");
 		        } else {
-		            System.out.println("������ �������� �ʽ��ϴ�.");
+		            System.out.println("占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.");
 		        }
 			 
 			 
@@ -124,30 +89,30 @@ public class userController {
 				 		
 				 		session.setAttribute("profile", user);
 				 		
-				 		// �� �Խ���, ��ۿ� id ���� ���ؼ� �ٲ� �����ʷ� ���ε�
+				 		// 占쏙옙 占쌉쏙옙占쏙옙, 占쏙옙謗占� id 占쏙옙占쏙옙 占쏙옙占쌔쇽옙 占쌕뀐옙 占쏙옙占쏙옙占십뤄옙 占쏙옙占싸듸옙
 				 		IBoardDAO.board_profle_update(memberImg, signup_id);
 				 		IReplyDAO.reply_profle_update(memberImg, signup_id);
 				 		
 				 		System.out.println("memberImg : " + memberImg);
 				 		System.out.println("signup_id : " + signup_id);
 				 		
-				 		return "<script>alert('������ ���� ����!'); location.href='/board'; </script>";
+				 		return "<script>alert('占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙!'); location.href='/board'; </script>";
 				 		
 				 	}else if(user.getSignup_profle_img()==null){	
-				 		return "<script>alert('÷�������� ����ֽ��ϴ�.'); location.href='/board'; </script>";
+				 		return "<script>alert('첨占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙笭占쏙옙求占�.'); location.href='/board'; </script>";
 				 	}
 				 	
 				} catch (Exception e) {
 					e.printStackTrace();
-					return "<script>alert('�α��� ������ ����Ǿ��ų� ������ ����ֽ��ϴ�.'); location.href='/board'; </script>";
+					return "<script>alert('占싸깍옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙퓸占쏙옙킬占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙笭占쏙옙求占�.'); location.href='/board'; </script>";
 				}
-			 return "<script>alert('�α��� ������ ����Ǿ��ų� ������ ����ֽ��ϴ�.'); location.href='/board'; </script>";
+			 return "<script>alert('占싸깍옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙퓸占쏙옙킬占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙笭占쏙옙求占�.'); location.href='/board'; </script>";
 		 }
 		
 		
 	
 		
-		//���� �ڱ����� ���� ��Ʈ�ѷ�
+		//占쏙옙占쏙옙 占쌘깍옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙트占싼뤄옙
 		@RequestMapping("/MyPage_UpDate")
 	  	@ResponseBody
 	     public String MyPage_UpDate (
@@ -165,10 +130,10 @@ public class userController {
 	  		
 	  		session.setAttribute("profile", user);
 	  	
-	  		return "<script>alert('���������Ϸ�'); window.close();</script>";
+	  		return "<script>alert('占쏙옙占쏙옙占쏙옙占쏙옙占싹뤄옙'); window.close();</script>";
 	    }
 	 
-		//����Ʈ �  (���� ��ȭ��ȣ)
+		//占쏙옙占쏙옙트 占쏘스  (占쏙옙占쏙옙 占쏙옙화占쏙옙호)
 		@RequestMapping("/contact2")
 		public String contact2() {
 			return "contact2";
@@ -176,7 +141,7 @@ public class userController {
 		
 		
 		
-		//���� ����������
+		//占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙
 		@GetMapping("/userInformation2")
 		public String userInformation2() {
 			return "userInformation2";

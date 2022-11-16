@@ -197,18 +197,8 @@ font-weight:  400;
                         
                          <button  id="searchButton" style="height:40px; width:80px; border-radius: 6px; background-color:#392f31; margin-left:0px;"
                         type="submit"><span class="txt_white">검색</span></button>
-                               
-                </main>
-
-            </div>
-        </div>
-           <!-- 검색 -->
-                     
-                     
-                     
-                     <br>
-                     <br>
-                      <nav aria-label="...">
+                        <br><br>
+                               <nav aria-label="...">
                <ul class="pagination justify-content-center">
 					
                   <c:if test="${pageMaker.prev}">
@@ -227,29 +217,18 @@ font-weight:  400;
                </ul>
             </nav>
          
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
-                     
                                
                 </main>
+
             </div>
         </div>
+           <!-- 검색 -->
+                     
+   
+                     
+                               
+            
+       
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
         

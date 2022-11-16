@@ -421,8 +421,6 @@ function ReplyUpdateView() {
 
 			
 			<!-- QnA 게시판-->
-
-
 	      <div class="container-fluid"
          style="background-color: white; height:auto; width: 1100px;">
          
@@ -496,7 +494,7 @@ function ReplyUpdateView() {
                                 
                                
                                
-                          <a href='/report?board_idx=${dto.board_idx }' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+                          <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
                            </div>
                            
                         </td>
@@ -507,12 +505,6 @@ function ReplyUpdateView() {
             </form>
 
 
-						
-
-						
-						
-						
-						
 						
             <!--  답변하는 ui 숨기는 버튼-->
 			
@@ -733,16 +725,6 @@ function ReplyUpdateView() {
 
 
 
-
-
-
-
-
-
-
-
-
-
          </div> 
       </div><!-- 젤위 div 마감표 -->
 </c:when>		
@@ -781,7 +763,6 @@ function ReplyUpdateView() {
                <input type="hidden" name="page" value="${page}"> 
                <input type="hidden" name="searchType" value="${scri.searchType}">
                <input type="hidden" name="keyword" value="${scri.keyword }">
-
                <table class="table" style="width: 1000px;">
                   <thead
                      style="width: 800px; border-top: 2px solid black; border-bottom: 0px; margin-left: auto; margin-right: auto;">
@@ -835,7 +816,7 @@ function ReplyUpdateView() {
                               
                               
                               <a href="/board?bgnopage=${scri.bgnopage}&board_idx=${dto.board_idx }&page=${page }&searchType=${scri.searchType }&keyword=${scri.keyword }"><input type="button" class="btn btn-outline-primary" value="목록보기"></a>
-                             <a href='/report?board_idx=${dto.board_idx }' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+                             <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
 
                            </div>
                         </td>
@@ -1030,7 +1011,7 @@ function ReplyUpdateView() {
                               <a href="deleteAction?board_idx=${dto.board_idx }&board_name=${dto.board_name}"><input type="button" value="삭제하기" class="btn btn-outline-danger"></a>&nbsp;&nbsp;
 							</c:if>
                             
-                              <a href='/report?board_idx=${dto.board_idx }' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+                              <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
 
                            </div>
                         </td>
