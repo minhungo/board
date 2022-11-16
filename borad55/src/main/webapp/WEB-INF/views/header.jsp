@@ -280,11 +280,10 @@ crossorigin="anonymous">
 		</div>
 	</div>
 	
-	
-	
-<script type="text/javascript" src="${path}/resources/js/js.js"></script>
 
+<script type="text/javascript" src="${path}/resources/js/js.js"></script>
 <c:if test="${!empty profile.signup_id}">
+    <c:if test="${profile.signup_id ne 'admin'}">
     <script>
         $(function (){
             var select_usercoin = "${profile.signup_id}";
@@ -307,6 +306,8 @@ crossorigin="anonymous">
 
         });
     </script>
+    </c:if>
+
 </c:if>
 <c:if test="${empty profile.signup_id}">
     <script>
