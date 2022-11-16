@@ -45,6 +45,10 @@ th, td {
 td {
    font-weight: 400;
 }
+  .container{
+    width: 100%;
+  }
+
   .swiper {
     width: 100%;
     height: 500px;
@@ -72,8 +76,7 @@ td {
 
   .swiper-slide img {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 90%;
     object-fit: cover;
   }
 </style>
@@ -85,16 +88,18 @@ td {
 
    <c:import url="header.jsp" />
 
-    <div class="swiper mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
-            <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
-            <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
-            <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
-          </div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
+    <div class = "container">
+        <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+        </div>
     </div>
 
 
@@ -471,12 +476,12 @@ td {
 <!-- 젤 큰 컨테이너 끝 -->
 
 
-      <div class="container "
-         style="background-color: geen; width: 200px; height: 1300px;">
-         <a href="https://sesac.seoul.kr/common/greeting.do"><img src="resources/image/ccccc.jpg" width="190px"
-            height="800px" style="margin-top: 70px;"></a>
-
+      <div class="container "style="background-color: geen; width: 200px; height: 1300px;">
+         <a href="https://sesac.seoul.kr/common/greeting.do">
+            <img src="resources/image/ccccc.jpg" width="190px" height="800px" style="margin-top: 70px;">
+         </a>
       </div>
+
    </div>
 
 
@@ -533,7 +538,7 @@ td {
            spaceBetween: 30,
            centeredSlides: true,
            autoplay: {
-             delay: 2500,
+             delay: 5000,
              disableOnInteraction: false,
            },
            pagination: {
