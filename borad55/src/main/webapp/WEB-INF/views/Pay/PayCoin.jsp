@@ -220,17 +220,17 @@
                     </td>
 
                     <td>
-                        <input type="radio" class="btn-check" id="success-outlined9" name="options-outlined" autocomplete="off" value="50000">
+                        <input type="radio" class="btn-check" id="success-outlined9" name="options-outlined" autocomplete="off" value="45000">
                         <label class="btn btn-outline-success" for="success-outlined9"><span>45,000원</span></label>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3" style="text-align: center;">
-                        <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="35000">
+                        <input type="radio" class="btn-check" id="success-outlined10" name="options-outlined" autocomplete="off" value="50000">
                         <label class="btn btn-outline-success" for="success-outlined10" style="margin-right: 60px;"><span>50,000원</span></label>
 
-                        <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="40000">
+                        <input type="radio" class="btn-check" id="success-outlined11" name="options-outlined" autocomplete="off" value="100000">
                         <label class="btn btn-outline-success" for="success-outlined11"><span>100,000원</span></label>
                     </td>
 
