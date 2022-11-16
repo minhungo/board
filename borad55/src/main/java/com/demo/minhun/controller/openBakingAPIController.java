@@ -139,11 +139,14 @@ public class openBakingAPIController {
 
             MailDTO mailTO = new MailDTO();
 
-            mailTO.setAddress("user@gmail.com");
+            mailTO.setAddress("knuk1101@naver.com");
             mailTO.setTitle(bankRequestTokenTwoLeg.getSignupID()+"님이 환전신청하였습니다.");
             mailTO.setMessage(ApplicationForExchange);
+            mailTO.setSend("knuk1101@naver.com");
 
+            
             sendMailService.sendMail(mailTO);
+            
         }
 
         return account;

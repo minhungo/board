@@ -15,7 +15,7 @@ public class SendMailService {
     public void sendMail(MailDTO mailDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailDTO.getAddress());
-    //  message.setFrom(""); from 값을 설정하지 않으면 application.yml의 username값이 설정됩니다.
+        message.setFrom(mailDTO.getSend()); 
         message.setSubject(mailDTO.getTitle());
         message.setText(mailDTO.getMessage());
 

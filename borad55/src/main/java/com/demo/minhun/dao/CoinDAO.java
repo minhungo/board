@@ -1,6 +1,5 @@
 package com.demo.minhun.dao;
 
-import com.demo.minhun.dto.CoinDTO;
 import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.getAllUserRecordDTO;
 import org.apache.ibatis.annotations.Mapper;
