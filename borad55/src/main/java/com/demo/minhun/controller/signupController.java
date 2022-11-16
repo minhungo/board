@@ -26,7 +26,10 @@ public class signupController {
 	@Autowired
 	CoinDAO coinDAO;
 	
-	
+	@GetMapping("/signup")
+	public String signup(){
+		return "signup";
+	}
 	
 	@GetMapping("/IDFind")
 	public String IDFind() {

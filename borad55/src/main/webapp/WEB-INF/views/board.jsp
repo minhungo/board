@@ -120,7 +120,7 @@ font-weight:  400;
 <!--  채팅 기능 폼 영역 -->
 <div class="container-fluid row" style="background-color:skyblu; height:1300px; margin:auto;">
 <div class="container" style="background-color:white; width:300px; height:800px; margin-top:70px; ">
-         <img src="resources/image/iphone.png" width="500" height="550">
+         <img src="resources/image/banner2.png" width="500" height="900">
 
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px;">  
       <div class="container row" style="background-color: white; padding: 0px">
