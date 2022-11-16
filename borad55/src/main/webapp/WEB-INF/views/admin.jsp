@@ -258,10 +258,6 @@ font-weight:  400;
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
-        <script src="${path}/resources/assets/demo/chart-bar-demo.js"></script>
-
-        <script>
-            var today = new Date();
-        </script>
+        <script src="${path}/resources/assets/demo/admin_chart.js"></script>
     </body>
 </html>

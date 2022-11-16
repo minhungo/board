@@ -213,8 +213,8 @@ where signup_id=#{param6}
         where
             signup_id not in ('admin')
         and
-            SIGNUP_DATE between TO_DATE('2022-09', 'YYYY-MM')
-                            AND TO_DATE('2023-01', 'YYYY-MM')
+            SIGNUP_DATE between (select to_char(add_months(sysdate,-2),'yyyy-mm-dd') from dual)
+                            AND sysdate
         GROUP BY
             TO_CHAR(SIGNUP_DATE, 'YYYY-MM'), SIGNUP_DATA
         order by
