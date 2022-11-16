@@ -88,6 +88,30 @@ public class Mycontoller {
 		return "userInformation2";
 	}
 	
+	@GetMapping("/PWFind")
+	public String PWFind() {
+		return "PWFind";
+	}
+	
+	@GetMapping("/PWFind2")
+	public String PWFind2() {
+		return "PWFind2";
+	}
+	
+	@GetMapping("/PWFind3")
+	public String PWFind3() {
+		return "PWFind3";
+	}
+	
+	@GetMapping("/IDFind")
+	public String IDFind() {
+		return "IDFind";
+	}
+	
+	@GetMapping("/IDFind2")
+	public String IDFind2() {
+		return "IDFind2";
+	}
 
 	
 	@RequestMapping("/")
@@ -110,8 +134,6 @@ public class Mycontoller {
 	         
 	         return "main2";
 	   }
-	
-	
 	
 	
 	
@@ -808,8 +830,8 @@ public class Mycontoller {
 		 try { 
 		 
 		 signupDTO originimg = sigupDAO.origin_img_return(signup_id);
-		 	
-		 	File delfile = new File("C:\\workspace-sts-3.9.11.RELEASE\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  originimg.getSignup_profle_img());
+		 
+		 	File delfile = new File("C:\\Users\\pc\\OneDrive\\바탕 화면\\borad55\\board\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  originimg.getSignup_profle_img());
 		 	
 		 	if(delfile.exists() && !originimg.getSignup_profle_img().equals("human1.png")) {
 		 		delfile.delete(); 

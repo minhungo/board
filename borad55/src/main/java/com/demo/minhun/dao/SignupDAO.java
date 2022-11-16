@@ -71,6 +71,18 @@ public interface SignupDAO {
 
 	// 가입 경로 통계 가져오기
 	public List<getSignupDataDTO> getSingupData();
+
+
+	// 이메일 , 이름 매칭 유효성 검사
+	public signupDTO email_and_name(String input_id);
+	
+	// 비밀번호 변경
+	public int PwChange(String pw1,String pw2,String id);
+	
+	// 아이디 찾기
+	public signupDTO IDSearch(String name,String email);
+	
+	
 	
 	
 	

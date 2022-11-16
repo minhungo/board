@@ -5,18 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-<script src="https://kit.fontawesome.com/53a8c415f1.js"
-	crossorigin="anonymous"></script>
-<link href="${path}/resources/css/spcss.css" rel="stylesheet"/> 	
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <style>
-
-
 body {
 	min-height: 100vh;
 	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db),
@@ -28,7 +26,6 @@ body {
 	background-image: url('resources/image/kkk2.png');
 	background-size: 2000px 950px;
 }
-
 
 * {
 	margin: 0;
@@ -115,34 +112,58 @@ li {
 <body>
 
 
-<form action="log_action" method="post">
 	<div class="wrap">
 		<div class="login">
-			<h2 class="log_in_logo"><b>로그인</b></h2>
+            <h2 class="log_in_logo"><b>비밀번호 찾기</b></h2>
 
 				<div class="login_id">
-				<h4><b>ID</b></h4>
-				<input type="text" name="login_id"  placeholder="ID를 입력하세요">
-				</div>
-			
-				<div class="login_pw">
-				<h4><b>Password</b></h4>
-				<input type="password" name="login_pw"  placeholder="비밀번호를 입력하세요">
-				</div>
-				  
-                <br>
-                <a href="IDFind">아이디를 잊으셨나요?</a>   
-                <a href="PWFind">비밀번호를 잊으셨나요?</a>   
-				<div class="login_etc">
-				
-			</div>
-			<div><button class="btn btn-primary btn-lg btn-block" type="submit">로그인</button>
-			<a href="signup"><button class="btn btn-primary btn-lg btn-block" type="button">회원가입</button></a></div>
+				<h4><b>비밀번호를 찾기</b></h4>
+                <hr>
+                <font>비밀번호를 찾고자 하는 아이디를 입력해 주세요.</font>
+                
+                <input type="text" name="login_id" id="input_id" placeholder="ID를 입력하세요">
+                <div>
+                  <br>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="button" id="email_auth_btn" name="email_auth_btn">다음</button>
+    		</div>
+      
 		</div>
 	</div>
-</form>
 	
+  
+<!-- 아이디 확인 함수,ajax -->  
+<script type="text/javascript">
+
 	
+	$('#email_auth_btn').click(function(){
+		
+		let aa = $('#input_id').val();
+	   	 
+	   	 if(aa == ''){
+	   	 	alert("ID를 입력해주세요.");
+	   	 	return false;
+	   	 }
+	   	 
+	   	$.ajax({
+			url : "/idcheck",
+			type : "post",
+			data : {aa: aa},
+			dataType : 'json',
+			success : function(result){
+				if(result == 1){
+					location.href="/PWFind2";
+				}else{
+					alert("입력하신 ID를 찾을 수 없습니다.")
+				} 
+			},
+			error : function(){
+				alert("서버요청실패");
+			}
+		});
+	});	 
+		
+</script>
 	
 	
 	
