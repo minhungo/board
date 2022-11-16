@@ -127,12 +127,6 @@ $(document).ready(function() {
                     }
                 }
             });
-            console.log(SingupDataArray3);
-            console.log(SingupDataArray2);
-            console.log(SingupDataArray1);
-            console.log(SingupDatalegendArray1);
-            console.log(SingupDatalegendArray2);
-            console.log(SingupDatalegendArray3);
             barChart();
 
          },
@@ -156,22 +150,24 @@ function polarAreaChart(){
         }]
     };
 
-    var config = {
-        type: 'polarArea',
-        data: data,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            }
-          }
-        },
+    var polarAreaoptions = {
+    		responsive: true,
+    		legend : {
+    			display: true
+    		},
+    		title: {
+    			display: true,
+    			text: '사이트 이용자 코인 충전 통계',
+    			fontSize: 17,
+    			fontColor: 'rgba(46, 49, 49, 1)'
+    		},
+    		animation: false,
     };
 
     var myBarChart = new Chart(ctx,{
                      	type: 'polarArea',
-                     	data: data
+                     	data: data,
+                        options: polarAreaoptions
                      });
 }//line chart
 
