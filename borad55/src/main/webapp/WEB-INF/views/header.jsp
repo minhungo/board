@@ -97,6 +97,11 @@ crossorigin="anonymous">
       
       
       
+      
+       <a href='/userInformation3' onclick="window.open(this.href,'board','width=340, height=390,top=100,left=500');return false;">
+       <button class="btn btn-primary" style="display:inline-block; width:80px; 
+      height:30px; border:0px solid white; border-radius:20px; 
+      background-color:#c1c1c1; font-size:11px; position:absolute; right:243px; top:60px;">프로필변경</button></a>
         
         
         

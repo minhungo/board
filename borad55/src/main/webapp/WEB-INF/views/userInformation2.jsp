@@ -139,6 +139,17 @@ function Update_User() {
 		btn1.style.display = 'block';
 		btn2.style.display = 'none';
 	}
+	
+		
+		if(name_id2 == ''){
+		  	 	alert("수정할 닉네임을 입력하세요.");
+		  	 	return false;
+		  	 }
+		  	 
+		  	 if(email_id2 == ''){
+		  	 	alert("수정할 이메일을 입력하세요.");
+		  	 	return false;
+		  	 }
 }
 </script>
 
@@ -162,6 +173,12 @@ function Update_User() {
          style="aligin:bottom; border: none; background: transparent; margin-top:155px; color:#FFFFFF; 
          font-size:20px; width:160px;  font-weight: 800;">&nbsp;
          <img src="resources/img/${profile.signup_profle_img}" width="100" height="100" style="margin-top:50px; color:white;">
+
+        <label for="file" style="position: absolute; top: 210px; right:160px;" >
+          <a href="userInformation3"><div class="btn btn-outline-primary">프로필 업로드</div></a>
+        </label>
+        
+        
         
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          
@@ -182,7 +199,7 @@ function Update_User() {
          
           <tr>
             <th style="background-color: #84C3CC;">비밀번호</th>
-            <td id="name_pw1" type="password"></td>
+            <td id="name_pw1" type="password">*****</td>
             <td id="name_pw2" style="display: none;">
             <input type="password" name="input_pw" placeholder="${profile.signup_pw }"></td>
          </tr>

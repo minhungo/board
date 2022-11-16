@@ -161,7 +161,6 @@ public class adminController {
      
      
      
-    // ȸ������ ���� ����
  	@RequestMapping(value = "/userInformation", method = RequestMethod.GET)
  	public String userInformation(@RequestParam("signup_num") String signup_num, Model model,
  			HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") String page,

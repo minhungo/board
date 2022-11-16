@@ -124,6 +124,7 @@ public class RestController {
 		
 		
 		signupDTO input_id =  (signupDTO)session.getAttribute("input_id");
+		
 		String setFrom = "knuk1101@naver.com";
         String toMail = email;
         String title = "비밀번호 찾기 인증 이메일 입니다.";
@@ -135,6 +136,11 @@ public class RestController {
                 "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
         
         try {
+        	
+        	System.out.println(input_id.getSignup_email()+"@@@@@@@@@@@@@@@@@@@@@@@");
+        	System.out.println(input_id.getSignup_name()+"@@@@@@@@@@@@@@@@@@@@@@@");
+        	System.out.println(email);
+        	System.out.println(name);
         	
         	if(input_id.getSignup_email().equals(email) && input_id.getSignup_name().equals(name)) {
         		 MimeMessage message = mailSender.createMimeMessage();

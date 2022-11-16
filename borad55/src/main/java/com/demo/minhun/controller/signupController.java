@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.demo.minhun.dao.SignupDAO;
 import com.demo.minhun.dto.signupDTO;
 
-//ȸ������ ��Ʈ�ѷ�
 @Controller
 public class signupController {
 
@@ -29,9 +28,30 @@ public class signupController {
 	
 	
 	
-	@GetMapping("/signup")
-	public String t1() {
-		return "signup";
+	@GetMapping("/IDFind")
+	public String IDFind() {
+		return "IDFind";
+	}
+	
+	@GetMapping("/IDFind2")
+	public String IDFind2() {
+		return "IDFind2";
+	}
+	
+	
+	
+	
+	@GetMapping("/PWFind")
+	public String PWFind() {
+		return "PWFind";
+	}
+	@GetMapping("/PWFind2")
+	public String PWFind2() {
+		return "PWFind2";
+	}
+	@GetMapping("/PWFind3")
+	public String PWFind3() {
+		return "PWFind3";
 	}
 	
 	
@@ -62,12 +82,11 @@ public class signupController {
 			cnrDTO.setPayMerchantUid("회원가입 축하선물");
 			cnrDTO.setPossibleRefund(4l);
 			coinDAO.ChargeCoin(cnrDTO);
-			return "<script>alert('ȸ������ ����!!'); location.href='/board'; </script>";
+			return "<script>alert('회원가입 성공!!'); location.href='/board'; </script>";
 
 		} else {
 
-			System.out.println("ȸ������ ����!");
-			return "<script>alert('ȸ������ ����!'); location.href='/signup'; </script>";
+			return "<script>alert('회원가입 실패!'); location.href='/signup'; </script>";
 
 		}
 

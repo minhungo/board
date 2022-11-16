@@ -45,8 +45,7 @@ public class replyController {
 	
 	
 	
-          // ��� ���� ��
-		@RequestMapping("/writeReplyAction") // ��� ����
+		@RequestMapping("/writeReplyAction") 
 		@ResponseBody
 		public String writeReplyAction(
 				@RequestParam("reply_content") String reply_content,
@@ -84,8 +83,7 @@ public class replyController {
 		
 		
 		
-		//��ۻ���
-		@RequestMapping("/deleteReplyAction") // ��ۻ���
+		@RequestMapping("/deleteReplyAction") 
 		@ResponseBody
 		public String deleteReplyAction(
 				@RequestParam("reply_idx") String reply_idx,
@@ -93,10 +91,9 @@ public class replyController {
 				HttpServletRequest sr,
 				HttpSession session) {
 			
-			//������ �α������� �ƴ��� üũ
 			Object usercheck = session.getAttribute("profile");
 		      if(usercheck==null) {
-		         return "<script>alert('�α��� �� �̿��ϼ���'); location.href='/signin'; </script>";
+		         return "<script>alert('로그인 후 이용하세요'); location.href='/signin'; </script>";
 		      }
 			
 			int result = IReplyDAO.reply_deleteDTO(reply_idx);
@@ -107,7 +104,7 @@ public class replyController {
 				return "<script> location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 				
 			} else {
-				return "<script>alert('��� ���� ����'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+				return "<script>location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 			}
 		}
 		

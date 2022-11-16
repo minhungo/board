@@ -231,7 +231,7 @@
             alert('환전할 코인의 갯수는 0개보다 많아야합니다.');
             $('#changeCoin').focus();
             return false;
-        }
+        }	
 
         if(bankName == ''){
             alert("은행을 선택해주세요.");
@@ -249,7 +249,6 @@
             alert("주민등록번호 앞 6자리를 입력해주세요.");
             return false;
         }
-
 
         $.ajax({
             url : "/callback",
@@ -287,6 +286,7 @@
             }
         }); // end ajax
     });
+    
     $('#cancel').click(function () {
         window.close();
     });

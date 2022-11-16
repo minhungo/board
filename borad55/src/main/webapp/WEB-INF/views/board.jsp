@@ -341,17 +341,16 @@ font-weight:  400;
 
 
 <!--  채팅 프로필 창 영역 -->
-	    <form action="imgloadaction" method="post" enctype="multipart/form-data">
-                
+<form action="imgloadaction" method="post" enctype="multipart/form-data">
+
        <input type="hidden" name="signup_id" id="signup_id" value="${profile.signup_id}">
 
 
       <div class="board_profile" style="text-align:center;">
       <div class="board_profile_chat border" style="max-width: 400px; max-height: 600px; background-color:#ffffff;">
-             <div class="container" style="background-color:white; text-align:right;" >
-             <i class="fa-solid fa-xmark" onclick="settingMenuToggle2()"></i>
-             </div>
-             
+      <div class="container" style="background-color:white; text-align:right;" >
+      <i class="fa-solid fa-xmark" onclick="settingMenuToggle2()"></i>
+      </div>
              
              <div class="container" style="text-align: center; margin: auto;" id=hoho>
                     <i class="fa-solid fa-xmark-large"></i>
@@ -372,7 +371,7 @@ font-weight:  400;
         </div>
          </div>
       </div>
-        </form>
+</form>
   
 
 	

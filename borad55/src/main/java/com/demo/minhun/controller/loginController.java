@@ -90,7 +90,7 @@ public class loginController {
              
              user.setUserLogin(true);
           
-             session.setMaxInactiveInterval(6000);
+             session.setMaxInactiveInterval(10000);
              session.setAttribute("profile", user);
              return "<script>let t = confirm(\"반갑습니다 관리자님!! 관리자 페이지로 이동하시겠습니까?\");" + 
                    "   if (t) {" + 

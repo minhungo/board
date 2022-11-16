@@ -40,10 +40,9 @@ public class logoutController {
 	
 	
 
-	   @RequestMapping("/logout_action")// �α׾ƿ� �׼�
+	   @RequestMapping("/logout_action")
 	   @ResponseBody
 	   public String signout(HttpSession session) {
-		  
 			
 			try {
 			  if (true == user.isUserLogin()) {
@@ -60,10 +59,10 @@ public class logoutController {
 			         //return "<script>alert('�α׾ƿ�!!'); location.href='/signin'; </script>";
 			         return "<script>location.href='/signin';</script>";
 			      }else {
-			         return "<script>alert('�α��� ���°� �ƴմϴ�.'); location.href='/signin'; </script>";
+			         return "<script> location.href='/main2'; </script>";
 			      }
 		} catch (Exception e) {
-			return "<script>alert('������ ����Ǿ����ϴ�.�ٽ� �α��� �ϼ���'); location.href='/signin'; </script>";
+			return "<script>alert('로그아웃!!'); location.href='/signin'; </script>";
 		}
 	
 	   }// logout_action

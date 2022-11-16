@@ -46,10 +46,13 @@ public class userController {
 	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
+	@GetMapping("userInformation3")
+	public String userInformation3() {
+	    return "userInformation3";
+	 }
 	
 	
 	 
-	 // ���� �Ű� â userReport
 	 @RequestMapping(value = "/userReport", method = RequestMethod.GET)
     public String userReport() {
      System.out.println("�����Ű�â ȣ��");
@@ -58,12 +61,8 @@ public class userController {
 	 }
 
 	 
-	 
-	 
-	 
 	
 	 
-	 // ���� �Ű� ���
 	 @RequestMapping(value = "/userReportaction", method = RequestMethod.POST)
 	 @ResponseBody
 	    public String userReportaction(@RequestParam("user_reportcheck") String user_reportcheck,
@@ -84,8 +83,7 @@ public class userController {
 	 
 	 
 	   
-	 //���� ������ ����
-		@RequestMapping(value = "/imgloadaction", method = RequestMethod.POST)
+		 @RequestMapping(value = "/imgloadaction", method = RequestMethod.POST)
 		 @ResponseBody
 		 public String imgloadaction (
 				String signup_id,
@@ -102,10 +100,7 @@ public class userController {
 			 	
 			 	if(delfile.exists() && !originimg.getSignup_profle_img().equals("human1.png")) {
 			 		delfile.delete(); 
-		            System.out.println("������ �����Ͽ����ϴ�.");
-		        } else {
-		            System.out.println("������ �������� �ʽ��ϴ�.");
-		        }
+		        } 
 			 
 			 
 			 	String memberImg = fileUtil.updateImg(mpRequest); 
@@ -124,30 +119,28 @@ public class userController {
 				 		
 				 		session.setAttribute("profile", user);
 				 		
-				 		// �� �Խ���, ��ۿ� id ���� ���ؼ� �ٲ� �����ʷ� ���ε�
 				 		IBoardDAO.board_profle_update(memberImg, signup_id);
 				 		IReplyDAO.reply_profle_update(memberImg, signup_id);
 				 		
 				 		System.out.println("memberImg : " + memberImg);
 				 		System.out.println("signup_id : " + signup_id);
 				 		
-				 		return "<script>alert('������ ���� ����!'); location.href='/board'; </script>";
+				 		return "<script>alert('이미지 변경 완료!'); window.close(); </script>";
 				 		
 				 	}else if(user.getSignup_profle_img()==null){	
-				 		return "<script>alert('÷�������� ����ֽ��ϴ�.'); location.href='/board'; </script>";
+				 		return "<script>alert('파일이 비어있습니다!'); location.href='/board'; </script>";
 				 	}
 				 	
 				} catch (Exception e) {
 					e.printStackTrace();
-					return "<script>alert('�α��� ������ ����Ǿ��ų� ������ ����ֽ��ϴ�.'); location.href='/board'; </script>";
+					return "<script>alert('파일이 비어있거나 세션이 만료되었습니다!'); location.href='/board'; </script>";
 				}
-			 return "<script>alert('�α��� ������ ����Ǿ��ų� ������ ����ֽ��ϴ�.'); location.href='/board'; </script>";
+			 return "<script>alert('파일이 비어있거나 세션이 만료되었습니다!'); location.href='/board'; </script>";
 		 }
 		
 		
 	
 		
-		//���� �ڱ����� ���� ��Ʈ�ѷ�
 		@RequestMapping("/MyPage_UpDate")
 	  	@ResponseBody
 	     public String MyPage_UpDate (
@@ -165,10 +158,11 @@ public class userController {
 	  		
 	  		session.setAttribute("profile", user);
 	  	
-	  		return "<script>alert('���������Ϸ�'); window.close();</script>";
+	  		return "<script>alert('수정완료!'); window.close();</script>";
 	    }
 	 
-		//����Ʈ �  (���� ��ȭ��ȣ)
+		
+		
 		@RequestMapping("/contact2")
 		public String contact2() {
 			return "contact2";
@@ -176,7 +170,7 @@ public class userController {
 		
 		
 		
-		//���� ����������
+		
 		@GetMapping("/userInformation2")
 		public String userInformation2() {
 			return "userInformation2";

@@ -125,81 +125,8 @@ li {
         <div>
             <a href="signin">● ${IDSearch.signup_id }</a> 
         </div>
-                    
-               
-               
-           
-                
-                
-      
 		</div>
 	</div>
-	
-  
-<!-- 이메일 인증 함수,ajax -->  
-<script type="text/javascript">
-	
-	$('#email_auth_btn').click(function(){	     	 
-   	 
-		userEmail = '${input_id.signup_email }'; // 나중에 마스킹
-		var email = $('#email').val();
-		var name = $('#name').val();
-		
-	if(name == ''){
-	 	alert("이름을 입력해주세요.");
-  		return false;
-	 }	
-		
-		
-   	 if(email == ''){
-   	 	alert("이메일을 입력해주세요.");
-   	 	return false;
-   	 }
-   	 
-   	 $.ajax({
-			type : "POST",
-			url : "/emailAuth",
-			data : {email : email, name : name},
-			success: function(data){
-			
-			if(data==0){
-				alert("메일 발송에 실패했습니다. 이름과 이메일을 확인하세요");
-			}else{
-				alert("인증번호가 메일로 발송되었습니다. 인증번호를 확인 후 입력란에 적어주세요");
-				email_auth_cd = data;
-				$("#code").css('display','block');
-			}
-			
-			},
-			error: function(data){
-				alert("메일 발송에 실패했습니다.");
-			}
-		}); 
-	});
-	
-	
-	$('#next').click(function(){
-		
-		var email_auth_key = $('#email_auth_key').val();
-		
-		if(email_auth_key==''){
-			alert("인증번호를 입력해주세요!")
-		}
-		
-		if(email_auth_key != email_auth_cd){
-			alert("인증번호가 올바르지 않습니다. 확인 후 다시 입력해 주세요.")
-		}else{
-			location.href="/PWFind3";
-		}
-	});
-	
-	
-	
-	
-	
-	
-</script>
-	
 	
 	
 </body>
