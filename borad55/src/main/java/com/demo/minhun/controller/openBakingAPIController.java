@@ -4,11 +4,9 @@ import com.demo.minhun.dao.CoinDAO;
 import com.demo.minhun.dto.ChargeNRefundDTO;
 import com.demo.minhun.dto.openbank.*;
 import com.demo.minhun.service.OpenBankService;
+import com.demo.minhun.service.SendMailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +23,9 @@ public class openBakingAPIController {
 
     @Autowired
     CoinDAO coinDAO;
+
+    @Autowired
+    private SendMailService sendMailService;
 
     private final HttpSession session;
 
@@ -97,20 +98,20 @@ public class openBakingAPIController {
         }
         String Code = useCode + "U" + num;
 
-        checkMyAccountRequestDTO cmarDTO = new checkMyAccountRequestDTO();
-        cmarDTO.setAccess_token(token.getAccess_token());
-        cmarDTO.setBank_tran_id(Code);
-        cmarDTO.setBank_code_std("097"); // 오픈뱅크 코드는 097
-        cmarDTO.setAccount_num(bankRequestTokenTwoLeg.getAccount_num());
-        cmarDTO.setAccount_holder_info_type(bankRequestTokenTwoLeg.getAccount_holder_info_type());
-        cmarDTO.setAccount_holder_info(bankRequestTokenTwoLeg.getAccount_holder_info());
+        checkMyAccountRequestDTO checkMyAccountRequestDTO = new checkMyAccountRequestDTO();
+        checkMyAccountRequestDTO.setAccess_token(token.getAccess_token());
+        checkMyAccountRequestDTO.setBank_tran_id(Code);
+        checkMyAccountRequestDTO.setBank_code_std("097"); // 오픈뱅크 코드는 097
+        checkMyAccountRequestDTO.setAccount_num(bankRequestTokenTwoLeg.getAccount_num());
+        checkMyAccountRequestDTO.setAccount_holder_info_type(bankRequestTokenTwoLeg.getAccount_holder_info_type());
+        checkMyAccountRequestDTO.setAccount_holder_info(bankRequestTokenTwoLeg.getAccount_holder_info());
 
         Date today = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String now = simpleDateFormat.format(today);
-        cmarDTO.setTran_dtime(now);
+        checkMyAccountRequestDTO.setTran_dtime(now);
 
-        checkMyAccountResponseDTO account = openBankService.checkMyAccount(cmarDTO);
+        checkMyAccountResponseDTO account = openBankService.checkMyAccount(checkMyAccountRequestDTO);
         if(
                 (account.getAccount_holder_info().equals(bankRequestTokenTwoLeg.getAccount_holder_info()))
                 &&(account.getAccount_holder_name().equals(bankRequestTokenTwoLeg.getAccount_name()))
@@ -118,18 +119,31 @@ public class openBakingAPIController {
                 &&(account.getBank_name().equals(bankRequestTokenTwoLeg.getBank_name()))
         ){
             // 환전 신청한 기록 coin 테이블에 입력
-            ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
-            cnrDTO.setPossibleRefund(9l); // 환전
-            cnrDTO.setPayAmount(-Long.parseLong(bankRequestTokenTwoLeg.getCoinAmount()));
-            cnrDTO.setSignupId(bankRequestTokenTwoLeg.getSignupID());
-            cnrDTO.setPayImpUid("환전신청");
+            ChargeNRefundDTO chargeNRefundDTO = new ChargeNRefundDTO();
+            chargeNRefundDTO.setPossibleRefund(9l); // 환전
+
+            Long coin = -Long.parseLong(bankRequestTokenTwoLeg.getCoinAmount());
+            chargeNRefundDTO.setPayAmount(coin * 100l);
+
+            chargeNRefundDTO.setSignupId(bankRequestTokenTwoLeg.getSignupID());
+            chargeNRefundDTO.setPayImpUid("환전신청");
             LocalDateTime localDateTime = LocalDateTime.now();
-            cnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
-            System.out.println(cnrDTO);
-            //coinDAO.ChargeCoin(cnrDTO);
+            chargeNRefundDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
+            coinDAO.ChargeCoin(chargeNRefundDTO);
             
             // email로 내용 받기
-            
+            String ApplicationForExchange = "";
+            ApplicationForExchange += "환전신청코인 : " + bankRequestTokenTwoLeg.getCoinAmount();
+            ApplicationForExchange += "\n입금은행 : " + bankRequestTokenTwoLeg.getBank_name();
+            ApplicationForExchange += "\n입금계좌번호 : " + bankRequestTokenTwoLeg.getAccount_num();
+
+            MailDTO mailTO = new MailDTO();
+
+            mailTO.setAddress("user@gmail.com");
+            mailTO.setTitle(bankRequestTokenTwoLeg.getSignupID()+"님이 환전신청하였습니다.");
+            mailTO.setMessage(ApplicationForExchange);
+
+            sendMailService.sendMail(mailTO);
         }
 
         return account;

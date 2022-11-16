@@ -128,6 +128,11 @@
         border-radius: 10px;
         box-shadow: inset 0px 0px 5px white;
       }
+
+    .pstyle1 {
+        color: #ac2925;
+        margin: 30px 0 30px 10px;
+    }
     </style>
 
 
@@ -135,38 +140,48 @@
 <body>
      <div class="card-body bg-white mt-0 shadow">
         <h2>코인환전</h2>
-        <p style="color: #ac2925; margin-top: 30px">코인 1개당 100원이며 환전시 수수료 10%를 제외한 금액을 환전합니다</p>
+        <div class="pstyle1">
+            <p>코인 1개당 100원이며 환전시 수수료 10%를 제외한 금액을 환전합니다.</p>
+            <p>회원가입 선물로 받으신 코인 100개는 환전할 수 없습니다.</p>
+        </div>
+
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col"><h4><b><i>현재 소지한 코인</i></b></h4></th>
-                    <th><h4><b><i>${curCoin} </i> 개</b></h4></th>
+                    <th scope="col"><h4><b><i>현재 환전가능한 코인</i></b></h4></th>
+                    <th><h4><b><i>${curCoin} </i> Coin</b></h4></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
                     <th scope="row">환전할 코인</th>
-                    <td><input type="number" min="0" max="${curCoin}" id="changeCoin"/> 개</td>
+                    <td><input type="number" min="0" max="${curCoin}" id="changeCoin" placeholder="0"/> Coin</td>
                 </tr>
                 <tr>
                     <th scope="row">입금 은행</th>
-                    <td><select name="bank_name" id="bank_name">
-                                     <option value="">선택</option>
-                                     <option value="오픈은행">오픈은행</option>
-                                   </select></td>
+                    <td>
+                        <select name="bank_name" id="bank_name">
+                             <option value="">선택</option>
+                             <option value="오픈은행">오픈은행</option>
+                             <option value="오픈은행">금결원api는</option>
+                             <option value="오픈은행">테스트할때</option>
+                             <option value="오픈은행">오픈은행만</option>
+                             <option value="오픈은행">지원합니다</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">입금계좌번호</th>
-                    <td><input type="number" id="account_num"/></td>
+                    <td><input type="number" id="account_num" placeholder="'-'를 제외하고 입력해주세요."/></td>
                 </tr>
                 <tr>
                     <th scope="row">성명</th>
-                    <td><input type="text" id="account_name"/></td>
+                    <td><input type="text" id="account_name" placeholder="홍길동"/></td>
                 </tr>
                 <tr>
-                    <th scope="row">주민등록번호 앞6자리</th>
-                    <td><input type="number" id="account_holder_info"/></td>
+                    <th scope="row">주민등록번호 앞 6자리</th>
+                    <td><input type="number" id="account_holder_info" placeholder="880101"/></td>
                 </tr>
                 <input type="hidden" id="scope" value="oob"/>
                 <input type="hidden" id="account_holder_info_type" value=" "/>

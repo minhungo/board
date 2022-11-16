@@ -14,9 +14,6 @@ function refund(item) {
             const impUid = result.response.impUid;
             const amount = result.response.amount;
             const nine = result.response.amount * 0.9;
-            console.log(impUid);
-            console.log(amount);
-            console.log(nine);
             $.ajax({
                 url : '/cancelIamport',
                 type : 'POST',
@@ -29,7 +26,8 @@ function refund(item) {
                     checksum: amount, // [권장] 환불 가능 금액 입력
                 }),
                 success : function(res){
-                    console.log(res);
+                    alert("환불처리 되었습니다.");
+                    window.opener.location.href = window.opener.document.URL;
                     window.close();
                 },
                 error : function() {
@@ -47,8 +45,15 @@ function refund(item) {
 // 환불하기
 $('#refund').click(function () {
     var radioVal = $('input[name="refundImpUid"]:checked').val();
-    console.log(radioVal);
-    refund(radioVal);
+    if(radioVal == undefined){
+        alert("환불할 결제건을 지정해주세요. \n환불 가능한 결제건이 없다면 환불할 수 없습니다.");
+        return false;
+    }
+    if(confirm("해당 결제건을 환불하시겠습니까?")){
+        refund(radioVal);
+    }else{
+        return false;
+    }
 });
 
 $('#cancel').click(function () {

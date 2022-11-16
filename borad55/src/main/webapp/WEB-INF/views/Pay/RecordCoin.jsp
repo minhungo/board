@@ -139,58 +139,49 @@
 </head>
 <body>
      <div class="card-body bg-white mt-0 shadow">
-        <h2>코인환불</h2>
+        <h2>코인 충전 및 사용 기록</h2>
         <div id="pStyle1">
-            <p>결제 후 7일이 지난 주문은 환불이 불가합니다.</p>
-            <p>환불은 각각의 주문건마다 1건씩 처리됩니다.</p>
-            <p>환불시 전체금액 중 결제수수료 10%를 제외한 금액만 환불됩니다.</p>
         </div>
 
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col" colspan="3" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
+                    <th scope="col" colspan="2" style="text-align:center;"><h4><b><i>현재 소지한 코인</i></b></h4></th>
                     <th><h4><b><i>${curCoin}</i> Coin</b></h4></th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <th scope="row">결제일</th>
-                    <th>결제금액</th>
-                    <th>주문번호</th>
-                    <th>비 고</th>
+                    <th scope="row"> 기록일 </th>
+                    <th> 코 인 </th>
+                    <th> 비 고 </th>
                 </tr>
 
                 <c:forEach var="myRecord" items="${myRecord}">
-                <c:if test="${myRecord.possibleRefund ne 5 && myRecord.possibleRefund ne 9}">
                 <tr>
+
                     <td scope="row"><c:out value='${myRecord.localDateTimeToDate}'/></td>
+
                     <c:if test="${myRecord.possibleRefund eq 4}">
                         <td>100 Coin</td>
                     </c:if>
+
                     <c:if test="${myRecord.possibleRefund ne 4}">
-                        <td><c:out value='${myRecord.payAmount}'/> 원</td>
+                        <c:set var="coin" value="${myRecord.payAmount}"/>
+                        <c:set var="calCoin" value="${coin / 100}"/>
+                        <td><fmt:formatNumber type="number" maxFractionDigits="0"  value="${calCoin}" /> Coin</td>
                     </c:if>
-                    <td><c:out value='${myRecord.payMerchantUid}'/></td>
 
                     <c:if test="${myRecord.possibleRefund eq 0}">
-                        <td>환불완료</td>
+                        <td>환불한 코인</td>
                     </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 1}">
-                        <td><label><input type="radio" name="refundImpUid" value="${myRecord.payImpUid}"> 환불가능</label></td>
+
+                    <c:if test="${myRecord.possibleRefund ne 0}">
+                        <td><c:out value='${myRecord.payImpUid}'/></td>
                     </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 2}">
-                        <td>환불가능한 코인의 갯수가 부족합니다</td>
-                    </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 3}">
-                        <td>환불이 가능한 기간이 지났습니다</td>
-                    </c:if>
-                    <c:if test="${myRecord.possibleRefund eq 4}">
-                        <td>환불대상이 아닙니다</td>
-                    </c:if>
+
                 </tr>
-                </c:if>
                 </c:forEach>
 
             </tbody>

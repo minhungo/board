@@ -40,27 +40,29 @@ public class PayController {
     }
 
     @PostMapping("/cancelIamport")
-    public IamportResponse<Payment> cancelByImpUid(@RequestBody CancelDTO mydata) throws IamportResponseException, IOException {
+    public IamportResponse<Payment> cancelByImpUid(@RequestBody CancelDTO cancelDTO) throws IamportResponseException, IOException {
 
-        CancelData cancelData = new CancelData(mydata.getImp_uid(),mydata.isImpUid(),mydata.getAmount());
+        CancelData cancelData = new CancelData(cancelDTO.getImp_uid(),cancelDTO.isImpUid(),cancelDTO.getAmount());
 
         iamportClient = new IamportClient("1460706830363650","4oao8E1KszL9M6nNMEIHzvcq636SMGz41zVlv3JsmJrfdvHeZOuHVWH1QaMjKKyb7Yl9uTwrdYOUEqYZ");
 
-        // 환불 서비스 로직
-        ChargeNRefundDTO cnrCTO = new ChargeNRefundDTO();
-        cnrCTO.setPossibleRefund(0l);
-        cnrCTO.setPayAmount(0l);
-        cnrCTO.setPayImpUid(mydata.getImp_uid());
-        System.out.println(cnrCTO);
-        coinDAO.refundCoin(cnrCTO);
+        ChargeNRefundDTO chargeNRefundDTO = new ChargeNRefundDTO();
+        chargeNRefundDTO.setPossibleRefund(0l);
+        chargeNRefundDTO.setPayAmount(0l);
+        chargeNRefundDTO.setPayImpUid(cancelDTO.getImp_uid());
 
+        System.out.println(chargeNRefundDTO);
+        // 코인 테이블에 환불처리했다고 update
+        coinDAO.refundCoin(chargeNRefundDTO);
+        
+        // 아임포트 환불 처리
         return iamportClient.cancelPaymentByImpUid(cancelData);
     }
 
     // 로그인 후 소지한 코인 갯수 확인
     @PostMapping("/MyCoin")
-    public String getCurrentCoin(@RequestBody ChargeNRefundDTO CNRDTO){
-        int currentCoin = coinDAO.getMyCurrentCoinById(CNRDTO.getSignup_id());
+    public String getCurrentCoin(@RequestBody ChargeNRefundDTO chargeNRefundDTO){
+        int currentCoin = coinDAO.getMyCurrentCoinById(chargeNRefundDTO.getSignup_id());
         System.out.println(currentCoin);
         String MyCoin = String.valueOf(currentCoin/100);
         return MyCoin;
@@ -87,9 +89,9 @@ public class PayController {
     }
 
     @PostMapping("/getMyCoin")
-    public String getMyCoin(@RequestBody ChargeNRefundDTO cnrDTO){
+    public String getMyCoin(@RequestBody ChargeNRefundDTO chargeNRefundDTO){
         // 내 코인 갯수 확인
-        int getCoin = coinDAO.getMyCurrentCoinById(cnrDTO.getSignup_id());
+        int getCoin = coinDAO.getMyCurrentCoinById(chargeNRefundDTO.getSignup_id());
         // int로 변환
         String myCoin = String.valueOf(getCoin);
         // 갯수 반환
