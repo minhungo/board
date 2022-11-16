@@ -57,6 +57,61 @@ crossorigin="anonymous">
 
               </div>
             </li>
+
+            <c:if test="${empty profile.signup_id}">
+            <li class="item">
+              <div class="item__name">마이페이지</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">마이페이지</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">내 코인 기록</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+            <li class="item">
+              <div class="item__name">코인</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">충전하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">환전하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">환불하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a class="noSignupId">내 코인기록</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+            </c:if>
+
+            <c:if test="${!empty profile.signup_id}">
             <li class="item">
               <div class="item__name">마이페이지</div>
               <div class="item__contents">
@@ -107,6 +162,8 @@ crossorigin="anonymous">
 
               </div>
             </li>
+            </c:if>
+
             <li class="item">
               <div class="item__name">Contact Us</div>
               <div class="item__contents">
@@ -247,8 +304,17 @@ crossorigin="anonymous">
                     alert("네트워크 통신 오류가 발생하였습니다.\n소지한 코인을 확인할 수 없습니다.");
                 }
             });
-        });
 
+        });
+    </script>
+</c:if>
+<c:if test="${empty profile.signup_id}">
+    <script>
+        $(function (){
+            $(".noSignupId").click(function(){
+                alert("로그인 후 이용할 수 있습니다.");
+            });
+        });
     </script>
 </c:if>
 
