@@ -114,7 +114,6 @@ font-weight:  400;
 </head>
 <body><!--  바디  -->
 <c:import url="header.jsp"/>
-<hr style="height:3px; ">
 
 
 
@@ -172,7 +171,6 @@ font-weight:  400;
 <div class="container">
 
 
-
  <c:choose>
 	<c:when test="${scri.bgnopage == 0}">
 	<h3 class="mb-3 mt-5 text-center">전체게시판</h3>
@@ -192,6 +190,7 @@ font-weight:  400;
 </c:choose>
 	 
 	<form role="Form" method="get"> 
+	
 	<table style="width: 1000px; margin-left: auto; margin-right: auto; text-align:center;">
 		
 			<thead >
@@ -242,8 +241,6 @@ font-weight:  400;
         ${BoardDTO.board_title }</a>
         </c:if>
         </td>
-        
-        
         
          <td>
      <c:set var="dateVar" value="${BoardDTO.board_date }"/>

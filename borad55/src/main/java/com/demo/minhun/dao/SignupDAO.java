@@ -16,17 +16,17 @@ import com.demo.minhun.dto.signupDTO;
 public interface SignupDAO {
 
 	
-	// 회원가입
+	// �쉶�썝媛��엯
 	public int signup(String signup_id, String signup_pw, String signup_pw_check, String signup_name, String signup_nickname,
 			String signup_email, String signup_adr, String signup_adr_point, String signup_data,String signup_profle_img);
 	
-	// 로그인 재구현 예정
+	// 濡쒓렇�씤 �옱援ы쁽 �삁�젙
 	public signupDTO login(String signup_id, String signup_pw);
 	
-	// 중복체크 재구현 예정
+	// 以묐났泥댄겕 �옱援ы쁽 �삁�젙
 	public int idcheck(String signup_id);
 
-	// 닉네임 체크
+	// �땳�꽕�엫 泥댄겕
 	public int NickNameCheck(String nick);
 	
 	
@@ -42,33 +42,47 @@ public interface SignupDAO {
 	
 	
 	
-	// 이미지 업로드
+	// �씠誘몄� �뾽濡쒕뱶
 	public int imgload(String signup_profle_img, String signup_id);
 	
-	//적용 프로필 DB값 리턴
+	//�쟻�슜 �봽濡쒗븘 DB媛� 由ы꽩
 	public signupDTO origin_img_return(String signup_id);
 	
-	// 글 신고자 목록 불러오기
+	// 湲� �떊怨좎옄 紐⑸줉 遺덈윭�삤湲�
 	public List<signupDTO> userReportlist(SearchCriteria scri) throws Exception;
 	
-	// 유저 신고
+	// �쑀�� �떊怨�
 	public int userReportDTO(String user_reportcheck,int signup_num);
 	
-	// 관리자 페이지 제제하기
+	// 愿�由ъ옄 �럹�씠吏� �젣�젣�븯湲�
 	public int sanctionsDTO(String str_sanctions,String true_sanctions,String and_sanctions,String signup_num);
 	
-	// 제재당한 사람 기간 지나면 풀림
+	// �젣�옱�떦�븳 �궗�엺 湲곌컙 吏��굹硫� ��由�
 	public int sanctionsOnlock(String str_sanctions, String and_sanctions , String ture_sanctions ,String signup_num);
 	
-	//계급 
+	//怨꾧툒 
 	public int signup_gradeUpdate(String nickname);
 	
-	//제제자 리스트
+	//�젣�젣�옄 由ъ뒪�듃
 	public List<signupDTO> sanctionslist(SearchCriteria scri) throws Exception;
 	
-	//마이 페이지 정보 수정 
+	//留덉씠 �럹�씠吏� �젙蹂� �닔�젙 
 	public int MyPage_UpDate(String input_pw,String input_nickname,String input_email,String input_adr,String input_adr_point, String signup_id);
 
+	//신고먹은 횟수 찾기
+		public signupDTO reportreportcheckcoundView(String board_name);
+		
+    
+    //제재 카운터	
+    	public int signupCount2(SearchCriteria scri) throws Exception;
+   
+    	//리폿된 녀석 카운터 
+    public int userReportcount(String user_reportcheck ,String signup_nickname);
+//  肄붿씤 異⑹쟾 �삉�뒗 �궗�슜 �쟻�슜 session�쟻�슜 遺덊렪�빐�꽌 model濡� 蹂�寃�
+//	public int UpdateCoin(Long signup_coin, String signup_id, String payImpUid, String payMerchantUid);
+//	public int UpdateCoinByNickname(Long signup_coin, String signup_nickname);
+//	public signupDTO getMyInfo(String signup_id);
+//	public String getMyCoin(String signup_id);
 	// 가입 경로 통계 가져오기
 	public List<getSignupDataDTO> getSingupData();
 

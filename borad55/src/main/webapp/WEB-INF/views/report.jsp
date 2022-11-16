@@ -59,22 +59,28 @@ a:active {
              <table class="ms-3" style="margin-left:15px; width:620px;">
                 <tr>
                    
+                   
+                   
+                   
                    <td style="text-align:left; font-size:20px; padding-left:20px;">
-                      <input type="hidden" name="board_idx" value="${dto.board_idx }">
-                       
-                       <input type="radio" name="board_reportcheck" value="모욕/공격적인 언어 "/>
+                     <input type="hidden" name="board_idx" value="${dto.board_idx}">
+                     
+                     <input type="hidden" name="signup_nickname" value="${dto.board_name}">
+                     <input type="hidden" name="user_reportcheck" value="${dto2.user_reportcheck}">
+                                             
+                     <input type="radio" name="board_reportcheck" value="모욕/공격적인 언어 "/>
                      <label for="rd1">모욕/공격적인 언어 </label><br/>
-                     <input type="radio" name="board_reportcheck"   value="광고성 게시물"/>
+                     <input type="radio" name="board_reportcheck"  value="광고성 게시물"/>
                      <label for="rd2">광고성 게시물</label><br/>
-                     <input type="radio" name="board_reportcheck"   value="욕설/부적절한 언어"/>
+                     <input type="radio" name="board_reportcheck"  value="욕설/부적절한 언어"/>
                      <label for="rd3">욕설/부적절한 언어</label><br/>
-                     <input type="radio" name="board_reportcheck"   value="도배성 게시물"/>
+                     <input type="radio" name="board_reportcheck"  value="도배성 게시물"/>
                      <label for="rd4">도배성 게시물</label><br/>
-                     <input type="radio" name="board_reportcheck"   value="정치 게시물"/>
+                     <input type="radio" name="board_reportcheck"  value="정치 게시물"/>
                      <label for="rd5">정치 게시물</label><br/>
-                     <input type="radio" name="board_reportcheck"   value="종교 게시물"/>
+                     <input type="radio" name="board_reportcheck"  value="종교 게시물"/>
                      <label for="rd6">종교 게시물</label><br/>
-                     <input type="radio" name="board_reportcheck"   value="선동성 게시물"/>
+                     <input type="radio" name="board_reportcheck"  value="선동성 게시물"/>
                      <label for="rd7">선동성 게시물</label><br/>
                      
                   </td>
@@ -82,7 +88,7 @@ a:active {
                </table>
                
                <div style="background-color:#F8F9FA; padding-left:10px; padding-right:10px; padding-top:20px; padding-bottom:20px; margin-top:70px; color:#A6A6A6;">
-                  
+                     * 3회 이상 신고 될 경우 제재 될 수 있으니 조심해주세요 <br><br>
                      * 허위 신고일 경우, 신고자의 서비스 활동이 제한 될 수 있으니, 유의하여 신중하게 신고해 주세요.<br><br>
                      * 명예훼손, 저작권등 신고자의 권리가 침해된 경우에는 <a href="https://cyberbureau.police.go.kr/board/boardList.do?board_id=faq3&mid=010503" target="_blank">사이버수사대</a>에  문의하세요.<br>
                   

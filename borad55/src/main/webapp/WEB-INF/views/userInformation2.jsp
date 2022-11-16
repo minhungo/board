@@ -219,13 +219,18 @@ function Update_User() {
             <td id="name_id2" style="display: none;"><input type="text" id="name_id2" name="input_nickname"  placeholder="${profile.signup_nickname }"></td>
          </tr>
          
-         
-         
+
          <tr>
             <th style="background-color: #84C3CC;">포인트</th>
             <td>${profile.signup_point }</td>
          </tr>
-         
+
+
+         <tr>
+             <th style="background-color: #84C3CC;">코인</th>
+             <td><input type="text" value="${curCoin } Coin" style="border: none;"></td>
+
+         </tr>
          
          
          <tr>

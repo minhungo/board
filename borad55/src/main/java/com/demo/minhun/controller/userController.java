@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.demo.minhun.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,16 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.demo.minhun.dao.IBoardDAO;
-import com.demo.minhun.dao.IReplyDAO;
-import com.demo.minhun.dao.LikeDAO;
-import com.demo.minhun.dao.SignupDAO;
-import com.demo.minhun.dao.fileUtil;
 import com.demo.minhun.dto.signupDTO;
 
 
 
-//������ �Ű��ϰų�,�����ϰų� �ϴ� ���� ��Ʈ��
+//占쏙옙占쏙옙占쏙옙 占신곤옙占싹거놂옙,占쏙옙占쏙옙占싹거놂옙 占싹댐옙 占쏙옙占쏙옙 占쏙옙트占쏙옙
 @Controller
 public class userController {
 	
@@ -40,8 +37,10 @@ public class userController {
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
-	
-	
+
+	@Autowired
+	CoinDAO coinDAO;
+
 	signupDTO user;
 	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
@@ -172,8 +171,12 @@ public class userController {
 		
 		
 		@GetMapping("/userInformation2")
-		public String userInformation2() {
-			return "userInformation2";
+		public String userInformation2(@RequestParam("signup_id") String signup_id, Model model) {
+
+			String curCoin = String.valueOf((coinDAO.getMyCurrentCoinById(signup_id)/100));
+			model.addAttribute("curCoin",curCoin);
+
+		 return "userInformation2";
 		}
 
 		

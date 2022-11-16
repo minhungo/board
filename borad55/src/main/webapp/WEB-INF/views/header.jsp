@@ -14,30 +14,116 @@ crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
-	
+<link rel="stylesheet" href="${path}/resources/css/main.css" />
 </head>
 <header>
-	<nav class="header" style="font-family: 'DynaPuff', cursive; height:110px;">
-		
+<c:set var="buyerId" value="${profile.signup_id}"/>
+	<nav class="header" style="cursive; height:172px;">
+
 		<div class="header_logo" style=" margin-right:10%;">
 		<a href="/"><img src="resources/image/slow.png"></a>
 		</div>
-		
-<nav class="nabar" style="position:absolute; left:710px;">
-	
-	<ul class="navbar_menu" >
-	<li><a href="/board">전체 게시판</a>
-	</li>
-	<li><a href="/board?bgnopage=1">Q&A</a>
-	</li>
-	<li><a href="/board?bgnopage=2">자유게시판</a>
-	</li>
-	<li><a href="/board?bgnopage=3">건의게시판</a>
-	</li>
-	<li ><a href="/contact2">contact us</a></li>
-	</ul>
-	
-</nav>
+
+        <div class="inner">
+
+          <ul class="main-menu">
+            <li class="item">
+              <div class="item__name">게시판</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a href="/board">전체게시판</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/board?bgnopage=1">Q&A</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/board?bgnopage=2">자유게시판</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/board?bgnopage=3">건의게시판</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+            <li class="item">
+              <div class="item__name">마이페이지</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a href="/userInformation2?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;">마이페이지</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/record?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'코인 기록','width=600,height=650,top=100,left=500');return false;">내 코인기록</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+            <li class="item">
+              <div class="item__name">코인</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a href="/PayCoin" onclick="window.open(this.href,'코인 충전','width=600,height=650,top=100,left=500');return false;">충전하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/change?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'코인 환전','width=600,height=650,top=100,left=500');return false;">환전하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/refund?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'코인 환불','width=600,height=650,top=100,left=500');return false;">환불하기</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul>
+                        <li><a href="/record?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'코인 기록','width=600,height=650,top=100,left=500');return false;">내 코인기록</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+            <li class="item">
+              <div class="item__name">Contact Us</div>
+              <div class="item__contents">
+                <div class="contents__menu">
+                  <ul class="inner">
+                    <li>
+                      <ul>
+                        <li><a href="/contact2">찾아오시는길</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
 		
 		<ul class="header_login">
 		
@@ -52,9 +138,9 @@ crossorigin="anonymous">
    
    		<c:if test="${!empty profile.signup_id}">
    <div class="container" 
-   style="display:inline-block; width:360px; height:100px; 
+   style="display:inline-block; width:360px; height:120px;
    margin:0; padding:10px 0px; background-color:white; 
-   font-family:'맑은고딕'; position: absolute; right:100px; top:12px;" >
+   font-family:'맑은고딕'; position: absolute; right:100px; top:40px;" >
       
       <div class="container col" style="display:inline-block; width:360px; height:20px; text-align:center;  ">
           <img src="resources/img/${profile.signup_profle_img}" width="50" height="50" style="display:inline-block;">
@@ -106,7 +192,7 @@ crossorigin="anonymous">
         
         
         
-     <a href='/userInformation2' onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;"><button class="btn btn-primary" 
+     <a href="/userInformation2?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;"><button class="btn btn-primary"
      style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; 
       background-color:#c1c1c1; font-size:11px; position:absolute; top:60px; left:125px;">마이페이지</button>
       </a>
@@ -118,7 +204,7 @@ crossorigin="anonymous">
    		</c:if>
    		
 		</ul>
-	</nav>  
+	</nav>
 
 	
 	
@@ -162,6 +248,7 @@ crossorigin="anonymous">
                 }
             });
         });
+
     </script>
 </c:if>
 

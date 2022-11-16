@@ -87,6 +87,7 @@ update signup set signup_profle_img = #{param1} where signup_id = #{param2}
 
 <!-- 신고자 목록 불러오기 -->
 <select id="userReportlist" resultType="com.demo.minhun.dto.signupDTO" parameterType="com.demo.minhun.dto.Criteria">
+
 select SIGNUP_NUM,SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME, SIGNUP_NICKNAME, SIGNUP_EMAIL, SIGNUP_ADR, SIGNUP_ADR_POINT, SIGNUP_DATA, SIGNUP_DATE, USER_REPORTCHECK 
 
 from (
@@ -96,9 +97,10 @@ from (
             
         from signup
         
-        where USER_REPORTCHECK is not null
+        where USER_REPORTCHECK not in '0'
         
-         <include refid="search" ></include>
+        
+        <include refid="search" ></include>
              ) mb
              
     where rNum between #{rowStart} and #{rowEnd}
@@ -166,30 +168,49 @@ select signup_profle_img from signup where signup_id = #{param1}
 <!-- 제제자 리스트 -->
   <select id="sanctionslist" resultType="com.demo.minhun.dto.signupDTO" parameterType="com.demo.minhun.dto.Criteria">
  
-select SIGNUP_NUM,SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME, SIGNUP_NICKNAME, SIGNUP_EMAIL,
- SIGNUP_ADR, SIGNUP_ADR_POINT, SIGNUP_DATA, SIGNUP_DATE,str_sanctions,and_sanctions,true_sanctions
+select SIGNUP_NUM, SIGNUP_ID , SIGNUP_NAME, SIGNUP_NICKNAME, 
+  SIGNUP_DATE,USER_REPORTCHECK,str_sanctions,and_sanctions,true_sanctions
 
 from (
-        select SIGNUP_NUM, SIGNUP_ID, SIGNUP_PW, SIGNUP_NAME,SIGNUP_NICKNAME, SIGNUP_EMAIL,SIGNUP_ADR,
-        SIGNUP_ADR_POINT,SIGNUP_DATA,SIGNUP_DATE,USER_REPORTCHECK,str_sanctions,and_sanctions,true_sanctions,
+        select SIGNUP_NUM, SIGNUP_ID, SIGNUP_NAME,SIGNUP_NICKNAME,
+        SIGNUP_DATE,USER_REPORTCHECK,str_sanctions,and_sanctions,true_sanctions,
         
-            row_number() over(order by SIGNUP_NUM desc) as rNum
+         row_number() over(order by SIGNUP_NUM desc) as rNum
             
         from signup
          
-        where 1=1 
-     
-
-      
+        where true_sanctions not in '0'
+    
         <include refid="search"></include>
         
              ) mb 
-             
              
     where rNum between #{rowStart} and #{rowEnd}
     
         order by SIGNUP_NUM desc
        
+</select>
+
+
+<!--게시판 신고시 카운터+1  -->
+
+<update id="userReportcount" parameterType="map">
+ 
+update signup set user_reportcheck=#{param1} +${1} where signup_nickname=#{param2}
+
+</update> 
+
+<!-- 제제된 리스트 페이징 위한 카운트 -->
+<select id="signupCount2" parameterType="com.demo.minhun.dto.Criteria" resultType="int">
+ 
+select count(signup_num) from signup where true_sanctions not in '0'
+
+</select> 
+<!-- 리폿된정보 체크 정보 가져오기 -->
+<select id="reportreportcheckcoundView" resultType="com.demo.minhun.dto.signupDTO">
+
+select* from signup where signup_nickname=#{board_name}
+
 </select>
 
 

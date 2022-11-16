@@ -155,7 +155,7 @@ font-weight:  400;
                     
                      
                 </select>
-                <!-- --------------------------------------- -->
+                <!-- ---------------------------------------검색 -->
            
                      <input class="form-control" type="text" placeholder="Search"
                         aria-label="Search" name="Keyword" id="KeywordInput" style="float:left; margin-left: 0px; margin-right: 5px; width: 400px; background-color:rgba(57,47,49,0.25); font-weight:bold; color:#392f31;"
@@ -163,13 +163,37 @@ font-weight:  400;
                         
                          <button  id="searchButton" style="height:40px; width:80px; border-radius: 6px; background-color:#392f31; margin-left:0px;"
                         type="submit"><span class="txt_white">검색</span></button>
+                        
+                        <!-- 페이징 -->
+                          <nav aria-label="...">
+	               <ul class="pagination justify-content-center">
+	
+	                  <c:if test="${pageMaker.prev}">
+	                     <li class="page-item"><a class="page-link"
+	                        href="sanctionslist${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
+	                  </c:if>
+	                  <c:forEach begin="${pageMaker.startPage}"
+	                     end="${pageMaker.endPage}" var="idx">
+	                     <li class="page-item"><a class="page-link"
+	                        href="sanctionslist${pageMaker.makeSearch(idx)}">${idx}</a></li>
+	                  </c:forEach>
+	                  <c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+	                     <li class="page-item"><a class="page-link"
+	                        href="sanctionslist${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
+	                  </c:if>
+	               </ul>
+	            </nav>
+	       
                                
                 </main>
 
+
+                        
             </div>
+  
         </div>
-       <!-- 검색 -->
- 
+        
+	      
       
                 </form>
   
