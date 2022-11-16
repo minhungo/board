@@ -359,7 +359,7 @@ function ReplyUpdateView() {
 <!--  채팅 기능 폼 영역 -->
 <div class="container-fluid row" style="background-color:skyblu; height:1300px; margin:auto;">
 <div class="container" style="background-color:white; width:300px; height:800px; margin-top:70px; ">
-         <img src="resources/image/iphone.png" width="500" height="550">
+         <img src="resources/image/banner2.png" width="500" height="900">
 
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px;">  
       <div class="container row"
@@ -407,7 +407,6 @@ function ReplyUpdateView() {
 
             </div>
 </div>
-<button type="button" class="btn btn-success" style="width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px;" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=303,height=467,top=100,left=500');return false;">전체채팅방</a></button><br>
 </div>
 
 

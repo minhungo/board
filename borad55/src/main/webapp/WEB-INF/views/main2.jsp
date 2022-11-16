@@ -110,7 +110,7 @@ td {
 
 
 <div class="container" style="background-color:white; width:300px; height:800px; margin-top:70px; ">
-
+<img src="resources/image/banner2.png" width="500" height="900">
 
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px; margin-top:500px ">  
       <div class="container row"
@@ -155,7 +155,6 @@ td {
 
             </div>
 </div>
-<button type="button" class="btn btn-success" style="width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px;" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=600,height=700,top=100,left=500');return false;">전체채팅방</a></button><br>
 </div>
 
 
@@ -166,9 +165,7 @@ td {
          <!-- 중간 컨테이너 -->
          <div class="container "
             style="background-color: white; width: 570px; margin: 20px auto; padding: 0px;">
-            
-            
-            
+
       
             
                <div class="container "

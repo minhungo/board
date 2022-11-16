@@ -256,8 +256,9 @@ crossorigin="anonymous">
       
       <br>
       </div>
-      
+      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px; margin-top: 5px" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=302,height=465,top=100,left=340');return false;">전체채팅방</a></button>
       </div>
+      <br>
    		</c:if>
    		
 		</ul>

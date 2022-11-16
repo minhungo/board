@@ -162,7 +162,6 @@ font-weight:  400;
 
             </div>
 </div>
-<button type="button" class="btn btn-success" style="width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px;" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=600,height=700,top=100,left=500');return false;">전체채팅방</a></button><br>
 </div>
 
 
