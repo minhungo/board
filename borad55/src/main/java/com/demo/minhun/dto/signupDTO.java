@@ -21,6 +21,14 @@ public class signupDTO {
 	private int signup_point;
 	private Date signup_date;
 	private String signup_grade;
+
+	/*
+	 * private int signup_coin;
+	 *
+	 * 기존에 코인 갯수를 보여주던 열값 signup 테이블에서 삭제함
+	 * Coin 테이블에서 currentCoin 열을 추가해서 대신함
+	 *
+	 */
 	
 	// 이미지 파일
 	private String signup_profle_img;

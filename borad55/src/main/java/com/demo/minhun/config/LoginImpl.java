@@ -1,3 +1,4 @@
+/*
 package com.demo.minhun.config;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import com.demo.minhun.Mycontoller;
+
 
 @WebListener
 public class LoginImpl  implements HttpSessionListener  {
@@ -33,11 +35,11 @@ public class LoginImpl  implements HttpSessionListener  {
      
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("세션 생성");
+        System.out.println("�꽭�뀡 �깮�꽦");
         ++loginUserCount;
          
-        System.out.printf("생성된 SESSIONID %s \n",  se.getSession().getId());
-        System.out.printf("로그인된 사용자 수 : %d \n", loginUserCount);
+        System.out.printf("�깮�꽦�맂 SESSIONID %s \n",  se.getSession().getId());
+        System.out.printf("濡쒓렇�씤�맂 �궗�슜�옄 �닔 : %d \n", loginUserCount);
     }
      
     
@@ -53,7 +55,8 @@ public class LoginImpl  implements HttpSessionListener  {
            }
        }
        
-        System.out.println("세션 소멸");        
-        System.out.printf("세션 소멸된 아이디 SESSIONID %s \n",  se.getSession().getId());
+        System.out.println("�꽭�뀡 �냼硫�");        
+        System.out.printf("�꽭�뀡 �냼硫몃맂 �븘�씠�뵒 SESSIONID %s \n",  se.getSession().getId());
     }
 }
+*/

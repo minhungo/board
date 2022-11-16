@@ -1,4 +1,4 @@
-package com.demo.minhun;
+package com.demo.minhun.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
