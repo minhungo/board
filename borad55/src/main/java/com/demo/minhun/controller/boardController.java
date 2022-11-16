@@ -43,93 +43,12 @@ public class boardController {
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
+
+	@Autowired
+	CoinDAO coinDAO;
 	
 	//占쏙옙占쏙옙 占쏙옙占쏙옙트
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();
-
-//	@RequestMapping("/getToken")
-//	public ModelAndView getToken() {
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("/Pay/getToken");
-//		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
-//		return mv;
-//	}
-
-//	@RequestMapping("/getTokenTwoLeg")
-//	public ModelAndView getToken() {
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("/Pay/getTokenTwoLeg");
-//		mv.addObject("clientId","1edae6d3-8b2c-485c-be9c-8782bb64fd74");
-//		mv.addObject("clientSecret","0b3f2d48-e48e-4033-8de0-a952d3dbcdac");
-//		return mv;
-//	}
-
-	// 肄붿씤 異⑹쟾 李�
-	@RequestMapping("/PayCoin")
-	public ModelAndView chargeCoin() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/Pay/PayCoin");
-		return mv;
-	}
-
-	@GetMapping("/change")
-	public ModelAndView change(@RequestParam String signup_id){
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/Pay/change");
-
-		int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
-		mv.addObject("curCoin",curCoin);
-
-		return mv;
-	}
-
-	@GetMapping("/refund")
-	public ModelAndView refundCoin(@RequestParam String signup_id) {
-		System.out.println(signup_id);
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/Pay/RefundCoin");
-		int curCoin = (coinDAO.getMyCurrentCoinById(signup_id)/100);
-		List<ChargeNRefundDTO> record = coinDAO.getMyCoinRecordById(signup_id);
-
-		LocalDateTime now = LocalDateTime.now();
-
-		int sevenDaysAgo = now.minusDays(7).getDayOfYear();
-		for(ChargeNRefundDTO i : record){
-			// �솚遺덊럹�씠吏��뿉�꽌 T�뒗 吏��슦怨� 珥�(s)源뚯�留� 蹂댁뿬二쇰룄濡� �븯湲곗쐞�븳 format
-			Date date = java.sql.Timestamp.valueOf(i.getPayChargeDate());
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a HH:mm:ss");
-			i.setLocalDateTimeToDate(simpleDateFormat.format(date));
-
-			int chargeDate = i.getPayChargeDate().getDayOfYear();
-			// 異⑹쟾�씪�씠 7�씪�쟾蹂대떎 �씠�쟾�씪�씠�씪硫� �솚遺� 遺덇�
-			boolean resultDate = chargeDate > sevenDaysAgo;
-			// �쁽�옱 �냼吏��븳 肄붿씤蹂대떎 �솚遺덊빐�빞�븯�뒗 肄붿씤�쓽 媛��닔媛� �뜑 留롫떎硫� �솚遺� 遺덇�
-			boolean resultCoinSum = Long.valueOf(curCoin) >= (i.getPayAmount()/100l);
-			// 異⑹쟾 二쇰Ц�쓣 �넻�븳 吏�遺덉씤吏� �솗�씤
-			boolean resultIsCharge = i.getPayImpUid().substring(0,3).equals("imp");
-			if((i.getPossibleRefund() == 5l) || (i.getPossibleRefund() == 4l) || (i.getPossibleRefund() == 9l)){
-				continue; // �떟蹂�,�쉶�썝媛��엯,�솚�쟾�떊泥� 嫄몃윭�궡湲�
-			}
-			if(!resultIsCharge) {
-				i.setPossibleRefund(4l); // �솚遺덈��긽�씠 �븘�떃�땲�떎
-			}
-			if(!resultDate) {
-				i.setPossibleRefund(3l); // �솚遺덉씠 媛��뒫�븳 湲곌컙�씠 吏��궗�뒿�땲�떎
-			}
-			if(!resultCoinSum) {
-				i.setPossibleRefund(2l); // �솚遺덇��뒫�븳 肄붿씤�쓽 媛��닔媛� 遺�議깊빀�땲�떎
-			}
-			System.out.println(i.getPossibleRefund());
-		}
-
-		mv.addObject("myRecord",record);
-		mv.addObject("curCoin",curCoin);
-//		System.out.println(record);
-//		System.out.println(curCoin);
-
-		return mv;
-	}
-	
 	
 	//占쏙옙占쏙옙 占쏙옙트占싼뤄옙 
 	@RequestMapping("/")
