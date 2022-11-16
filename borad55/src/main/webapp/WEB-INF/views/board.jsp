@@ -114,7 +114,6 @@ font-weight:  400;
 </head>
 <body><!--  바디  -->
 <c:import url="header.jsp"/>
-<hr style="height:3px; ">
 
 
 

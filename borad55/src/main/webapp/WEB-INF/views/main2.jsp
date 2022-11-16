@@ -25,9 +25,17 @@
    crossorigin="anonymous"></script>
 <script type="text/javascript" src="${path}/resources/js/js.js"></script>
 
-
+<!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
 
 <style>
+* {
+   margin: 0;
+   padding: 0;
+}
 th, td {
    padding: 8px;
    border-bottom: 1px solid;
@@ -37,88 +45,62 @@ th, td {
 td {
    font-weight: 400;
 }
+  .container{
+    width: 100%;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 500px;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 90%;
+    object-fit: cover;
+  }
 </style>
 
-
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<style>
-* {
-   margin: 0;
-   padding: 0;
-}
-
-.banner_wraper {
-   width: 1600px;
-   height: 500px;
-   overflow: hidden;
-}
-
-.banner_wraper img {
-   width: 1600px;
-   height: 500px;
-   position: absolute;
-}
-</style>
-<script>
-   //client rolling banner
-   window.onload = function() {
-      var bannerLeft = 0;
-      var first = 1;
-      var last;
-      var imgCnt = 0;
-      var $img = $(".banner_wraper img");
-      var $first;
-      var $last;
-
-      $img.each(function() {
-         $(this).css("left", bannerLeft);
-         bannerLeft += $(this).width() + 2;
-         $(this).attr("id", "banner" + (++imgCnt));
-      });
-
-      if (imgCnt > 1) {
-
-         last = imgCnt;
-         setInterval(function() {
-            $img.each(function() {
-               $(this).css("left", $(this).position().left - 1);
-            });
-            $first = $("#banner" + first);
-            $last = $("#banner" + last);
-            if ($first.position().left < -1600) {
-               $first.css("left", $last.position().left + $last.width()
-                     + 2);
-               first++;
-               last++;
-               if (last > imgCnt) {
-                  last = 1;
-               }
-               if (first > imgCnt) {
-                  first = 1;
-               }
-            }
-         }, 20);
-      }
-   };
-</script>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 </head>
 <body>
 
    <c:import url="header.jsp" />
 
-   <div class="container " style="background-color: geen; width: 1600px;">
-      <div class="banner_wraper">
-         <img src="resources/image/developer.png" alt=""> <img
-            src="resources/image/coding.png" alt=""><img
-            src="resources/image/developer.png" alt=""> <img
-            src="resources/image/developer.png" alt=""><img
-            src="resources/image/developer.png" alt="">
-      </div>
-   </div>
+    <div class = "container">
+        <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+        </div>
+    </div>
 
 
 
@@ -494,12 +476,12 @@ td {
 <!-- 젤 큰 컨테이너 끝 -->
 
 
-      <div class="container "
-         style="background-color: geen; width: 200px; height: 1300px;">
-         <a href="https://sesac.seoul.kr/common/greeting.do"><img src="resources/image/ccccc.jpg" width="190px"
-            height="800px" style="margin-top: 70px;"></a>
-
+      <div class="container "style="background-color: geen; width: 200px; height: 1300px;">
+         <a href="https://sesac.seoul.kr/common/greeting.do">
+            <img src="resources/image/ccccc.jpg" width="190px" height="800px" style="margin-top: 70px;">
+         </a>
       </div>
+
    </div>
 
 
@@ -545,6 +527,30 @@ td {
 
 
    <c:import url="footer.jsp" />
-   <script type="text/javascript" src="${path}/resources/js/js.js"></script>      
+   <script type="text/javascript" src="${path}/resources/js/js.js"></script>
+
+   <!-- Swiper JS -->
+       <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+       <!-- Initialize Swiper -->
+       <script>
+         var swiper = new Swiper(".mySwiper", {
+           spaceBetween: 30,
+           centeredSlides: true,
+           autoplay: {
+             delay: 5000,
+             disableOnInteraction: false,
+           },
+           pagination: {
+             el: ".swiper-pagination",
+             clickable: true,
+           },
+           navigation: {
+             nextEl: ".swiper-button-next",
+             prevEl: ".swiper-button-prev",
+           },
+         });
+       </script>
+
 </body>
 </html>

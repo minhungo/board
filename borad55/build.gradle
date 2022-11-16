@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "11"
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -51,6 +51,10 @@ dependencies {
 	// import
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.22'
 
+	// sendMail
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+
+
 
 }
-targetCompatibility = JavaVersion.VERSION_11

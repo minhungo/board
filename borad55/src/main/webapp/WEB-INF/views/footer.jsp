@@ -9,19 +9,12 @@
 <link href="${path}/resources/css/spcss.css" rel="stylesheet"/> 		
 </head>
 <footer>
-    <div class="footer">
-    <img src="resources/image/soldesk.jpg" alt="" width="100" height="24" style="margin-right:10px;">
-    <a href="services">소개</a>
-    <a href=#>top</a>
-    <a href=#>개인정보보호정책</a>
-    <a href=#>고객센터</a>
-    </div>
-    <hr>
     <ul class="footer_ul">
-    <li style="margin:0px 20px;">팀명 : 솔데스크 2팀    </li>
-    <li style="margin:0px 20px;">주소: 서울 종로구 종로12길 15 코아빌딩1  </li>
-    <li style="margin:0px 20px;">연락처: 1234-5678-9010  </li> 
-     <li style="margin:0px 20px;">이메일: aaaaaa@naver.com  </li>
+      <img src="resources/image/soldesk.jpg" alt="" width="10%" style="margin-right:20px;">
+      <li style="margin:0px 10px;  margin: 10px;">팀명 : 북극곰   </li>
+      <li style="margin:0px 10px;  margin: 10px;">주소 : 서울 종로구 종로12길 15 코아빌딩1  </li>
+      <li style="margin:0px 10px;  margin: 10px;">연락처 : 1544-0714  </li>
+      <li style="margin:0px 10px;  margin: 10px;">홈페이지 : https://soldesk.com  </li>
     </ul>
 </footer>
 </html>

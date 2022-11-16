@@ -153,7 +153,7 @@ font-weight:  400;
                   <fmt:formatDate value="${dateVar}" pattern="yyyy-MM-dd HH:MM" /></td>
                   <td>${signupDTO.signup_data }</td> 
   
-                  <td><a href='/userInformation?signup_num=${signupDTO.signup_num }' onclick="window.open(this.href,'유저정보','width=600,height=670,top=100,left=500');return false;">상세정보</a></td>
+                  <td><a href='/userInformation?signup_num=${signupDTO.signup_num }&signup_id=${signupDTO.signup_id }' onclick="window.open(this.href,'유저정보','width=600,height=670,top=100,left=500');return false;">상세정보</a></td>
                  
 
                </tr>

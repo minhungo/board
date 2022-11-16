@@ -159,7 +159,7 @@ public class loginController {
             
             session.setAttribute("connectUser", userList);
 
-             return "<script>alert('로그인 성공'); location.href='/board'; </script>";
+             return "<script> location.href='/board'; </script>";
              
            	}
         

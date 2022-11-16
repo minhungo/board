@@ -40,9 +40,6 @@ public class boardController {
 	SignupDAO signupDAO;
 	
 	signupDTO user;
-
-	@Autowired
-	CoinDAO coinDAO;
 	
 	@Autowired
 	IReplyDAO IReplyDAO;

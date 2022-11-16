@@ -37,11 +37,10 @@ public class fileUtil {
 				originalFileName = multipartFile.getOriginalFilename(); // �삱由� �뙆�씪�쓽 �씠由꾩쓣 �떞�븘以� ( 媛뺤븘吏�.png )
 				
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-				// �썝蹂� �뙆�씪 �솗�옣�옄瑜� �떞�븘�샂 .源뚯� �옄瑜대뒗 subString�쓣 �벐怨� �삁�떆濡� , 媛뺤븘吏�.png 媛� �엳�쑝硫� .源뚯� �옒�씪�꽌 .png�씪�뒗 �솗�옣�옄 紐낆쓣 諛쏆븘以�
 				
 				storedFileName = getRandomString() + originalFileExtension;
 				
-				file = new File("C:\\workspace-sts-3.9.11.RELEASE\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  storedFileName); // \img\ + 媛뺤븘吏�  +.png
+				file = new File("C:\\Users\\pc\\OneDrive\\바탕 화면\\borad55\\board\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  storedFileName); // \img\ + 媛뺤븘吏�  +.png
 				
 				multipartFile.transferTo(file); // transferTo??
 				

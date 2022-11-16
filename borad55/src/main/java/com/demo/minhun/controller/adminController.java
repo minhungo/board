@@ -2,30 +2,16 @@ package com.demo.minhun.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.demo.minhun.dao.*;
+import com.demo.minhun.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.demo.minhun.dao.IBoardDAO;
-import com.demo.minhun.dao.IReplyDAO;
-import com.demo.minhun.dao.LikeDAO;
-import com.demo.minhun.dao.SignupDAO;
-import com.demo.minhun.dto.BoardDTO;
-import com.demo.minhun.dto.PageMaker;
-import com.demo.minhun.dto.SearchCriteria;
-import com.demo.minhun.dto.signupDTO;
+import org.springframework.web.bind.annotation.*;
 
 
 //占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 
@@ -43,6 +29,9 @@ public class adminController {
 	
 	@Autowired
 	IReplyDAO IReplyDAO;
+
+	@Autowired
+	CoinDAO coinDAO;
 	
 	
 	signupDTO user;
@@ -64,11 +53,89 @@ public class adminController {
 	      pageMaker.setTotalCount(IBoardDAO.listCount(scri));
 
 	      model.addAttribute("pageMaker", pageMaker);
-	      
+
 	      return "admin";
 	   }
-	   
-	 
+
+	@PostMapping("/getUserChargeRecord")
+	@ResponseBody
+	public Map<String, Object> getRecord() {
+		 Map<String, Object> map = new HashMap<String, Object>();
+
+		 // polarArea 에서 사용할 payAmount 통계값
+		 List<getAllUserRecordDTO> allUserChargeRecord = coinDAO.AllUserChargeRecord();
+		 ArrayList<Integer> record = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+		 for (int i = 0; i < allUserChargeRecord.size(); i++) {
+			 switch (String.valueOf(allUserChargeRecord.get(i).getPayAmount())) {
+				case "5000" : record.set(0, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "10000" : record.set(1, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "15000" : record.set(2, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "20000" : record.set(3, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "25000" : record.set(4, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "30000" : record.set(5, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "35000" : record.set(6, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "40000" : record.set(7, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "45000" : record.set(8, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "50000" : record.set(9, allUserChargeRecord.get(i).getCnt());
+					break;
+				case "100000" : record.set(10, allUserChargeRecord.get(i).getCnt());
+					break;
+			}
+		 }
+		 map.put("polarArea", record);
+
+		 // 가입 경로 통계
+		 List<getSignupDataDTO> getSingupData = sigupDAO.getSingupData();
+		 System.out.println(getSingupData);
+		 map.put("SingupData", getSingupData);
+
+		 return map;
+
+	}
+//		String[] won = new String[]{"5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000", "100000"};
+//		HashMap<String, Integer> allUserRecord = new HashMap<>();
+//		for(int i=0;i<11;i++){
+//			allUserRecord.put(won[i], 0);
+//		}
+//
+//		List<getAllUserRecordDTO> allUserChargeRecord = coinDAO.AllUserChargeRecord();
+//		for(getAllUserRecordDTO i : allUserChargeRecord){
+//			switch (String.valueOf(i.getPayAmount())) {
+//				case "5000" : allUserRecord.put(won[0], i.getCnt());
+//					break;
+//				case "10000" : allUserRecord.put(won[1], i.getCnt());
+//					break;
+//				case "15000" : allUserRecord.put(won[2], i.getCnt());
+//					break;
+//				case "20000" : allUserRecord.put(won[3], i.getCnt());
+//					break;
+//				case "25000" : allUserRecord.put(won[4], i.getCnt());
+//					break;
+//				case "30000" : allUserRecord.put(won[5], i.getCnt());
+//					break;
+//				case "35000" : allUserRecord.put(won[6], i.getCnt());
+//					break;
+//				case "40000" : allUserRecord.put(won[7], i.getCnt());
+//					break;
+//				case "45000" : allUserRecord.put(won[8], i.getCnt());
+//					break;
+//				case "50000" : allUserRecord.put(won[9], i.getCnt());
+//					break;
+//				case "100000" : allUserRecord.put(won[10], i.getCnt());
+//					break;
+//			}
+//		}
+//		return allUserRecord;
+//	}
 	 
 	 
 	 
@@ -89,20 +156,22 @@ public class adminController {
         
         return "adminpro";
      }
-     
-     
+
      
      
      
      
     // 회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
  	@RequestMapping(value = "/userInformation", method = RequestMethod.GET)
- 	public String userInformation(@RequestParam("signup_num") String signup_num, Model model,
+ 	public String userInformation(@RequestParam("signup_num") String signup_num, @RequestParam("signup_id") String signup_id, Model model,
  			HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") String page,
  			@ModelAttribute("scri") SearchCriteria scri) {
 
  		scri.getKeyword();
  		model.addAttribute("page", page);
+
+		String curCoin = String.valueOf((coinDAO.getMyCurrentCoinById(signup_id)/100));
+		model.addAttribute("curCoin",curCoin);
 
  		signupDTO signup = sigupDAO.signupview(signup_num);
  		model.addAttribute("signup", signup);
