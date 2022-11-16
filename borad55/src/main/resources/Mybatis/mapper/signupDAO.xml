@@ -194,7 +194,7 @@ from (
 
 
 
-<update id="MyPage_UpDate">
+<update id="MyPage_UpDate" >
 
 update signup set signup_pw=#{param1},
 
@@ -203,6 +203,22 @@ signup_nickname=#{param2}, signup_email=#{param3}, signup_adr=#{param4}, signup_
 where signup_id=#{param6}
 
 </update>
+
+
+
+<select id="email_and_name" resultType="com.demo.minhun.dto.signupDTO">
+select * from signup where signup_id=#{param1}
+</select>
+
+
+<update id="PwChange" >
+update signup set signup_pw=#{param1},signup_pw_check=#{param2} where signup_id=#{param3}
+</update>
+
+
+<select id="IDSearch" resultType="com.demo.minhun.dto.signupDTO">
+select * from signup where signup_name=#{param1} and signup_email=#{param2}
+</select>
 
 
 </mapper>

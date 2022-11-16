@@ -67,7 +67,16 @@ public interface SignupDAO {
 	//마이 페이지 정보 수정 
 	public int MyPage_UpDate(String input_pw,String input_nickname,String input_email,String input_adr,String input_adr_point, String signup_id);
 
+
+
+	// 이메일 , 이름 매칭 유효성 검사
+	public signupDTO email_and_name(String input_id);
 	
+	// 비밀번호 변경
+	public int PwChange(String pw1,String pw2,String id);
+	
+	// 아이디 찾기
+	public signupDTO IDSearch(String name,String email);
 	
 	
 	

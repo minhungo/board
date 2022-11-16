@@ -39,5 +39,6 @@ public class signupDTO {
 	public void setUserLogin(boolean userLogin) {
 	      this.userLogin = userLogin;
 	   }
-	
+
+
 }
