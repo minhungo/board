@@ -16,7 +16,7 @@ body {
 footer {
     position:fixed;
     bottom:0;
-    height:80px;   
+    height:40px;
     background: gray;
     width:100%;
 }
@@ -293,7 +293,7 @@ nav{
 footer {
     position:fixed;
     bottom:0;
-    height:80px;   
+    height:56px;
     background: gray;
     width:100%;
 }

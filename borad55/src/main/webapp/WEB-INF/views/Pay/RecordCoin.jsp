@@ -133,6 +133,8 @@
         color: #ac2925;
         margin: 30px 0 30px 10px;
     }
+
+    tfoot tr td button{ justify-content: right; }
     </style>
 
 
@@ -187,25 +189,20 @@
             </tbody>
 
         </table>
-
         <button type="button"
-          class="btn btn-primary"
-          style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; font-size:14px;" id="refund">
+                class="btn btn-primary"
+                style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px;"
+                id="cancel">
 
-            환불하기
-
-          </button>
-
-        <button type="button"
-            class="btn btn-primary"
-            style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; background-color:#c1c1c1; font-size:14px;"
-            id="cancel">
-
-            닫기
+                닫기
 
         </button>
      </div>
 
-<script type="text/javascript" src="${path}/resources/js/refund.js"></script>
+<script type="text/javascript">
+    $('#cancel').click(function () {
+        window.close();
+    });
+</script>
 </body>
 </html>

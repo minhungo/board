@@ -163,12 +163,15 @@ public class adminController {
      
     // ȸ������ ���� ����
  	@RequestMapping(value = "/userInformation", method = RequestMethod.GET)
- 	public String userInformation(@RequestParam("signup_num") String signup_num, Model model,
+ 	public String userInformation(@RequestParam("signup_num") String signup_num, @RequestParam("signup_id") String signup_id, Model model,
  			HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") String page,
  			@ModelAttribute("scri") SearchCriteria scri) {
 
  		scri.getKeyword();
  		model.addAttribute("page", page);
+
+		String curCoin = String.valueOf((coinDAO.getMyCurrentCoinById(signup_id)/100));
+		model.addAttribute("curCoin",curCoin);
 
  		signupDTO signup = sigupDAO.signupview(signup_num);
  		model.addAttribute("signup", signup);

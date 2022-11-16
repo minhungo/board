@@ -208,7 +208,13 @@ function Update_User() {
             <th style="background-color: #84C3CC;">포인트</th>
             <td>${profile.signup_point }</td>
          </tr>
-         
+
+
+         <tr>
+             <th style="background-color: #84C3CC;">코인</th>
+             <td><input type="text" value="${curCoin } Coin" style="border: none;"></td>
+
+         </tr>
          
          
          <tr>

@@ -64,7 +64,7 @@ crossorigin="anonymous">
                   <ul class="inner">
                     <li>
                       <ul>
-                        <li><a href='/userInformation2' onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;">마이페이지</a></li>
+                        <li><a href="/userInformation2?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;">마이페이지</a></li>
                       </ul>
                     </li>
                     <li>
@@ -187,7 +187,7 @@ crossorigin="anonymous">
         
         
         
-     <a href='/userInformation2' onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;"><button class="btn btn-primary" 
+     <a href="/userInformation2?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;"><button class="btn btn-primary"
      style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; 
       background-color:#c1c1c1; font-size:11px; position:absolute; top:60px; left:125px;">마이페이지</button>
       </a>
