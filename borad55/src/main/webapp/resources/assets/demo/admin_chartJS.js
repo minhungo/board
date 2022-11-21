@@ -31,9 +31,6 @@ let thismonth3 = getMonth(now.getMonth()-1);  // 전전월
 let thismonth = thisyear + "-" + thismonth1;
 let amonthago = thisyear + "-" + thismonth2;
 let twomonthago = thisyear + "-" + thismonth3;
-console.log(thismonth);
-console.log(amonthago);
-console.log(twomonthago);
 
 let chargeArray = []; // 배열 선언
 
@@ -43,12 +40,17 @@ let SingupDataArray3 = [0,0,0,0,0]; // 전전월
 
 let SingupDatalabel = [];
 
-let SingupDatakindArray = ['검색', '광고', '유튜브', '소개', '카페']; // 월
+let SingupDatakindArray = ['검색', '광고', '유튜브', '소개', '카페']; // 검색경로
 let SingupDatalegendArray1 = ['', '', '', '', '']; // 월
-let SingupDatalegendArray2 = ['', '', '', '', '']; // 월
-let SingupDatalegendArray3 = ['', '', '', '', '']; // 월
+let SingupDatalegendArray2 = ['', '', '', '', '']; // 전월
+let SingupDatalegendArray3 = ['', '', '', '', '']; // 전전월
 
-$(document).ready(function() {
+function chartJSClear(){
+    barChart.destroy();
+    polarAreaChart.destroy();
+}
+
+function chartJS() {
      $.ajax({
          type:'POST',
          url : 'getUserChargeRecord',
@@ -135,11 +137,11 @@ $(document).ready(function() {
          }
      });
 
-});
+};
 
 function polarAreaChart(){
 
-    var ctx = document.getElementById("myBarChart");
+    var ctx = document.getElementById("polarAreaChart");
 
     var data = {
         labels: ["5000원", "10000원", "15000원", "20000원", "25000원", "30000원", "35000원", "40000원", "45000원", "50000원", "100000원"],
@@ -164,71 +166,71 @@ function polarAreaChart(){
     		animation: false,
     };
 
-    var myBarChart = new Chart(ctx,{
+    var polarAreaChart = new Chart(ctx,{
                      	type: 'polarArea',
                      	data: data,
                         options: polarAreaoptions
                      });
-}//line chart
+}// polarAreaChart
 
 function barChart(){
 
-var bardata =
-{
-    labels: SingupDatakindArray,
-    datasets:
-        [{
-        	labels: SingupDatalegendArray1,
-            backgroundColor: 'rgba(255, 99, 132, 1)',
-            borderColor: 'rgba(255, 99, 132, 1.5)',
-            data: SingupDataArray1
-        },
-        {
-        	labels: SingupDatalegendArray2,
-            backgroundColor: 'rgba(54, 162, 235, 1)',
-            borderColor: 'rgba(54, 162, 235, 1.5)',
-            data: SingupDataArray2
-        },
-        {
-        	labels: SingupDatalegendArray3,
-            backgroundColor: 'rgba(255, 206, 86, 1)',
-            borderColor: 'rgba(255, 206, 86, 1.5)',
-            data: SingupDataArray3
-        }]
-};
+    var bardata =
+    {
+        labels: SingupDatakindArray,
+        datasets:
+            [{
+                labels: SingupDatalegendArray1,
+                backgroundColor: 'rgba(255, 99, 132, 1)',
+                borderColor: 'rgba(255, 99, 132, 1.5)',
+                data: SingupDataArray1
+            },
+            {
+                labels: SingupDatalegendArray2,
+                backgroundColor: 'rgba(54, 162, 235, 1)',
+                borderColor: 'rgba(54, 162, 235, 1.5)',
+                data: SingupDataArray2
+            },
+            {
+                labels: SingupDatalegendArray3,
+                backgroundColor: 'rgba(255, 206, 86, 1)',
+                borderColor: 'rgba(255, 206, 86, 1.5)',
+                data: SingupDataArray3
+            }]
+    };
 
-var baroptions = {
-		responsive: true,
-		legend : {
-			display: false
-		},
-		title: {
-			display: true,
-			text: ' 최근 한 달부터 2개월 전까지 가입경로 통계',
-			fontSize: 17,
-			fontColor: 'rgba(46, 49, 49, 1)'
-		},
-		animation: false,
-		tooltips: {
-                displayColors: false, // 툴팁 바 컬러 표시 여부
-                titleFontColor: '#fff', // 툴팁 폰트 관련
-                titleAlign: 'center', // 툴팁 폰트 관련
-                callbacks: {
-                  label: function(tooltipItem, data) {
-                         var item = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                         var label = data.datasets[tooltipItem.datasetIndex].labels[tooltipItem.index];
-                         return label + ' : '+item;
-                    }
-               }
-        }
-};
+    var baroptions = {
+            responsive: true,
+            legend : {
+                display: false
+            },
+            title: {
+                display: true,
+                text: ' 최근 한 달부터 2개월 전까지 가입경로 통계',
+                fontSize: 17,
+                fontColor: 'rgba(46, 49, 49, 1)'
+            },
+            animation: false,
+            tooltips: {
+                    displayColors: false, // 툴팁 바 컬러 표시 여부
+                    titleFontColor: '#fff', // 툴팁 폰트 관련
+                    titleAlign: 'center', // 툴팁 폰트 관련
+                    callbacks: {
+                      label: function(tooltipItem, data) {
+                             var item = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                             var label = data.datasets[tooltipItem.datasetIndex].labels[tooltipItem.index];
+                             return label + ' : '+item;
+                        }
+                   }
+            }
+    };
 
-var ctx = document.getElementById("myPieChart");
+    var ctx = document.getElementById("BarChart");
 
-var barChart = new Chart(ctx,{
-	type: 'bar',
-	data: bardata,
-	options : baroptions
-});
+    var barChart = new Chart(ctx,{
+        type: 'bar',
+        data: bardata,
+        options : baroptions
+    });
 
 }//bar chart

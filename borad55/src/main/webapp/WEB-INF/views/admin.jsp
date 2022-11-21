@@ -13,7 +13,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link href="${path}/resources/css/styles.css" rel="stylesheet"/>        
+<link href="${path}/resources/css/styles.css" rel="stylesheet"/>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
@@ -28,7 +28,8 @@ border-color: rgba(0,0,0,0.25);
 td{
 font-weight:  400;
 }
-
+.toggleBG{background: #CCCCCC; width: 70px; height: 30px; border: 1px solid #CCCCCC; border-radius: 15px;}
+    .toggleFG{background: #FFFFFF; width: 30px; height: 30px; border: none; border-radius: 15px; position: relative; left: 0px;}
 </style>
 
 </head>
@@ -103,16 +104,16 @@ font-weight:  400;
                             </script>
                         </h1>
 
-                        <div class="row">
+                        <div class="row" id="row1">
 
-                            <!-- 차트 값 넣어야함 -->
+                            <!-- 차트.js -->
                                 <div class="col-xl-6"  style="float: left;">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
-                                            가입 경로 통계
+                                            가입 경로 통계1
                                         </div>
-                                        <div class="card-body"><canvas id="myPieChart"></canvas></div>
+                                        <div class="card-body"><canvas id="BarChart"></canvas></div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6"  style="float: right;">
@@ -121,20 +122,31 @@ font-weight:  400;
                                             <i class="fas fa-chart-bar me-1"></i>
                                             충전 금액 통계
                                         </div>
-                                        <div class="card-body"><canvas id="myBarChart"></canvas></div>
+                                        <div class="card-body"><canvas id="polarAreaChart"></canvas></div>
                                     </div>
                                 </div>
-                           <!-- 차트 값 넣어야함 -->
+                            <!-- 차트.js -->
                             
                         </div>
-                        
-                    
-               
+
+                        <div class="row" id="row2">
+                        <!-- 차트.js -->
+                                <div class="col-xl-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                            충전 금액 통계2
+                                        </div>
+                                        <div class="card-body"><canvas id="polarAreaChart2"></canvas></div>
+                                    </div>
+                                </div>
+                            <!-- 차트.js -->
+
+                        </div>
                     </div>
-                    
-               
-                    
-                     <h3 style="margin:30px 50px;">게시글 관리</h3>
+
+            <h3 style="margin:30px 50px;">게시글 관리</h3>
+
             <table style="width: 1600px; margin: 30px 30px; text-align: center;">
                <thead
                   style="font-size: 20px; border-top: 2px solid black; border-bottom: 2px solid black;">
@@ -258,6 +270,12 @@ font-weight:  400;
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
-        <script src="${path}/resources/assets/demo/admin_chart.js"></script>
+        <script src="${path}/resources/assets/demo/admin_chartJS.js"></script>
+        <script src="${path}/resources/assets/demo/admin_GoogleChartJS.js"></script>
+        <script>
+            $( document ).ready(function() {
+                chartJS();
+            });
+        </script>
     </body>
 </html>

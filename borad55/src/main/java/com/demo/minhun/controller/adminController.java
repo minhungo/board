@@ -101,41 +101,6 @@ public class adminController {
 		 return map;
 
 	}
-//		String[] won = new String[]{"5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000", "100000"};
-//		HashMap<String, Integer> allUserRecord = new HashMap<>();
-//		for(int i=0;i<11;i++){
-//			allUserRecord.put(won[i], 0);
-//		}
-//
-//		List<getAllUserRecordDTO> allUserChargeRecord = coinDAO.AllUserChargeRecord();
-//		for(getAllUserRecordDTO i : allUserChargeRecord){
-//			switch (String.valueOf(i.getPayAmount())) {
-//				case "5000" : allUserRecord.put(won[0], i.getCnt());
-//					break;
-//				case "10000" : allUserRecord.put(won[1], i.getCnt());
-//					break;
-//				case "15000" : allUserRecord.put(won[2], i.getCnt());
-//					break;
-//				case "20000" : allUserRecord.put(won[3], i.getCnt());
-//					break;
-//				case "25000" : allUserRecord.put(won[4], i.getCnt());
-//					break;
-//				case "30000" : allUserRecord.put(won[5], i.getCnt());
-//					break;
-//				case "35000" : allUserRecord.put(won[6], i.getCnt());
-//					break;
-//				case "40000" : allUserRecord.put(won[7], i.getCnt());
-//					break;
-//				case "45000" : allUserRecord.put(won[8], i.getCnt());
-//					break;
-//				case "50000" : allUserRecord.put(won[9], i.getCnt());
-//					break;
-//				case "100000" : allUserRecord.put(won[10], i.getCnt());
-//					break;
-//			}
-//		}
-//		return allUserRecord;
-//	}
 	 
 	 
 	 
