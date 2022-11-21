@@ -164,10 +164,7 @@
                         <select name="bank_name" id="bank_name">
                              <option value="">선택</option>
                              <option value="오픈은행">오픈은행</option>
-                             <option value="오픈은행">금결원api는</option>
-                             <option value="오픈은행">테스트할때</option>
-                             <option value="오픈은행">오픈은행만</option>
-                             <option value="오픈은행">지원합니다</option>
+                             <option value="카카오은행">카카오뱅크</option>
                         </select>
                     </td>
                 </tr>
