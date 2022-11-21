@@ -280,10 +280,38 @@
                 }else{
                     alert('입력하신 정보와 계좌 정보가 다릅니다.');
                 }
-
             },
             error : function(err) {
                 alert('네트워크 통신에 실패하였습니다.\n 잠시후에 다시 시도해주세요.');
+            } , beforeSend: function () {
+                   var width = 0;
+                   var height = 0;
+                   var left = 0;
+                   var top = 0;
+
+                   width = 50;
+                   height = 50;
+
+
+                   top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+                   left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+
+
+                   if($("#div_ajax_load_image").length != 0) {
+                          $("#div_ajax_load_image").css({
+                                 "top": top+"px",
+                                 "left": left+"px"
+                          });
+                          $("#div_ajax_load_image").show();
+                   }
+                   else {
+                          $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${path}/resources/img/loading.gif" style="width:50px; height:50px;"></div>');
+                   }
+
+            }
+            , complete: function () {
+                          $("#div_ajax_load_image").hide();
             }
         }); // end ajax
     });
