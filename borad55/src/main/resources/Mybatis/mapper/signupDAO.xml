@@ -205,7 +205,7 @@ where signup_id=#{param6}
 </update>
 
     <!-- 가입 경로 통계 -->
-    <select id="getSingupData" resultType="com.demo.minhun.dto.getSignupDataDTO">
+    <select id="getSingupData" resultType="com.demo.minhun.dto.getCountDTO">
         select
             SIGNUP_DATA, TO_CHAR(SIGNUP_DATE, 'YYYY-MM') as recentdate, count(*) as cnt
         from

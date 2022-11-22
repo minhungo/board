@@ -3,13 +3,9 @@ package com.demo.minhun.dao;
 
 import java.util.List;
 
-import com.demo.minhun.dto.CoinDTO;
-import com.demo.minhun.dto.getSignupDataDTO;
+import com.demo.minhun.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.demo.minhun.dto.SearchCriteria;
-import com.demo.minhun.dto.signupDTO;
 
 
 @Mapper
@@ -68,9 +64,6 @@ public interface SignupDAO {
 	
 	//마이 페이지 정보 수정 
 	public int MyPage_UpDate(String input_pw,String input_nickname,String input_email,String input_adr,String input_adr_point, String signup_id);
-
-	// 가입 경로 통계 가져오기
-	public List<getSignupDataDTO> getSingupData();
 	
 	
 	

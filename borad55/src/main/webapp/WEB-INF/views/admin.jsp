@@ -18,6 +18,42 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Khula:400,700');
+
+.button-strip {
+    border: 2px solid #1496BD;
+    border-radius: 5px;
+    display: flex;
+    margin: 15px;
+}
+
+.strip-button {
+    background-color: white;
+    color: #1496BD;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 65px;
+    transition: background-color .4s linear, color .2s linear;
+    cursor: pointer;
+}
+
+.strip-button span {
+    color: inherit;
+}
+
+.strip-button-text {
+    font-family: 'Khula', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #1496BD;
+}
+
+.active-strip-button {
+    background-color: #1496BD;
+    color: white;
+}
 
 th,td{
 padding:8px; 
@@ -28,8 +64,54 @@ border-color: rgba(0,0,0,0.25);
 td{
 font-weight:  400;
 }
-.toggleBG{background: #CCCCCC; width: 70px; height: 30px; border: 1px solid #CCCCCC; border-radius: 15px;}
-    .toggleFG{background: #FFFFFF; width: 30px; height: 30px; border: none; border-radius: 15px; position: relative; left: 0px;}
+
+#container {
+  margin: 0 auto;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+  margin: 0 auto;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+.highcharts-figure container2 {
+    max-height: 400px;
+}
+
 </style>
 
 </head>
@@ -50,7 +132,10 @@ font-weight:  400;
                             <a class="nav-link" href="admin">
                                 메인                          
                             </a>
-                          
+
+                            <a class="nav-link" href="getLookerStudio">
+                                루커스튜디오
+                            </a>
                               
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                              관리   
@@ -85,7 +170,6 @@ font-weight:  400;
              
                 </nav>
             </div>
-
          
             <div id="layoutSidenav_content">
                 <main>
@@ -103,20 +187,20 @@ font-weight:  400;
                                 document.write(year+"년 "+month+"월 "+date+"일 "+hours+"시 "+minutes+"분 ");
                             </script>
                         </h1>
-
-                        <div class="row" id="row1">
+                        <div id="content"></div>
+                        <div class="row" id="row1" >
 
                             <!-- 차트.js -->
-                                <div class="col-xl-6"  style="float: left;">
+                                <div class="col-xl-6" style="float: left;">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
-                                            가입 경로 통계1
+                                            가입 경로 통계
                                         </div>
                                         <div class="card-body"><canvas id="BarChart"></canvas></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6"  style="float: right;">
+                                <div class="col-xl-6" style="float: right;">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
@@ -129,18 +213,31 @@ font-weight:  400;
                             
                         </div>
 
-                        <div class="row" id="row2">
+                        <div class="row" id="row2" style="display:none;">
                         <!-- 차트.js -->
-                                <div class="col-xl-6">
-                                    <div class="card mb-4">
-                                        <div class="card-header">
-                                            <i class="fas fa-chart-bar me-1"></i>
-                                            충전 금액 통계2
-                                        </div>
-                                        <div class="card-body"><canvas id="polarAreaChart2"></canvas></div>
+                            <div class="col-xl-6" style="float: left;">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                       최근 일주일 동안 생성된 글,댓글 수
                                     </div>
+                                    <figure class="highcharts-figure">
+                                      <div id="container"></div>
+                                    </figure>
                                 </div>
-                            <!-- 차트.js -->
+                            </div>
+                            <div class="col-xl-6" style="float: right;">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                       전체 사용자 중 글 또는 댓글을 한 번이라도 작성하거나 둘 다 작성한 사용자 비율
+                                    </div>
+                                    <figure class="highcharts-figure">
+                                      <div id="container2"></div>
+                                    </figure>
+                                </div>
+                            </div>
+                        <!-- 차트.js -->
 
                         </div>
                     </div>
@@ -271,11 +368,45 @@ font-weight:  400;
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
         <script src="${path}/resources/assets/demo/admin_chartJS.js"></script>
-        <script src="${path}/resources/assets/demo/admin_GoogleChartJS.js"></script>
+        <script src="${path}/resources/assets/demo/buttonstrip.min.js"></script>
         <script>
             $( document ).ready(function() {
+
                 chartJS();
+
             });
+
+            var bs1 = new ButtonStrip({
+                id: 'buttonStrip1'
+            });
+            bs1.addButton('Chart.JS', true, 'click', function(){
+                toggleBtn();
+            });
+            bs1.addButton('HighChart.JS', false, 'click', function(){
+                toggleBtn();
+            });
+            bs1.append('#content');
+
+            const row2 = document.getElementById('row2');
+            const row1 = document.getElementById('row1');
+
+            function toggleBtn(){
+                if(row2.style.display !== 'none'){
+                    row2.style.display = 'none';
+                    row1.style.display = 'block';
+                }else{
+                    row2.style.display = 'block';
+                    row1.style.display = 'none';
+                }
+            }
+
         </script>
+
+        <!-- highcharts -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <!-- highcharts -->
+
     </body>
 </html>

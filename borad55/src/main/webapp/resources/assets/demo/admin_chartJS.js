@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-const COLORS = [
+const COLORS = [ // 컬러 배열
     'rgba(77,201,246,0.4)',
     'rgba(246,112,25,0.4)',
     'rgba(245,55,148,0.4)',
@@ -16,7 +16,7 @@ const COLORS = [
     'rgba(255,193,7,0.4)'
 ];
 
-function getMonth(month){
+function getMonth(month){ // 월 계산 후 0 붙임
     month = month >= 10 ? month : '0' + month;
     return month;
 }
@@ -24,28 +24,34 @@ function getMonth(month){
 let now = new Date();
 let thisyear = now.getFullYear(); // 년도
 
-let thismonth1 = getMonth(now.getMonth()+1);  // 월
+let thismonth1 = getMonth(now.getMonth()+1);  // 금월
 let thismonth2 = getMonth(now.getMonth());  // 전월
 let thismonth3 = getMonth(now.getMonth()-1);  // 전전월
 
-let thismonth = thisyear + "-" + thismonth1;
-let amonthago = thisyear + "-" + thismonth2;
-let twomonthago = thisyear + "-" + thismonth3;
+let thismonth = thisyear + "-" + thismonth1; // 올해 금월
+let amonthago = thisyear + "-" + thismonth2; // 올해 전월
+let twomonthago = thisyear + "-" + thismonth3; // 올해 전전월
 
-let chargeArray = []; // 배열 선언
+let chargeArray = []; // 충전통계용 배열 선언
 
-let SingupDataArray1 = [0,0,0,0,0]; // 월
+let SingupDataArray1 = [0,0,0,0,0]; // 금월
 let SingupDataArray2 = [0,0,0,0,0]; // 전월
 let SingupDataArray3 = [0,0,0,0,0]; // 전전월
 
-let SingupDatalabel = [];
-
-let SingupDatakindArray = ['검색', '광고', '유튜브', '소개', '카페']; // 검색경로
-let SingupDatalegendArray1 = ['', '', '', '', '']; // 월
+let SingupDatakindArray = ['검색', '광고', '유튜브', '소개', '카페']; // 검색경로 배열
+let SingupDatalegendArray1 = ['', '', '', '', '']; // 금월
 let SingupDatalegendArray2 = ['', '', '', '', '']; // 전월
 let SingupDatalegendArray3 = ['', '', '', '', '']; // 전전월
 
-function chartJSClear(){
+let ratioArray = []; // 비율계산용 배열 선언
+let BoardCntArray = []; // 게시글수파악용 배열 선언
+let ReplyCntArray = []; // 댓글수파악용 배열 선언
+
+function calRatio(a, b){ // 비율계산 후 반올림
+    return Math.round((a/b)*100);
+}
+
+function chartJSClear(){ // chartJS 에서 차트 지우기
     barChart.destroy();
     polarAreaChart.destroy();
 }
@@ -56,10 +62,41 @@ function chartJS() {
          url : 'getUserChargeRecord',
          success : function(data){
 
+            let ratio = data.getRatio;
+            ratioArray.push(ratio.cntsignup);
+            ratioArray.push(ratio.cntboth);
+            ratioArray.push(ratio.cntboard);
+            ratioArray.push(ratio.cntreply);
+
+            console.log(ratioArray);
+
+            if(data.getBoardCount != ''){
+                $.each(data.getBoardCount, function(index, item){
+                    BoardCntArray.push(item.cnt);
+                });
+            }else{
+                for(let i=0;i<8;i++){
+                    BoardCntArray.push(0);
+                }
+            }
+            console.log(BoardCntArray);
+
+            if(data.getReplyCount != ''){
+                $.each(data.getReplyCount, function(index, item){
+                    ReplyCntArray.push(item.cnt);
+                });
+            }else{
+                for(let i=0;i<8;i++){
+                    ReplyCntArray.push(0);
+                }
+            }
+            console.log(ReplyCntArray);
+            highChartActivity(); // 하이차트 2개 그리기
+
             $.each(data.polarArea, function(index, item){
                 chargeArray.push(item);
             });
-            polarAreaChart();
+            polarAreaChart(); // chartJS polarArea
 
             $.each(data.SingupData, function(index, item){
                 if(item.recentdate == twomonthago){
@@ -129,7 +166,7 @@ function chartJS() {
                     }
                 }
             });
-            barChart();
+            barChart(); // chartJS barChart
 
          },
          error : function(){
@@ -234,3 +271,191 @@ function barChart(){
     });
 
 }//bar chart
+
+function renderIcons() {
+
+let icon1 = "/resources/img/reply.svg";
+let icon2 = "/resources/img/board.svg";
+let icon3 = "/resources/img/both.svg";
+
+  // both icon
+  if (!this.series[0].icon) {
+    this.series[0].icon = this.renderer.image(icon3, -10, -15, 30, 30)
+      .add(this.series[2].group);
+  }
+  this.series[0].icon.translate(
+    this.chartWidth / 2 - 10,
+    this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
+      (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
+  );
+
+  // board icon
+  if (!this.series[1].icon) {
+    this.series[1].icon = this.renderer.image(icon2, -10, -15, 30, 30)
+      .add(this.series[2].group);
+  }
+  this.series[1].icon.translate(
+    this.chartWidth / 2 - 10,
+    this.plotHeight / 2 - this.series[1].points[0].shapeArgs.innerR -
+      (this.series[1].points[0].shapeArgs.r - this.series[1].points[0].shapeArgs.innerR) / 2
+  );
+
+  // reply icon
+  if (!this.series[2].icon) {
+    this.series[2].icon = this.renderer.image(icon1, -10, -15, 30, 30)
+      .add(this.series[2].group);
+  }
+
+  this.series[2].icon.translate(
+    this.chartWidth / 2 - 10,
+    this.plotHeight / 2 - this.series[2].points[0].shapeArgs.innerR -
+      (this.series[2].points[0].shapeArgs.r - this.series[2].points[0].shapeArgs.innerR) / 2
+  );
+}
+
+function highChartActivity(){
+
+    // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+    var chart1 = new Highcharts.chart('container', {
+      chart: {
+        renderTo: 'container',
+        type: 'line'
+      },
+      title: {
+        text: 'lineChart',
+        style: {
+          fontSize: '16px'
+        }
+      },
+      xAxis: {
+        categories: ['7일 전', '6일 전', '5일 전', '4일 전', '3일 전', '2일 전', '1일 전', 'D']
+      },
+      yAxis: {
+        title: {
+          text: '갯수'
+        }
+      },
+      plotOptions: {
+        line: {
+          dataLabels: {
+            enabled: true
+          },
+          enableMouseTracking: false
+        }
+      },
+      series: [{
+        name: '글',
+        data: BoardCntArray
+      }, {
+        name: '댓글',
+        data: ReplyCntArray
+      }]
+    });
+
+    var chart2 = new Highcharts.chart('container2', {
+
+      chart: {
+        renderTo: 'container2',
+        type: 'solidgauge',
+        height: '66.7%',
+        events: {
+          render: renderIcons,
+        }
+      },
+
+      title: {
+        text: 'RatioChart',
+        style: {
+          fontSize: '16px'
+        }
+      },
+
+      tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+          fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
+        positioner: function (labelWidth) {
+          return {
+            x: (this.chart.chartWidth - labelWidth) / 2,
+            y: (this.chart.plotHeight / 2) + 15
+          };
+        }
+      },
+
+      pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+          outerRadius: '112%',
+          innerRadius: '88%',
+          backgroundColor: Highcharts.color(Highcharts.getOptions().colors[0])
+            .setOpacity(0.3)
+            .get(),
+          borderWidth: 0
+        }, { // Track for Exercise
+          outerRadius: '87%',
+          innerRadius: '63%',
+          backgroundColor: Highcharts.color(Highcharts.getOptions().colors[7])
+            .setOpacity(0.3)
+            .get(),
+          borderWidth: 0
+        }, { // Track for Stand
+          outerRadius: '62%',
+          innerRadius: '38%',
+          backgroundColor: Highcharts.color(Highcharts.getOptions().colors[2])
+            .setOpacity(0.3)
+            .get(),
+          borderWidth: 0
+        }]
+      },
+
+      yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+      },
+
+      plotOptions: {
+        solidgauge: {
+          dataLabels: {
+            enabled: false
+          },
+          linecap: 'round',
+          stickyTracking: false,
+          rounded: true
+        }
+      },
+
+      series: [{
+        name: '글, 댓글',
+        data: [{
+          color: Highcharts.getOptions().colors[0],
+          radius: '112%',
+          innerRadius: '88%',
+          y: calRatio(ratioArray[1], ratioArray[0]) // data
+        }]
+      }, {
+        name: '글',
+        data: [{
+          color: Highcharts.getOptions().colors[7],
+          radius: '87%',
+          innerRadius: '63%',
+          y: calRatio(ratioArray[2], ratioArray[0]) // data
+        }]
+      }, {
+        name: '댓글',
+        data: [{
+          color: Highcharts.getOptions().colors[2],
+          radius: '62%',
+          innerRadius: '38%',
+          y: calRatio(ratioArray[3], ratioArray[0]) // data
+        }]
+      }]
+    });
+}; // highChartActivity end

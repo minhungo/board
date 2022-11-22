@@ -64,7 +64,5 @@ update reply set reply_content=#{param1} where reply_idx=#{param2}
 </update>
 
 
-
-
 </mapper>
 

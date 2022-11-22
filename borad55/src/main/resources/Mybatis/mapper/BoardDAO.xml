@@ -241,8 +241,5 @@ update board set board_profle_img=#{param1} where board_writer_id=#{param2}
 </update>
 
 
-
-
-
  
 </mapper>

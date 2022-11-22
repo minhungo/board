@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.demo.minhun.Util.AdminChartUtil;
 import com.demo.minhun.dao.*;
 import com.demo.minhun.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class adminController {
 
 	@Autowired
 	CoinDAO coinDAO;
+
+	@Autowired
+	CountDAO countDAO;
 	
 	
 	signupDTO user;
@@ -64,42 +68,31 @@ public class adminController {
 
 		 // polarArea 에서 사용할 payAmount 통계값
 		 List<getAllUserRecordDTO> allUserChargeRecord = coinDAO.AllUserChargeRecord();
-		 ArrayList<Integer> record = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		 for (int i = 0; i < allUserChargeRecord.size(); i++) {
-			 switch (String.valueOf(allUserChargeRecord.get(i).getPayAmount())) {
-				case "5000" : record.set(0, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "10000" : record.set(1, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "15000" : record.set(2, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "20000" : record.set(3, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "25000" : record.set(4, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "30000" : record.set(5, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "35000" : record.set(6, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "40000" : record.set(7, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "45000" : record.set(8, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "50000" : record.set(9, allUserChargeRecord.get(i).getCnt());
-					break;
-				case "100000" : record.set(10, allUserChargeRecord.get(i).getCnt());
-					break;
-			}
-		 }
+		 AdminChartUtil adminChartUtil = new AdminChartUtil();
+		 ArrayList<Integer> record = adminChartUtil.getRecord(allUserChargeRecord);
 		 map.put("polarArea", record);
 
 		 // 가입 경로 통계
-		 List<getSignupDataDTO> getSingupData = sigupDAO.getSingupData();
-		 System.out.println(getSingupData);
+		 List<getCountDTO> getSingupData = countDAO.getSingupData();
 		 map.put("SingupData", getSingupData);
+
+		 // 전체 사용자 중 글 또는 댓글을 한 번이라도 작성한 사용자 비율
+		 getCountDTO getRatio = countDAO.RatioCalculator();
+		 map.put("getRatio",getRatio);
+
+		 // 최근 일주일 동안 생성된 글,댓글 수
+		 List<getCountDTO> getBoardCount = countDAO.getSevenDaysBoardCount();
+		 List<getCountDTO> getReplyCount = countDAO.getSevenDaysReplyCount();
+		 map.put("getBoardCount",getBoardCount);
+		 map.put("getReplyCount",getReplyCount);
 
 		 return map;
 
+	}
+
+	@GetMapping("/getLookerStudio")
+	public String getAdminReport(){
+		 return "getLookerStudio";
 	}
 	 
 	 
