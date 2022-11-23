@@ -1,5 +1,9 @@
 package com.demo.minhun.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -86,13 +90,16 @@ public class adminController {
 		 map.put("getBoardCount",getBoardCount);
 		 map.put("getReplyCount",getReplyCount);
 
+		 // map에 있는 data를 csv 파일로 저장
+		 adminChartUtil.createCSV(map);
+
 		 return map;
 
 	}
 
 	@GetMapping("/getLookerStudio")
-	public String getAdminReport(){
-		 return "getLookerStudio";
+	public String getAdminReport(Model model){
+		return "getLookerStudio";
 	}
 	 
 	 
