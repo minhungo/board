@@ -19,4 +19,9 @@ public interface CountDAO {
 
     public getCountDTO RatioCalculator();
 
+    public getCountDTO getTotalCount();
+    public List<getCountDTO> getSignupDataCnt();
+    public List<getCountDTO> getSignupGradeCnt();
+    public List<getCountDTO> getViewCntOrderByHit();
+
 }

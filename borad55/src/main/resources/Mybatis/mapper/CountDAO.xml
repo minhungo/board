@@ -68,5 +68,46 @@
             (select count(*) as cntreply from (select reply_signup_id from reply where reply_signup_id in (select signup_id from signup) group by reply_signup_id)) r
     </select>
 
+
+    <!-- 전체 페이지 조회 수 합, 게시글 수, 댓글 수 -->
+    <select id="getTotalCount" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            v.cnttotalview, b.cntboard, r.cntreply
+        from
+            (select sum(board_hit) as cnttotalview from board) v,
+            (select count(*) as cntboard from board) b,
+            (select count(*) as cntreply from reply) r
+    </select>
+
+    <!-- 유입경로 통계 -->
+    <select id="getSignupDataCnt" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            signup_data, count(signup_data) as cnt
+        from
+            signup
+        group by
+            signup_data
+        order by
+            signup_data
+    </select>
+
+    <!-- 계급 분포 -->
+    <select id="getSignupGradeCnt" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            signup_grade, count(signup_grade) as cnt
+        from
+            signup
+        group by
+            signup_grade
+    </select>
+
+    <!-- 글 조회수 통계 -->
+    <select id="getViewCntOrderByHit" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            rownum, b.board_title, b.board_hit
+        from
+            (select board_title,board_hit from board order by board_hit desc) b
+    </select>
+
 </mapper>
 

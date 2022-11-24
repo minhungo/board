@@ -90,15 +90,31 @@ public class adminController {
 		 map.put("getBoardCount",getBoardCount);
 		 map.put("getReplyCount",getReplyCount);
 
-		 // map에 있는 data를 csv 파일로 저장
-		 adminChartUtil.createCSV(map);
-
 		 return map;
 
 	}
 
 	@GetMapping("/getLookerStudio")
 	public String getAdminReport(Model model){
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		AdminChartUtil adminChartUtil = new AdminChartUtil();
+
+		getCountDTO getTotalCount = countDAO.getTotalCount();
+		map.put("getTotalCount",getTotalCount);
+
+		List<getCountDTO> getSignupDataCnt = countDAO.getSignupDataCnt();
+		map.put("getSignupDataCnt",getSignupDataCnt);
+
+		List<getCountDTO> getSignupGradeCnt = countDAO.getSignupGradeCnt();
+		map.put("getSignupGradeCnt",getSignupGradeCnt);
+
+		List<getCountDTO> getViewCntOrderByHit = countDAO.getViewCntOrderByHit();
+		map.put("getViewCntOrderByHit",getViewCntOrderByHit);
+
+		// map에 있는 data를 csv 파일로 저장
+		adminChartUtil.createCSV(map);
+
 		return "getLookerStudio";
 	}
 	 

@@ -4,10 +4,11 @@ import com.demo.minhun.dto.getAllUserRecordDTO;
 import com.demo.minhun.dto.getCountDTO;
 import lombok.Data;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class AdminChartUtil {
@@ -45,13 +46,11 @@ public class AdminChartUtil {
     }
 
     public void createCSV(Map<String, Object> map){
-        ArrayList<String> payAmount
-                = new ArrayList<>(Arrays.asList("5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000", "100000"));
-        ArrayList<Integer> record = null;
-        List<getCountDTO> getSingupData = null;
-        getCountDTO getRatio = null;
-        List<getCountDTO> getBoardCount = null;
-        List<getCountDTO> getReplyCount = null;
+
+        getCountDTO getTotalCount = null;
+        List<getCountDTO> getSignupDataCnt = null;
+        List<getCountDTO> getSignupGradeCnt = null;
+        List<getCountDTO> getViewCntOrderByHit = null;
 
         String uploadFolder = "C:\\upload";
         Date date = new Date();
@@ -67,77 +66,94 @@ public class AdminChartUtil {
         }
 
         // csv 파일 생성후 저장
-        String mkCSVFilename = str + "LSReport.csv";
-        BufferedWriter bw = null;
+        String mkCSVFilename_score = str + "LSReport_score.csv";
+        String mkCSVFilename_list = str + "LSReport_list.csv";
+        String mkCSVFilename_circle1 = str + "LSReport_circle1.csv";
+        String mkCSVFilename_circle2 = str + "LSReport_circle2.csv";
+        String[] CsvFileArr = {mkCSVFilename_score, mkCSVFilename_list, mkCSVFilename_circle1, mkCSVFilename_circle2};
+
+        OutputStreamWriter ow = null;
+        BufferedWriter bw_score = null; // 전체 페이지 조회 수 합, 게시글 수, 댓글 수 - 스코어
+        BufferedWriter bw_list = null; // 글 조회수
+        BufferedWriter bw_circle1 = null; // 유입 경로
+        BufferedWriter bw_circle2 = null; // 계급 분포
 
         try {
-            File saveFile = new File(uploadPath, mkCSVFilename);
-            bw = new BufferedWriter(new FileWriter(saveFile));
-            if(!map.isEmpty()){
-                for(Map.Entry<String, Object> pair : map.entrySet()){
-                    if(pair.getKey().equals("polarArea")){
-                        record = (ArrayList<Integer>) map.get("polarArea");
-                        bw.write("payAmount, cnt");
-                        bw.write("\n");
-                        for(int i=0; i<record.size();i++){
-                            bw.write(payAmount.get(i));
-                            bw.write(",");
-                            bw.write(String.valueOf(record.get(i)));
-                            bw.write("\n");
-                        }
-                    }else if(pair.getKey().equals("SingupData")){
-                        getSingupData = (List<getCountDTO>) map.get("SingupData");
-                        bw.write("recentdate, signup_data, cnt");
-                        bw.write("\n");
-                        for(int i=0; i<getSingupData.size();i++){
-                            bw.write(String.valueOf(getSingupData.get(i).getRecentdate()));
-                            bw.write(",");
-                            bw.write(String.valueOf(getSingupData.get(i).getSignup_data()));
-                            bw.write(",");
-                            bw.write(String.valueOf(getSingupData.get(i).getCnt()));
-                            bw.write("\n");
-                        }
-                    }else if(pair.getKey().equals("getRatio")){
-                        getRatio = (getCountDTO) map.get("getRatio");
-                        bw.write("cntsignup, cntboth, cntboard, cntreply");
-                        bw.write("\n");
-                        bw.write(String.valueOf(getRatio.getCntsignup()));
-                        bw.write(",");
-                        bw.write(String.valueOf(getRatio.getCntboth()));
-                        bw.write(",");
-                        bw.write(String.valueOf(getRatio.getCntboard()));
-                        bw.write(",");
-                        bw.write(String.valueOf(getRatio.getCntreply()));
-                        bw.write("\n");
-                    }else if(pair.getKey().equals("getBoardCount")){
-                        getBoardCount = (List<getCountDTO>) map.get("getBoardCount");
-                        bw.write("boarddate, boardcnt");
-                        bw.write("\n");
-                        for(int i=0; i<getBoardCount.size();i++){
-                            bw.write(String.valueOf(getBoardCount.get(i).getCurdate()));
-                            bw.write(",");
-                            bw.write(String.valueOf(getBoardCount.get(i).getCnt()));
-                            bw.write("\n");
-                        }
-                    }else{
-                        getReplyCount = (List<getCountDTO>) map.get("getReplyCount");
-                        bw.write("replydate, replycnt");
-                        bw.write("\n");
-                        for(int i=0; i<getReplyCount.size();i++){
-                            bw.write(String.valueOf(getReplyCount.get(i).getCurdate()));
-                            bw.write(",");
-                            bw.write(String.valueOf(getReplyCount.get(i).getCnt()));
-                            bw.write("\n");
-                        }
-                    }
+
+            if (!map.isEmpty()) {
+                // bw_circle1
+                getSignupDataCnt = (List<getCountDTO>) map.get("getSignupDataCnt");
+
+                bw_circle1 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(uploadPath, CsvFileArr[2])), Charset.forName("UTF-8")));
+
+                bw_circle1.write("Signup_data, cnt");
+                bw_circle1.write("\n");
+                for (int i = 0; i < getSignupDataCnt.size(); i++) {
+                    bw_circle1.write(getSignupDataCnt.get(i).getSignup_data());
+                    bw_circle1.write(",");
+                    bw_circle1.write(String.valueOf(getSignupDataCnt.get(i).getCnt()));
+                    bw_circle1.write("\n");
                 }
-            }else{
-                bw.write("null");
+
+                // bw_circle2
+                getSignupGradeCnt = (List<getCountDTO>) map.get("getSignupGradeCnt");
+
+                bw_circle2 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(uploadPath, CsvFileArr[3])), Charset.forName("UTF-8")));
+
+                bw_circle2.write("Signup_grade, cnt");
+                bw_circle2.write("\n");
+                for (int i = 0; i < getSignupGradeCnt.size(); i++) {
+                    bw_circle2.write(getSignupGradeCnt.get(i).getSignup_grade());
+                    bw_circle2.write(",");
+                    bw_circle2.write(String.valueOf(getSignupGradeCnt.get(i).getCnt()));
+                    bw_circle2.write("\n");
+                }
+
+                // bw_score
+                getTotalCount = (getCountDTO) map.get("getTotalCount");
+
+                bw_score = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(uploadPath, CsvFileArr[0])), Charset.forName("UTF-8")));
+
+                bw_score.write("Total View, Board, Reply");
+                bw_score.write("\n");
+                bw_score.write(String.valueOf(getTotalCount.getCnttotalview()));
+                bw_score.write(",");
+                bw_score.write(String.valueOf(getTotalCount.getCntboard()));
+                bw_score.write(",");
+                bw_score.write(String.valueOf(getTotalCount.getCntreply()));
+                bw_score.write("\n");
+
+                // bw_list
+                getViewCntOrderByHit = (List<getCountDTO>) map.get("getViewCntOrderByHit");
+
+                bw_list = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(uploadPath, CsvFileArr[1])), Charset.forName("UTF-8")));
+
+                bw_list.write("rownum, title, hit");
+                bw_list.write("\n");
+                for (int i = 0; i < getViewCntOrderByHit.size(); i++) {
+                    bw_list.write(String.valueOf(getViewCntOrderByHit.get(i).getRownum()));
+                    bw_list.write(",");
+                    bw_list.write(String.valueOf(getViewCntOrderByHit.get(i).getBoard_title()));
+                    bw_list.write(",");
+                    bw_list.write(String.valueOf(getViewCntOrderByHit.get(i).getBoard_hit()));
+                    bw_list.write("\n");
+                }
+
+            } else {
+                bw_score.write("null");
+                bw_list.write("null");
+                bw_circle1.write("null");
+                bw_circle2.write("null");
             }
 
-            bw.close();
+            bw_score.close();
+            bw_list.close();
+            bw_circle1.close();
+            bw_circle2.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
     }
 
