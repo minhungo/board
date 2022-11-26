@@ -79,8 +79,6 @@ public interface SignupDAO {
 //	public int UpdateCoinByNickname(Long signup_coin, String signup_nickname);
 //	public signupDTO getMyInfo(String signup_id);
 //	public String getMyCoin(String signup_id);
-	// 가입 경로 통계 가져오기
-	public List<getSignupDataDTO> getSingupData();
 
 
 	// 이메일 , 이름 매칭 유효성 검사

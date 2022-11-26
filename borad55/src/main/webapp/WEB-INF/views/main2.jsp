@@ -15,15 +15,6 @@
    rel="stylesheet"
    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
    crossorigin="anonymous">
-<script
-   src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-   integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-   crossorigin="anonymous"></script>
-<script
-   src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-   integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-   crossorigin="anonymous"></script>
-<script type="text/javascript" src="${path}/resources/js/js.js"></script>
 
 <!-- Link Swiper's CSS -->
     <link
@@ -45,60 +36,31 @@ th, td {
 td {
    font-weight: 400;
 }
-  .container{
-    width: 100%;
-  }
 
-  .swiper {
-    width: 100%;
-    height: 500px;
-  }
-
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
-
-  .swiper-slide img {
-    display: block;
-    width: 90%;
-    object-fit: cover;
-  }
+.carousel-inner {
+    height:400px;
+}
 </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 </head>
 <body>
 
    <c:import url="header.jsp" />
 
-    <div class = "container">
-        <div class="swiper mySwiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
-                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
-                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
-                <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
-              </div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-              <div class="swiper-pagination"></div>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="resources/image/developer.png" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="resources/image/coding1.png" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="resources/image/developer.png" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="resources/image/coding1.png" alt="Forth slide">
+            </div>
         </div>
     </div>
 
@@ -524,30 +486,11 @@ td {
 
 
    <c:import url="footer.jsp" />
+
    <script type="text/javascript" src="${path}/resources/js/js.js"></script>
-
-   <!-- Swiper JS -->
-       <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-       <!-- Initialize Swiper -->
-       <script>
-         var swiper = new Swiper(".mySwiper", {
-           spaceBetween: 30,
-           centeredSlides: true,
-           autoplay: {
-             delay: 5000,
-             disableOnInteraction: false,
-           },
-           pagination: {
-             el: ".swiper-pagination",
-             clickable: true,
-           },
-           navigation: {
-             nextEl: ".swiper-button-next",
-             prevEl: ".swiper-button-prev",
-           },
-         });
-       </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>
