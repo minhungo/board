@@ -13,11 +13,47 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link href="${path}/resources/css/styles.css" rel="stylesheet"/>        
+<link href="${path}/resources/css/styles.css" rel="stylesheet"/>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Khula:400,700');
+
+.button-strip {
+    border: 2px solid #1496BD;
+    border-radius: 5px;
+    display: flex;
+    margin: 15px;
+}
+
+.strip-button {
+    background-color: white;
+    color: #1496BD;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 65px;
+    transition: background-color .4s linear, color .2s linear;
+    cursor: pointer;
+}
+
+.strip-button span {
+    color: inherit;
+}
+
+.strip-button-text {
+    font-family: 'Khula', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #1496BD;
+}
+
+.active-strip-button {
+    background-color: #1496BD;
+    color: white;
+}
 
 th,td{
 padding:8px; 
@@ -27,6 +63,53 @@ border-color: rgba(0,0,0,0.25);
 
 td{
 font-weight:  400;
+}
+
+#container {
+  margin: 0 auto;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+  margin: 0 auto;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+.highcharts-figure container2 {
+    max-height: 400px;
 }
 
 </style>
@@ -49,7 +132,10 @@ font-weight:  400;
                             <a class="nav-link" href="admin">
                                 메인                          
                             </a>
-                          
+
+                            <a class="nav-link" href="getLookerStudio">
+                                루커스튜디오
+                            </a>
                               
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                              관리   
@@ -84,7 +170,6 @@ font-weight:  400;
              
                 </nav>
             </div>
-
          
             <div id="layoutSidenav_content">
                 <main>
@@ -102,39 +187,63 @@ font-weight:  400;
                                 document.write(year+"년 "+month+"월 "+date+"일 "+hours+"시 "+minutes+"분 ");
                             </script>
                         </h1>
+                        <div id="content"></div>
+                        <div class="row" id="row1" >
 
-                        <div class="row">
-
-                            <!-- 차트 값 넣어야함 -->
-                                <div class="col-xl-6"  style="float: left;">
+                            <!-- 차트.js -->
+                                <div class="col-xl-6" style="float: left;">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
                                             가입 경로 통계
                                         </div>
-                                        <div class="card-body"><canvas id="myPieChart"></canvas></div>
+                                        <div class="card-body"><canvas id="BarChart"></canvas></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6"  style="float: right;">
+                                <div class="col-xl-6" style="float: right;">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-chart-bar me-1"></i>
                                             충전 금액 통계
                                         </div>
-                                        <div class="card-body"><canvas id="myBarChart"></canvas></div>
+                                        <div class="card-body"><canvas id="polarAreaChart"></canvas></div>
                                     </div>
                                 </div>
-                           <!-- 차트 값 넣어야함 -->
+                            <!-- 차트.js -->
                             
                         </div>
-                        
-                    
-               
+
+                        <div class="row" id="row2" style="display:none;">
+                        <!-- 차트.js -->
+                            <div class="col-xl-6" style="float: left;">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                       최근 일주일 동안 생성된 글,댓글 수
+                                    </div>
+                                    <figure class="highcharts-figure">
+                                      <div id="container"></div>
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="col-xl-6" style="float: right;">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                       전체 사용자 중 글 또는 댓글을 한 번이라도 작성하거나 둘 다 작성한 사용자 비율
+                                    </div>
+                                    <figure class="highcharts-figure">
+                                      <div id="container2"></div>
+                                    </figure>
+                                </div>
+                            </div>
+                        <!-- 차트.js -->
+
+                        </div>
                     </div>
-                    
-               
-                    
-                     <h3 style="margin:30px 50px;">게시글 관리</h3>
+
+            <h3 style="margin:30px 50px;">게시글 관리</h3>
+
             <table style="width: 1600px; margin: 30px 30px; text-align: center;">
                <thead
                   style="font-size: 20px; border-top: 2px solid black; border-bottom: 2px solid black;">
@@ -258,6 +367,46 @@ font-weight:  400;
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${path}/resources/js/scripts.js"></script>
-        <script src="${path}/resources/assets/demo/admin_chart.js"></script>
+        <script src="${path}/resources/assets/demo/admin_chartJS.js"></script>
+        <script src="${path}/resources/assets/demo/buttonstrip.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+
+                chartJS();
+
+            });
+
+            var bs1 = new ButtonStrip({
+                id: 'buttonStrip1'
+            });
+            bs1.addButton('Chart.JS', true, 'click', function(){
+                toggleBtn();
+            });
+            bs1.addButton('HighChart.JS', false, 'click', function(){
+                toggleBtn();
+            });
+            bs1.append('#content');
+
+            const row2 = document.getElementById('row2');
+            const row1 = document.getElementById('row1');
+
+            function toggleBtn(){
+                if(row2.style.display !== 'none'){
+                    row2.style.display = 'none';
+                    row1.style.display = 'block';
+                }else{
+                    row2.style.display = 'block';
+                    row1.style.display = 'none';
+                }
+            }
+
+        </script>
+
+        <!-- highcharts -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <!-- highcharts -->
+
     </body>
 </html>

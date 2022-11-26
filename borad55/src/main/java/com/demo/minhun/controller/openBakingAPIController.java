@@ -101,7 +101,11 @@ public class openBakingAPIController {
         checkMyAccountRequestDTO checkMyAccountRequestDTO = new checkMyAccountRequestDTO();
         checkMyAccountRequestDTO.setAccess_token(token.getAccess_token());
         checkMyAccountRequestDTO.setBank_tran_id(Code);
-        checkMyAccountRequestDTO.setBank_code_std("097"); // 오픈뱅크 코드는 097
+        if(bankRequestTokenTwoLeg.getBank_name().equals("오픈은행")){ // 은행이름은 뒤에 은행이라고 붙음
+            checkMyAccountRequestDTO.setBank_code_std("097"); // 오픈은행 코드는 097
+        }else{
+            checkMyAccountRequestDTO.setBank_code_std("090"); // 카카오은행 코드는 090
+        }
         checkMyAccountRequestDTO.setAccount_num(bankRequestTokenTwoLeg.getAccount_num());
         checkMyAccountRequestDTO.setAccount_holder_info_type(bankRequestTokenTwoLeg.getAccount_holder_info_type());
         checkMyAccountRequestDTO.setAccount_holder_info(bankRequestTokenTwoLeg.getAccount_holder_info());

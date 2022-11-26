@@ -5,6 +5,7 @@ package com.demo.minhun.dao;
 
 import java.util.List;
 
+import com.demo.minhun.dto.getCountDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demo.minhun.dto.BoardDTO;

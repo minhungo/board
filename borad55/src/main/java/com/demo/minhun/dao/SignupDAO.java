@@ -3,13 +3,9 @@ package com.demo.minhun.dao;
 
 import java.util.List;
 
-import com.demo.minhun.dto.CoinDTO;
-import com.demo.minhun.dto.getSignupDataDTO;
+import com.demo.minhun.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.demo.minhun.dto.SearchCriteria;
-import com.demo.minhun.dto.signupDTO;
 
 
 @Mapper
