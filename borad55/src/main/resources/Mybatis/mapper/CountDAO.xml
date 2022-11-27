@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.minhun.dao.CountDAO">
+    <!-- 가입 경로 통계 -->
+    <select id="getSingupData" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            SIGNUP_DATA, TO_CHAR(SIGNUP_DATE, 'YYYY-MM') as recentdate, count(*) as cnt
+        from
+            signup
+        where
+            signup_id not in ('admin')
+        and
+            SIGNUP_DATE between (select to_char(add_months(sysdate,-2),'yyyy-mm-dd') from dual)
+                            AND sysdate
+        GROUP BY
+            TO_CHAR(SIGNUP_DATE, 'YYYY-MM'), SIGNUP_DATA
+        order by
+            TO_CHAR(SIGNUP_DATE, 'YYYY-MM'), SIGNUP_DATA
+    </select>
+
+    <!-- 최근 일주일 생성된 글 갯수 -->
+    <select id="getSevenDaysBoardCount" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            TO_CHAR(board_date, 'YYYY-MM-dd') as curdate, count(*) as cnt
+        from
+            board
+        where
+            board_date between (select to_char(sysdate-7,'yyyy-mm-dd') from dual)
+            AND
+            sysdate
+        GROUP BY
+            TO_CHAR(board_date, 'YYYY-MM-dd')
+        order by
+            TO_CHAR(board_date, 'YYYY-MM-dd')
+    </select>
+
+
+    <!-- 최근 일주일 생성된 댓글 갯수 -->
+    <select id="getSevenDaysReplyCount" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            TO_CHAR(reply_date, 'YYYY-MM-dd') as curdate, count(*) as cnt
+        from
+            reply
+        where
+            reply_date between (select to_char(sysdate-7,'yyyy-mm-dd') from dual)
+            AND
+            sysdate
+        GROUP BY
+            TO_CHAR(reply_date, 'YYYY-MM-dd')
+        order by
+            TO_CHAR(reply_date, 'YYYY-MM-dd')
+    </select>
+
+    <!-- 전체 사용자 중 글 또는 댓글을 한 번이라도 작성한 사용자 비율계산을 위해 가져오는 count값 -->
+    <select id="RatioCalculator" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            s.cntsignup, both.cntboth, b.cntboard, r.cntreply
+        from
+            (select count(*) as cntsignup  from signup) s,
+            (select count(*) as cntboth from (select r2.reply_signup_id from reply r2 join board b2
+            on r2.reply_signup_id = b2.board_writer_id group by b2.board_writer_id, r2.reply_signup_id)) both,
+            (select count(*) as cntboard from (select board_writer_id from board where board_writer_id in (select signup_id from signup) group by board_writer_id)) b,
+            (select count(*) as cntreply from (select reply_signup_id from reply where reply_signup_id in (select signup_id from signup) group by reply_signup_id)) r
+    </select>
+
+
+    <!-- 전체 페이지 조회 수 합, 게시글 수, 댓글 수 -->
+    <select id="getTotalCount" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            v.cnttotalview, b.cntboard, r.cntreply
+        from
+            (select sum(board_hit) as cnttotalview from board) v,
+            (select count(*) as cntboard from board) b,
+            (select count(*) as cntreply from reply) r
+    </select>
+
+    <!-- 유입경로 통계 -->
+    <select id="getSignupDataCnt" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            signup_data, count(signup_data) as cnt
+        from
+            signup
+        group by
+            signup_data
+        order by
+            signup_data
+    </select>
+
+    <!-- 계급 분포 -->
+    <select id="getSignupGradeCnt" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            signup_grade, count(signup_grade) as cnt
+        from
+            signup
+        group by
+            signup_grade
+    </select>
+
+    <!-- 글 조회수 통계 -->
+    <select id="getViewCntOrderByHit" resultType="com.demo.minhun.dto.getCountDTO">
+        select
+            rownum, b.board_title, b.board_hit
+        from
+            (select board_title,board_hit from board order by board_hit desc) b
+    </select>
+
+</mapper>
+

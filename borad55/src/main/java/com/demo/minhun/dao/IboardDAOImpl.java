@@ -2,6 +2,7 @@ package com.demo.minhun.dao;
 
 import java.util.List;
 
+import com.demo.minhun.dto.getCountDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
