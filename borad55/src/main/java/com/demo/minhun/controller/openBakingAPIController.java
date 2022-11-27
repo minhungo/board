@@ -1,21 +1,29 @@
 package com.demo.minhun.controller;
 
-import com.demo.minhun.dao.CoinDAO;
-import com.demo.minhun.dto.ChargeNRefundDTO;
-import com.demo.minhun.dto.openbank.*;
-import com.demo.minhun.service.OpenBankService;
-import com.demo.minhun.service.SendMailService;
-import lombok.RequiredArgsConstructor;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Random;
+import com.demo.minhun.dao.CoinDAO;
+import com.demo.minhun.dto.ChargeNRefundDTO;
+import com.demo.minhun.dto.openbank.BankReponseTokenTwoLeg;
+import com.demo.minhun.dto.openbank.BankRequestTokenTwoLeg;
+import com.demo.minhun.dto.openbank.MailDTO;
+import com.demo.minhun.dto.openbank.checkMyAccountRequestDTO;
+import com.demo.minhun.dto.openbank.checkMyAccountResponseDTO;
+import com.demo.minhun.service.OpenBankService;
+import com.demo.minhun.service.SendMailService;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
@@ -57,6 +65,10 @@ public class openBakingAPIController {
     private String base_url = "https://testapi.openbanking.or.kr/v2.0";
 
     private final OpenBankService openBankService;
+    
+    private final Map<String, String> map = Map.of("산업은행","002", "기업은행", "003", "국민은행", "004", "우리은행", "020", "우체국", "071", "하나은행", "081"
+    		, "신한은행", "088", "케이은행", "089", "카카오은행", "090", "오픈은행", "097");
+
 
     // 토큰요청 및 전체계좌 조회
 //    @GetMapping("/callback")
@@ -101,12 +113,7 @@ public class openBakingAPIController {
         checkMyAccountRequestDTO checkMyAccountRequestDTO = new checkMyAccountRequestDTO();
         checkMyAccountRequestDTO.setAccess_token(token.getAccess_token());
         checkMyAccountRequestDTO.setBank_tran_id(Code);
-        if(bankRequestTokenTwoLeg.getBank_name().equals("오픈은행")){ // 은행이름은 뒤에 은행이라고 붙음
-            checkMyAccountRequestDTO.setBank_code_std("097"); // 오픈은행 코드는 097
-        }else{
-            checkMyAccountRequestDTO.setBank_code_std("090"); // 카카오은행 코드는 090
-        }
-        checkMyAccountRequestDTO.setAccount_num(bankRequestTokenTwoLeg.getAccount_num());
+        checkMyAccountRequestDTO.setBank_code_std(map.get(bankRequestTokenTwoLeg.getBank_name())); // 은행 이름으로 map 에서 value 값을 가져옴
         checkMyAccountRequestDTO.setAccount_holder_info_type(bankRequestTokenTwoLeg.getAccount_holder_info_type());
         checkMyAccountRequestDTO.setAccount_holder_info(bankRequestTokenTwoLeg.getAccount_holder_info());
 
