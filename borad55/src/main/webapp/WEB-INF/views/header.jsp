@@ -199,10 +199,10 @@ crossorigin="anonymous">
    margin:0; padding:10px 0px; background-color:white; 
    font-family:'맑은고딕'; position: absolute; right:100px; top:40px;" >
       
-      <div class="container col" style="display:inline-block; width:360px; height:20px; text-align:center;  ">
-          <img src="resources/img/${profile.signup_profle_img}" width="50" height="50" style="display:inline-block;">
+      <div class="container col" style="display:inline-block; width:360px; height:20px; text-align:center; margin-top: -2px; ">
+          <img src="resources/img/${profile.signup_profle_img}" width="50" height="50" style="display:inline-block; ">
           <div class="container" style="display:inline-block;  width:150px; padding:0px;  margin-right:30px;">
-              <span style="font-size:13px; text-align:left; color: gray"  ><b style="font-size:15px; color:black;" >
+              <span style="font-size:13px; text-align:left; color: gray" ><b style="font-size:15px; color:black;" >
                   ${profile.signup_nickname}님</b>
                   안녕하세요 ${name}
               </span>
@@ -213,7 +213,7 @@ crossorigin="anonymous">
                   class="btn btn-primary"
                   style="display:inline-block; width:80px;
                   height:30px; border:0px solid white; border-radius:20px;
-                  background-color:#c1c1c1; font-size:11px; position:absolute; left:295px; top:60px;" >
+                  background-color:#c1c1c1; font-size:11px; position:absolute; left:270px; top:60px;" >
 
               <a href="/PayCoin" style="color:white;" onclick="window.open(this.href,'코인 충전','width=600,height=650,top=100,left=500');return false;">
                   코 인
@@ -224,7 +224,7 @@ crossorigin="anonymous">
       
      <button class="btn btn-primary" style="display:inline-block; width:80px; 
       height:30px; border:0px solid white; border-radius:20px; 
-      background-color:#c1c1c1; font-size:11px; position:absolute; left:210px; top:60px;" 
+      background-color:#c1c1c1; font-size:11px; position:absolute; left:185px; top:60px;" 
       onclick="location.href='logout_action'">로그아웃</button>
       
 
@@ -244,19 +244,19 @@ crossorigin="anonymous">
        <a href='/userInformation3' onclick="window.open(this.href,'board','width=340, height=390,top=100,left=500');return false;">
        <button class="btn btn-primary" style="display:inline-block; width:80px; 
       height:30px; border:0px solid white; border-radius:20px; 
-      background-color:#c1c1c1; font-size:11px; position:absolute; right:243px; top:60px;">프로필변경</button></a>
+      background-color:#c1c1c1; font-size:11px; position:absolute; right:265px; top:60px;">프로필변경</button></a>
         
         
         
         
      <a href="/userInformation2?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'board','width=440, height=590,top=100,left=500');return false;"><button class="btn btn-primary"
      style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; 
-      background-color:#c1c1c1; font-size:11px; position:absolute; top:60px; left:125px;">마이페이지</button>
+      background-color:#c1c1c1; font-size:11px; position:absolute; top:60px; left:100px;">마이페이지</button>
       </a>
       
       <br>
       </div>
-      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px; margin-top: 5px" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=302,height=465,top=100,left=340');return false;">전체채팅방</a></button>
+      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:110px; margin-top: 5px" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=302,height=465,top=100,left=340');return false;">전체채팅방</a></button>
       </div>
       <br>
    		</c:if>

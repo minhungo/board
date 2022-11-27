@@ -21,7 +21,6 @@
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
    crossorigin="anonymous"></script>
-
 <style>
 a {
    color: blue;
@@ -78,6 +77,7 @@ border:none;
 
 
 <!-- 회원 정보 수정 부분 js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 function Update_User() {
 	
@@ -93,9 +93,6 @@ function Update_User() {
 	var adr_point_id1 = document.getElementById("adr_point_id1"); 
 	var adr_point_id2 = document.getElementById("adr_point_id2"); 
 	
-	var name_pw1 = document.getElementById("name_pw1"); 
-	var name_pw2 = document.getElementById("name_pw2"); 
-
 	var btn1 = document.getElementById("btn1"); 
 	var btn2 = document.getElementById("btn2"); 
 	
@@ -113,47 +110,47 @@ function Update_User() {
 		adr_point_id2.style.display = 'block';
 		adr_point_id1.style.display = 'none';
 
-		name_pw2.style.display = 'block';
-		name_pw1.style.display = 'none';
-
 		btn2.style.display = 'block';
 		btn1.style.display = 'none';
 	
-	} else {
+		Update_User2();
+	}		
 		
-		name_id1.style.display = 'block';
-		name_id2.style.display = 'none';
-		
-		email_id1.style.display = 'block';
-		email_id2.style.display = 'none';
-
-		adr_id1.style.display = 'block';
-		adr_id2.style.display = 'none';
-
-		adr_point_id1.style.display = 'block';
-		adr_point_id2.style.display = 'none';
-		
-		name_pw1.style.display = 'block';
-		name_pw2.style.display = 'none';
-		
-		btn1.style.display = 'block';
-		btn2.style.display = 'none';
-	}
-	
-		
-		if(name_id2 == ''){
-		  	 	alert("수정할 닉네임을 입력하세요.");
-		  	 	return false;
-		  	 }
-		  	 
-		  	 if(email_id2 == ''){
-		  	 	alert("수정할 이메일을 입력하세요.");
-		  	 	return false;
-		  	 }
 }
 </script>
 
 
+<script type="text/javascript">
+function Update_User2() {
+	
+	var form_mate = document.form_mate;
+	
+	var name_id2 = form_mate.name_id2.value;
+	
+	var email_id2 =form_mate.email_id2.value;
+	
+	var adr_id2 = form_mate.adr_id2.value;
+	
+	var adr_point_id2 = form_mate.adr_point_id2.value;
+	
+	
+	
+	if(!name_id2){
+  	 	alert("수정할 닉네임을 입력하세요.");
+  	 	return false;
+  	 }else if(!email_id2){
+  	 	alert("수정할 이메일을 입력하세요.");
+  	 	return false;
+  	 }else if(!adr_id2){
+  	 	alert("수정할 주소를 입력하세요.");
+  	 	return false;
+  	 }else if(!adr_point_id2){
+  	 	alert("수정할 상세주소를 입력하세요.");
+  	 	return false;
+  	 }
+}
+</script>
+    
 </head>
 
 
@@ -162,10 +159,11 @@ function Update_User() {
 
 
 
-<form action="MyPage_UpDate" method="post">
+<form action="MyPage_UpDate" method="post" name="form_mate">
 
  <input type="hidden" name="signup_id" value="${profile.signup_id}">
-
+ <input type="hidden" name="signup_pw" value="${profile.signup_pw}">
+ 
    <div>
       <div class="user" style="text-align:right;">
          
@@ -173,12 +171,6 @@ function Update_User() {
          style="aligin:bottom; border: none; background: transparent; margin-top:155px; color:#FFFFFF; 
          font-size:20px; width:160px;  font-weight: 800;">&nbsp;
          <img src="resources/img/${profile.signup_profle_img}" width="100" height="100" style="margin-top:50px; color:white;">
-
-        <label for="file" style="position: absolute; top: 210px; right:160px;" >
-          <a href="userInformation3"><div class="btn btn-outline-primary">프로필 업로드</div></a>
-        </label>
-        
-        
         
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          
@@ -199,9 +191,8 @@ function Update_User() {
          
           <tr>
             <th style="background-color: #84C3CC;">비밀번호</th>
-            <td id="name_pw1" type="password">*****</td>
-            <td id="name_pw2" style="display: none;">
-            <input type="password" name="input_pw" placeholder="${profile.signup_pw }"></td>
+            <td type="password" ">*****</td>
+            
          </tr>
          
          
@@ -217,6 +208,7 @@ function Update_User() {
             <th style="background-color: #84C3CC;">닉네임</th>
             <td id="name_id1">${profile.signup_nickname }</td>
             <td id="name_id2" style="display: none;"><input type="text" id="name_id2" name="input_nickname"  placeholder="${profile.signup_nickname }"></td>
+            <font id="nickname_feedback" size="2"></font>
          </tr>
          
 
@@ -228,7 +220,7 @@ function Update_User() {
 
          <tr>
              <th style="background-color: #84C3CC;">코인</th>
-             <td><input type="text" value="${curCoin } Coin" style="border: none;"></td>
+             <td>${curCoin } Coin</td>
 
          </tr>
          
@@ -236,7 +228,7 @@ function Update_User() {
          <tr>
             <th style="background-color: #84C3CC; vertical-align: middle;">이메일</th>
             <td id="email_id1">${profile.signup_email }</td>
-            <td id="email_id2" style="display: none"><input type="text" name="input_email" placeholder="${profile.signup_email }"></td>
+            <td id="email_id2" style="display: none"><input type="text" id="email_id2" name="input_email" placeholder="${profile.signup_email }"></td>
          </tr>	
          
        
@@ -249,7 +241,7 @@ function Update_User() {
             <td id="adr_id1">${profile.signup_adr }</td>
 			
 			<td id="adr_id2" style="display: none">
-			<input type="text" name="input_adr"  placeholder="${profile.signup_adr }">
+			<input type="text" id="adr_id2" name="input_adr"  placeholder="${profile.signup_adr }">
 			</td>
          </tr>
 
@@ -262,7 +254,7 @@ function Update_User() {
             <td id="adr_point_id1">${profile.signup_adr_point }</td>
             
 			<td id="adr_point_id2" style="display: none">
-			<input type="text" name="input_adr_point"   
+			<input type="text" id="adr_point_id2" name="input_adr_point"   
 			 placeholder="${profile.signup_adr_point}">
 			</td>
          </tr>
@@ -286,11 +278,14 @@ function Update_User() {
          <button type="button" class="btn btn-outline-danger" 
          onclick="Update_User()" id="btn1">수정하기</button>
          
-         <button type="submit" class="btn btn-outline-danger" 
-         onclick="Update_User()" style="display: none" id="btn2" style="margin-top: 10px;">수정완료</button>
+         <button onclick="Update_User2()" type="submit" class="btn btn-outline-primary" 
+          style="display: none" id="btn2" style="margin-top: 10px;">수정완료</button>
       </div>
    </div>
 </form>
+
+
+
 
 </body>
 </html>

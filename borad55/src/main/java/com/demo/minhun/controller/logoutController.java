@@ -17,7 +17,6 @@ import com.demo.minhun.dao.SignupDAO;
 import com.demo.minhun.dto.signupDTO;
 
 
-//�α׾ƿ� ��Ʈ�ѷ�
 @Controller
 public class logoutController {
 
@@ -56,10 +55,9 @@ public class logoutController {
 	                      }
 			         
 			         session.invalidate();
-			         //return "<script>alert('�α׾ƿ�!!'); location.href='/signin'; </script>";
 			         return "<script>location.href='/signin';</script>";
 			      }else {
-			         return "<script> location.href='/main2'; </script>";
+			         return "<script> location.href='/'; </script>";
 			      }
 		} catch (Exception e) {
 			return "<script>alert('로그아웃!!'); location.href='/signin'; </script>";

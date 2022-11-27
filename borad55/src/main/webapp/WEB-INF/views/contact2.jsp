@@ -147,7 +147,7 @@ color:black;
 
 <body>
 <c:import url="header.jsp"/>
-
+<hr style="height:3px; ">
 	<div class="container" style="margin:80px auto;">
 		<div class="row">
 			<div class="col" style="width:500px; height:500px;">

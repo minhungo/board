@@ -43,6 +43,13 @@ public class userController {
 
 	signupDTO user;
 	
+	
+	@GetMapping("/userInformation4")
+	public String userInformation4() {
+		return "userInformation4";
+	}
+	
+	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>(); 
 	
 	@GetMapping("userInformation3")
@@ -54,7 +61,6 @@ public class userController {
 	 
 	 @RequestMapping(value = "/userReport", method = RequestMethod.GET)
     public String userReport() {
-     System.out.println("�����Ű�â ȣ��");
     
     return "userReport";
 	 }
@@ -124,15 +130,11 @@ public class userController {
 				 		System.out.println("memberImg : " + memberImg);
 				 		System.out.println("signup_id : " + signup_id);
 				 		
-				 		return "<script>alert('이미지 변경 완료!'); window.close(); </script>";
+				 		return "<script>alert('수정완료!');window.close();</script>";
 				 		
-				 	}else if(user.getSignup_profle_img()==null){	
-				 		return "<script>alert('파일이 비어있습니다!'); location.href='/board'; </script>";
 				 	}
-				 	
 				} catch (Exception e) {
 					e.printStackTrace();
-					return "<script>alert('파일이 비어있거나 세션이 만료되었습니다!'); location.href='/board'; </script>";
 				}
 			 return "<script>alert('파일이 비어있거나 세션이 만료되었습니다!'); location.href='/board'; </script>";
 		 }
@@ -143,7 +145,7 @@ public class userController {
 		@RequestMapping("/MyPage_UpDate")
 	  	@ResponseBody
 	     public String MyPage_UpDate (
-	    		 @RequestParam("input_pw") String input_pw,
+	    		 @RequestParam("signup_pw") String input_pw,
 	             @RequestParam("input_nickname") String input_nickname,
 	             @RequestParam("input_email") String input_email,
 	             @RequestParam("input_adr") String input_adr,
@@ -153,11 +155,18 @@ public class userController {
 	             ) throws Exception {
 	        
 	  		
+			System.out.println(input_pw);
+			System.out.println(input_nickname);
+			System.out.println(input_email);
+			System.out.println(input_adr);
+			System.out.println(input_adr_point);
+			System.out.println(signup_id);
+			
 	  		sigupDAO.MyPage_UpDate(input_pw, input_nickname, input_email, input_adr, input_adr_point, signup_id);
 	  		
 	  		session.setAttribute("profile", user);
 	  	
-	  		return "<script>alert('수정완료!'); window.close();</script>";
+	  		return "<script> alert('수정완료! 다시 로그인 해주세요!');window.close();</script>";
 	    }
 	 
 		

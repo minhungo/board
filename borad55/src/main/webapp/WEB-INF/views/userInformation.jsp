@@ -102,12 +102,10 @@ th, td {
          <tr>
             <th style="background-color: #84C3CC;">포인트</th>
             <td><input type="text" value="${profile.signup_point }" style="border: none;"></td>
-
          </tr>
          <tr>
             <th style="background-color: #84C3CC;">코인</th>
-            <td><input type="text" value="${curCoin } Coin" style="border: none;"></td>
-
+            <td><input type="text" value="${curCoin} Coin" style="border: none;"></td>
          </tr>
          <tr>
             <th style="background-color: #84C3CC; vertical-align: middle;">이메일</th>

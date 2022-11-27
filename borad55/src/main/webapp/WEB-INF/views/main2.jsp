@@ -86,12 +86,16 @@ td {
 </head>
 <body>
 
-   <c:import url="header.jsp" />
 
+
+
+   <c:import url="header.jsp" />
+<hr style="height:3px; ">
+<br>
     <div class = "container">
         <div class="swiper mySwiper">
               <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
+                <div class="swiper-slide"><img src="resources/image/developer.png" style="width: 100%"></div>
                 <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
                 <div class="swiper-slide"><img src="resources/image/developer.png" alt=""></div>
                 <div class="swiper-slide"><img src="resources/image/coding.png" alt=""></div>
@@ -115,44 +119,6 @@ td {
 <div class="d-flex" style="border: 0px; position:absolute; top:230px; left:120px; width:220px; margin-top:500px ">  
       <div class="container row"
          style="background-color: white; padding: 0px">
-      
-
-               <c:if test="${empty profile.signup_id}">
-                  <c:forEach var="connectUser" items="${connectUser}">
-                     <div class="border-bottom " style="width: 230px; padding: 0px;" id="${connectUser.signup_nickname}" onclick="settingMenuToggle2(); test1('${connectUser.signup_nickname}','${profile.signup_id }');">
-                        <div class="chat_img ">
-                           <img src="resources/img/${connectUser.signup_profle_img}">
-                        </div>
-                        <span style="padding-left: 100px">${connectUser.signup_nickname}</span>
-                        <c:choose>
-      <c:when test="${connectUser.signup_grade eq 'bronze' }"><span   style="padding-left: 10px"><img src="resources/image/bronze.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'silver' }"><span   style="padding-left: 10px"><img src="resources/image/silver.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'gold' }"><span   style="padding-left: 10px"><img src="resources/image/gold.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'platinum' }"><span   style="padding-left: 10px"><img src="resources/image/platinum.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'diamond' }"><span   style="padding-left: 10px"><img src="resources/image/diamond.png" width="35" height="35"></span></c:when>      
-      </c:choose>
-                     </div>
-                  </c:forEach>
-               </c:if>
-
-               <c:if test="${!empty profile.signup_id}">
-                  <c:forEach var="connectUser" items="${connectUser}">
-                     <div class="border-bottom " style="width: 230px; padding: 0px;" id="${connectUser.signup_nickname}" onclick="settingMenuToggle2(); test1('${connectUser.signup_nickname}','${profile.signup_id }');">
-                        <div class="chat_img ">
-                           <img src="resources/img/${connectUser.signup_profle_img}">
-                        </div>
-                        <span style="padding-left: 100px">${connectUser.signup_nickname}</span>
-                        <c:choose>
-       <c:when test="${connectUser.signup_grade eq 'bronze' }"><span   style="padding-left: 10px"><img src="resources/image/bronze.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'silver' }"><span   style="padding-left: 10px"><img src="resources/image/silver.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'gold' }"><span   style="padding-left: 10px"><img src="resources/image/gold.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'platinum' }"><span   style="padding-left: 10px"><img src="resources/image/platinum.png" width="30" height="30"></span></c:when>
-      <c:when test="${connectUser.signup_grade eq 'diamond' }"><span   style="padding-left: 10px"><img src="resources/image/diamond.png" width="35" height="35"></span></c:when>      
-      </c:choose>
-                     </div>
-                  </c:forEach>
-               </c:if>
-
             </div>
 </div>
 </div>
@@ -171,10 +137,8 @@ td {
                <div class="container "
                style="background-color: white; width: 560px; height: 300px; padding: 20px 0px;">
 
+
                <table style="width: 550px; margin: 10px auto;">
-                  
-                  
-                  
                   <thead style="border-bottom: 2px solid black;">
                      <tr>
                         <th colspan="2"
@@ -206,7 +170,6 @@ td {
                            </c:when>
                         </c:choose>
          <!-- 카테고리 나누기 main -->
-
                         <td colspan="2">
                            <a href="readForm?board_idx=${BoardDTO.board_idx }">${BoardDTO.board_title }</a>
                            <span style="color: orange;">[${BoardDTO.board_reply_cnt}]</span> 
@@ -276,7 +239,7 @@ td {
          <!-- 10/11 추가코드 -->
             <br>
             <br>
-            <h2 style="text-align: left; display:inline-block; "><b>추천 책</b></h2>
+            <h2 style="text-align: left; display:inline-block; "><b>이달의 추천 도서</b></h2>
             <img src="resources/image/Book.png" width=30px height=30px >
             
             <div class="container"
@@ -415,11 +378,8 @@ td {
                      <!-- 카테고리 나누기 main -->
                   
                   
-                           <td colspan="2"><a
-                           href="readForm?board_idx=${BoardDTO.board_idx }">${BoardDTO.board_title }</a>
+                           <td colspan="2"><a href="readForm?board_idx=${BoardDTO.board_idx }">${BoardDTO.board_title }</a>
                            <span style="color: orange;">[${BoardDTO.board_reply_cnt}]</span> 
-                           
-                           
                            <span style="color: red;">N</span>
                            </td>
                      </tr>
@@ -475,50 +435,12 @@ td {
 
       <div class="container "style="background-color: geen; width: 200px; height: 1300px;">
          <a href="https://sesac.seoul.kr/common/greeting.do">
-            <img src="resources/image/ccccc.jpg" width="190px" height="800px" style="margin-top: 70px;">
+            <img src="resources/image/ccccc.jpg" width="350px" height="900px" style="margin-top: 70px;">
          </a>
       </div>
-
    </div>
 
 
-
-
-   <!--  채팅 프로필 창 영역 -->
-      <form action="imgloadaction" method="post" enctype="multipart/form-data">
-     
-       <input type="hidden" name="signup_id" id="signup_id" value="${profile.signup_id}">
-
-
-      <div class="board_profile" style="text-align:center; margin-top: 490px;">
-      <div class="board_profile_chat border" style="max-width: 400px; max-height: 600px; background-color:#ffffff;">
-             <div class="container" style="background-color:white; text-align:right;" >
-             <i class="fa-solid fa-xmark" onclick="settingMenuToggle2()"></i>
-             </div>
-             
-             
-             <div class="container" style="text-align: center; margin: auto;">
-                    <i class="fa-solid fa-xmark-large"></i>
-                    <img src="resources/img/${profile.signup_profle_img}" width="250px" height="250px" style="margin-top:40px;" >
-        </div>
-        <br>
-        <div id=container></div>
-        <div style="border: 1px; margin: 20px" id=grade>
-        </div>
-        <div style="text-align: center;">
-        
-        
-       
-        <input type="file" name="file" >
-        <button type="submit" onclick="openPop2()" class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">프로필 변경</button><br>
-       
-       <a href='userReport' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;">
-       <button class="btn btn-success " style="width: 160px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>
-        
-        </div>
-         </div>
-      </div>
-        </form>
 
 
 
@@ -535,7 +457,7 @@ td {
            spaceBetween: 30,
            centeredSlides: true,
            autoplay: {
-             delay: 5000,
+             delay: 3000,
              disableOnInteraction: false,
            },
            pagination: {

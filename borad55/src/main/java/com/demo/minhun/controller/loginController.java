@@ -157,7 +157,6 @@ public class loginController {
              }
             
             
-            session.setAttribute("connectUser", userList);
 
              return "<script> location.href='/board'; </script>";
              

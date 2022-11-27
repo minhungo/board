@@ -3,10 +3,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.minhun.dao.IBoardDAO;
 import com.demo.minhun.dao.IReplyDAO;
-import org.springframework.web.servlet.ModelAndView;
 
 
 //占싹뱄옙 회占쏙옙占쏙옙 占쏙옙占쏙옙 占쌉쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙트占싼뤄옙
@@ -47,15 +43,12 @@ public class boardController {
 	@Autowired
 	CoinDAO coinDAO;
 	
-	//占쏙옙占쏙옙 占쏙옙占쏙옙트
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();
 	
-	//占쏙옙占쏙옙 占쏙옙트占싼뤄옙 
 	@RequestMapping("/")
 	   public String main(Model model,
 	            @RequestParam(value = "page", defaultValue = "1") String page ,@RequestParam(value = "bgno" ,defaultValue = "1")int bgno  ) throws Exception {
 		
-		  //占쏙옙占싸울옙 占쌍댐옙 카占쏙옙 占쏙옙占쏙옙 占쌉쏙옙占쏙옙 占쏙옙占쏙옙트 占쌉쇽옙
 	         List<BoardDTO> list = IBoardDAO.mini();
 	         model.addAttribute("list", list);
 	         
@@ -68,8 +61,6 @@ public class boardController {
 	         List<BoardDTO> list4 = IBoardDAO.mini4();
 	         model.addAttribute("list4", list4);
 	         
-	         System.out.println("minilist 호占쏙옙");
-	         System.out.println("占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 호占쏙옙");
 	         
 	         return "main2";
 	   }
@@ -89,8 +80,6 @@ public class boardController {
 		
 		List<BoardDTO> list = IBoardDAO.list(scri);
 		
-		System.out.println("占쏙옙占쏙옙트 占쌉쇽옙호占썩성占쏙옙");
-		
 		model.addAttribute("list", list);
 		
 		PageMaker pageMaker = new PageMaker();
@@ -105,16 +94,12 @@ public class boardController {
 	
 	
 	
-	
-	
-	//占쌉쏙옙占쏙옙 占쌜억옙占쏙옙 占쏙옙
 	@RequestMapping("/writeForm")
 	public String writeForm() {	
 		return "writeForm";
 	}
 
 	
-	//占쌜억옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싱올라가댐옙 占쏙옙트占싼뤄옙
 	@RequestMapping("/writeAction")
 	@ResponseBody
 	public String writeAction(

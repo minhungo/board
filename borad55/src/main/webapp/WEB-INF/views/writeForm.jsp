@@ -89,7 +89,7 @@
 
       <!--  게시판 기능 폼 영역 -->
       <div class="container-fluid row" style="background-color: white; 
-      width: 800px; height: 1100px; margin-left:160px; margin-right:50px;">
+      width: 800px; height: 1100px; margin-left:30px; margin-right:50px;">
          <div class="container margin-bottom: -1.5rem! important;"
             style="width: 800px;">
             <h3 class="mb-4 mt-4" style="text-align: center; ">글쓰기</h3>

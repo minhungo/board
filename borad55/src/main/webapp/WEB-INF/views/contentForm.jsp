@@ -78,7 +78,6 @@
                      </div>
                   </c:forEach>
                </c:if>
-
             </div>
 </div>
 </div>
@@ -87,7 +86,7 @@
 
 
       <!--  게시판 기능 폼 영역 -->
-   <div class="container-fluid row" style="background-color: white; width: 800px; height: 1100px; margin-left:190px; margin-right:50px;">
+   <div class="container-fluid row" style="background-color: white; width: 800px; height: 1100px; margin-left:20px; margin-right:50px;">
          <div class="container margin-bottom: -1.5rem! important;"
             style="width: 900px;">
             <h3 class="mb-4 mt-4" style="text-align: center;">글수정</h3>

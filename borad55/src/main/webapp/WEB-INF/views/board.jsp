@@ -114,6 +114,7 @@ font-weight:  400;
 </head>
 <body><!--  바디  -->
 <c:import url="header.jsp"/>
+<hr style="height:3px; ">
 
 
 
@@ -172,19 +173,23 @@ font-weight:  400;
 
  <c:choose>
 	<c:when test="${scri.bgnopage == 0}">
-	<h3 class="mb-3 mt-5 text-center">전체게시판</h3>
+	<p class="mb-3 mt-5 text-center" style="font-size: 23px;  color: black; text-shadow: 1px 1px 1.5px ;">전체게시판
+  <img src="resources/image/earth.jpg" style="width: 50px"></p>
 	</c:when>
 	
 	<c:when test="${scri.bgnopage == 1}">
-	<h3 class="mb-3 mt-5 text-center">Q&A</h3>
+	<p class="mb-3 mt-5 text-center" style="font-size: 23px;  color: black; text-shadow: 1px 1px 1.5px ;">QnA
+  <img src="resources/image/question2.png" style="width: 50px"></p>
 	</c:when>
      
      <c:when test="${scri.bgnopage == 2}">
-	<h3 class="mb-3 mt-5 text-center">자유게시판</h3>
+	<p class="mb-3 mt-5 text-center" style="font-size: 23px;  color: black; text-shadow: 1px 1px 1.5px ;">자유게시판
+  <img src="resources/image/all.png" style="width: 50px"></p>
 	</c:when>
 	
 	<c:when test="${scri.bgnopage == 3}">
-	<h3 class="mb-3 mt-5 text-center">건의게시판</h3>
+	<p class="mb-3 mt-5 text-center" style="font-size: 23px;  color: black; text-shadow: 1px 1px 1.5px ;">건의게시판
+  <img src="resources/image/건의.png" style="width: 50px"></p>
 	</c:when>
 </c:choose>
 	 
@@ -289,6 +294,9 @@ font-weight:  400;
                      
                      </form>
                       
+                      
+                      
+                      
       
    </div>
 	
@@ -306,8 +314,63 @@ font-weight:  400;
     </c:if> 
     </ul>
 	</nav>
+  
+            <br>
+            <br>
+            <div>
+             <h2 style="margin-left: 72px"><b>이달의 추천 도서</b> <img src="resources/image/Book.png" width=30px height=30px ></h2> 
+            <br>
+            </div>
+            
+            
+               <div class="container "
+                  style="display: inline-block; width: 200px; border-radius: 10px; background-color: #fff; border: 1px solid black; margin-left: 85px; 
+                  margin-right: 55px">
+                  <img src="resources/image/jump.jpg" height="180" width="180"><a href="https://product.kyobobook.co.kr/detail/S000001817933">
+               <span style="font-style:italic;">점프 투 파이썬</span></a>
+               </div>
+
+               <div class="container "
+                  style="display: inline-block; width: 200px; border-radius: 10px; background-color: #fff; border: 1px solid black;  margin-right: 55px; ">
+                  <img src="resources/image/Database.jpg" height="180" width="180">
+                   <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002945300">
+                   <span style="font-style:italic;">오라클</span></a>
+               </div>
+               
+               
+               <div class="container "
+                  style="display: inline-block; width: 200px; border-radius: 10px; background-color: #fff; border: 1px solid black; margin-right: 55px;">
+                  <img src="resources/image/go.jpg" height="180" width="180">
+                   <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000003001553">
+               <span style="font-style:italic;">GO 프로그래밍</span></a>
+               </div>
+               
+               
+               <div class="container "
+                  style="display: inline-block; width: 200px; border-radius: 10px; background-color: #fff; border: 1px solid black; ">
+                  <img src="resources/image/java.jpg" height="180" width="180">
+                  <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002945295">
+               <span style="font-style:italic;">자바 프로그래밍</span></a>
+               </div>
+               
+               
+               
+
+
+              <br>
+              <br>
+              <br>
+             <a href="https://www.wavve.com/search?searchWord=%EC%95%BD%ED%95%9C%EC%98%81%EC%9B%85"><img src="resources/image/wow2.png" height="150" width="1500"></a>
+  
+  
+  
+  
+  
 </div>
 </div>
+
+
+
 
 
 
@@ -336,39 +399,7 @@ font-weight:  400;
 
 
 
-<!--  채팅 프로필 창 영역 -->
-<form action="imgloadaction" method="post" enctype="multipart/form-data">
 
-       <input type="hidden" name="signup_id" id="signup_id" value="${profile.signup_id}">
-
-
-      <div class="board_profile" style="text-align:center;">
-      <div class="board_profile_chat border" style="max-width: 400px; max-height: 600px; background-color:#ffffff;">
-      <div class="container" style="background-color:white; text-align:right;" >
-      <i class="fa-solid fa-xmark" onclick="settingMenuToggle2()"></i>
-      </div>
-             
-             <div class="container" style="text-align: center; margin: auto;" id=hoho>
-                    <i class="fa-solid fa-xmark-large"></i>
-                    
-        </div>
-        <br>       
-        <div id=container></div>        
-        <div style="border: 1px; margin: 20px" id=grade class="grade">
-        </div>
-        <div style="text-align: center;">
-
-        
-        <div id=hg >
-        
-       </div >
-       <a href='userReport' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;">
-       <button class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>        
-        </div>
-         </div>
-      </div>
-</form>
-  
 
 	
 
