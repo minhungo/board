@@ -612,7 +612,8 @@ function ReplyUpdateView() {
                             </div>
                             <div id="footer">
                                 <button type="button" id="select_answer" class="btn btn-outline-primary">
-                                    <a href="reply_selectAction?reply_idx=${reply.reply_idx}&board_name=${dto.board_name}&reply_name=${reply.reply_name}&board_idx=${dto.board_idx}">
+                                    <a href="reply_selectAction?reply_idx=${reply.reply_idx}&board_name=${dto.board_name}&reply_name=${reply.reply_name}&board_idx=${dto.board_idx}"
+                                        id="select_footer_confirm">
                                         확인
                                     </a>
                                 </button>
