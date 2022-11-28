@@ -1,7 +1,11 @@
 package com.demo.minhun.dto;
 
+
+//방의 정보를 담아둘 Room객체
 public class Room {
+	//룸 번호
 	int roomNumber;
+	//룸이름
 	String roomName;
 	
 	public int getRoomNumber() {

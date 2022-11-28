@@ -51,15 +51,13 @@ public class loginController {
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();    
 	
 	
-	
-	
+
 	//로그인
 	@GetMapping("/signin")
 	public String t2() {
 		return "signin";
 	}
 	
-
 	@RequestMapping("/log_action") // 로그인 액션
     @ResponseBody
     public String 
@@ -197,7 +195,7 @@ public class loginController {
          LocalDate str = usercheck.getStr_sanctions();
          
          //정지 사유
-            String true_san =usercheck.getTrue_sanctions();
+         String true_san =usercheck.getTrue_sanctions();
          
          System.out.println(and+""+"정지날짜");
          

@@ -366,6 +366,7 @@ font-weight:  400;
        <button class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>        
         </div>
          </div>
+
       </div>
 </form>
   

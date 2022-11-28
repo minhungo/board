@@ -1104,8 +1104,6 @@ function ReplyUpdateView() {
 			</c:forEach>
 
 
-
-
          </div>
       </div>	
 			

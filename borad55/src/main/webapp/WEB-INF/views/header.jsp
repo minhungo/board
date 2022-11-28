@@ -106,7 +106,7 @@ crossorigin="anonymous">
                     </li>
                   </ul>
                 </div>
-
+               
               </div>
             </li>
             </c:if>
@@ -157,6 +157,7 @@ crossorigin="anonymous">
                         <li><a href="/record?signup_id=<c:out value='${buyerId}'/>" onclick="window.open(this.href,'코인 기록','width=600,height=650,top=100,left=500');return false;">내 코인기록</a></li>
                       </ul>
                     </li>
+                    
                   </ul>
                 </div>
 
@@ -164,6 +165,7 @@ crossorigin="anonymous">
             </li>
             </c:if>
 
+             <div></div>
             <li class="item">
               <div class="item__name">Contact Us</div>
               <div class="item__contents">
@@ -181,7 +183,7 @@ crossorigin="anonymous">
           </ul>
 
         </div>
-		
+
 		<ul class="header_login">
 		
 		<c:if test="${empty profile.signup_id}">
@@ -189,9 +191,7 @@ crossorigin="anonymous">
       	<a href="signin"><li><i class="fa-solid fa-user"></i></li></a>
    		</c:if>
    
-   
-   
-   
+
    
    		<c:if test="${!empty profile.signup_id}">
    <div class="container" 
@@ -253,16 +253,22 @@ crossorigin="anonymous">
      style="display:inline-block; width:80px; height:30px; border:0px solid white; border-radius:20px; 
       background-color:#c1c1c1; font-size:11px; position:absolute; top:60px; left:125px;">마이페이지</button>
       </a>
+      <br>
+      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px; margin-top: 5px" >
+      <a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=302,height=465,top=100,left=340');return false;">전체채팅방</a></button>
+      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px; margin-top: 0px" >
+      <a href="/room"style="color:white;" onclick="window.open(this.href,'유저정보','width=555,height=680,top=100,left=340');return false;">오픈채팅</a></button>
+      <br>
+      </div>
+     
+      </div>
       
-      <br>
-      </div>
-      <button type="button" class="btn btn-dark" style="border-radius:20px; width: 150px; display: inline-block; margin-bottom: 10px; margin-left:60px; margin-top: 5px" ><a href="/chat" style="color:white;" onclick="window.open(this.href,'유저정보','width=302,height=465,top=100,left=340');return false;">전체채팅방</a></button>
-      </div>
-      <br>
    		</c:if>
    		
 		</ul>
+		
 	</nav>
+	
 
 	
 	
@@ -317,6 +323,13 @@ crossorigin="anonymous">
                 alert("로그인 후 이용할 수 있습니다.");
             });
         });
+    </script>
+    
+   
+    <script type="text/javascript">
+
+	var ws;
+
     </script>
 </c:if>
 

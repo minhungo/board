@@ -15,10 +15,6 @@
    
 
 
-
-
-
-
    <!-- 게시글 추천 시 tt_board 테이블  board_like_cnt+1 // 단순추가-->
    <update id="BoardUpLike">
       update board set

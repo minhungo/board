@@ -56,7 +56,7 @@ public class logoutController {
 	                      }
 			         
 			         session.invalidate();
-			         //return "<script>alert('�α׾ƿ�!!'); location.href='/signin'; </script>";
+			      
 			         return "<script>location.href='/signin';</script>";
 			      }else {
 			         return "<script> location.href='/main2'; </script>";

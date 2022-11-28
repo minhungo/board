@@ -27,7 +27,9 @@ public class signupController {
 	CoinDAO coinDAO;
 	
 	@GetMapping("/signup")
+	
 	public String signup(){
+		
 		return "signup";
 	}
 	
@@ -57,8 +59,8 @@ public class signupController {
 		return "PWFind3";
 	}
 	
-	
-	@RequestMapping("/signupAction") // ȸ������ 
+
+	@RequestMapping("/signupAction") 
 	@ResponseBody
 	public String 
 			signup(@RequestParam("input_id") String signup_id, 
@@ -77,19 +79,19 @@ public class signupController {
 				signup_adr_point, signup_data,signup_profle_img);
 
 		if (result == 1) {
-			System.out.println("ȸ������ ����!!");
+			
 			ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
 			cnrDTO.setSignupId(signup_id);
 			cnrDTO.setPayAmount(10000l);
-			cnrDTO.setPayImpUid("회원가입");
-			cnrDTO.setPayMerchantUid("회원가입 축하선물");
+			cnrDTO.setPayImpUid("�쉶�썝媛��엯");
+			cnrDTO.setPayMerchantUid("�쉶�썝媛��엯 異뺥븯�꽑臾�");
 			cnrDTO.setPossibleRefund(4l);
 			coinDAO.ChargeCoin(cnrDTO);
-			return "<script>alert('회원가입 성공!!'); location.href='/board'; </script>";
+			return "<script>alert('회원가입 되셨습니다'); location.href='/board'; </script>";
 
 		} else {
 
-			return "<script>alert('회원가입 실패!'); location.href='/signup'; </script>";
+			return "<script>alert('회원가입 실패 하셨습니다'); location.href='/signup'; </script>";
 
 		}
 

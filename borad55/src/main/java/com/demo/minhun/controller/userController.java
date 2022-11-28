@@ -21,7 +21,6 @@ import com.demo.minhun.dto.signupDTO;
 
 
 
-//占쏙옙占쏙옙占쏙옙 占신곤옙占싹거놂옙,占쏙옙占쏙옙占싹거놂옙 占싹댐옙 占쏙옙占쏙옙 占쏙옙트占쏙옙
 @Controller
 public class userController {
 	
@@ -54,33 +53,12 @@ public class userController {
 	 
 	 @RequestMapping(value = "/userReport", method = RequestMethod.GET)
     public String userReport() {
-     System.out.println("�����Ű�â ȣ��");
-    
+  
     return "userReport";
 	 }
 
 	 
-	
-	 
-	 @RequestMapping(value = "/userReportaction", method = RequestMethod.POST)
-	 @ResponseBody
-	    public String userReportaction(@RequestParam("user_reportcheck") String user_reportcheck,
-	          @RequestParam("signup_num") int signup_num) {
-	      
-	      System.out.println("userReportDTO : "+user_reportcheck);
-	      System.out.println("userReportDTO : "+signup_num);
-	      
-	      sigupDAO.userReportDTO(user_reportcheck,signup_num);
-	      
-	   
-	      return "<script>alert('�Ű� �Ǿ����ϴ�');window.close();</script>";
-	   }
-	 
-	 
-	 
-	 
-	 
-	 
+
 	   
 		 @RequestMapping(value = "/imgloadaction", method = RequestMethod.POST)
 		 @ResponseBody
@@ -95,16 +73,16 @@ public class userController {
 			 
 			 signupDTO originimg = sigupDAO.origin_img_return(signup_id);
 			 	
-			 	File delfile = new File("C:\\workspace-sts-3.9.11.RELEASE\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  originimg.getSignup_profle_img());
+			 	File delfile = new File("C:\\workspace-sts-3.9.11.RELEASE\\board\\borad55\\src\\main\\webapp\\resources\\img" + "\\" +  originimg.getSignup_profle_img());
 			 	
 			 	if(delfile.exists() && !originimg.getSignup_profle_img().equals("human1.png")) {
 			 		delfile.delete(); 
 		        } 
 			 
-			 
 			 	String memberImg = fileUtil.updateImg(mpRequest); 
 			 	user = (signupDTO) session.getAttribute("profile");
 				
+			 	
 			 	
 			 	System.out.println("memberImg : " + memberImg);
 			 	
@@ -166,9 +144,7 @@ public class userController {
 		public String contact2() {
 			return "contact2";
 		}
-		
-		
-		
+	
 		
 		@GetMapping("/userInformation2")
 		public String userInformation2(@RequestParam("signup_id") String signup_id, Model model) {

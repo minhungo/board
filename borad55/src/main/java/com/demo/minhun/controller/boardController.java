@@ -27,8 +27,6 @@ import com.demo.minhun.dao.IReplyDAO;
 import org.springframework.web.servlet.ModelAndView;
 
 
-//占싹뱄옙 회占쏙옙占쏙옙 占쏙옙占쏙옙 占쌉쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙트占싼뤄옙
-
 
 @Controller
 public class boardController {
@@ -106,15 +104,14 @@ public class boardController {
 	
 	
 	
-	
-	//占쌉쏙옙占쏙옙 占쌜억옙占쏙옙 占쏙옙
+
 	@RequestMapping("/writeForm")
 	public String writeForm() {	
 		return "writeForm";
 	}
 
 	
-	//占쌜억옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싱올라가댐옙 占쏙옙트占싼뤄옙
+	
 	@RequestMapping("/writeAction")
 	@ResponseBody
 	public String writeAction(
@@ -139,10 +136,9 @@ public class boardController {
 	
 	
 	
+
 	
-	//占쏙옙 占쏙옙占쏙옙창 占쏙옙占쏙옙 占쏙옙트占싼뤄옙 
-	
-	@RequestMapping("/update") // 占쏙옙 占쏙옙占쏙옙
+	@RequestMapping("/update") 
 	public String update(
 			@RequestParam("board_idx") String board_idx, 
 			Model model, 
@@ -153,23 +149,26 @@ public class boardController {
 			throws Exception {
 	
 	
-		//占쏙옙회占쏙옙 占쏙옙占쏙옙占쏙옙占�
+	
 		IBoardDAO.hit(board_idx);
-		//占쏙옙占쏙옙징처占쏙옙 
+	
 		model.addAttribute("page", page);
-		//IDX占쏙옙占쏙옙占쏙옙占쏙옙 占쌉쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쌉쇽옙
+	
 		BoardDTO dto = IBoardDAO.viewDTO(board_idx);
-		model.addAttribute("dto", dto);
 		
-		//占쏙옙占쏙옙 체크 占싸깍옙占쏙옙 占쏙옙占싹몌옙 占쏙옙占쏙옙
+		model.addAttribute("dto", dto);
+	
+		
+		
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
+		
 	      if(usercheck==null) {
-	         return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
+	         return "<script>alert('로그인 후 이용하세요'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
 	    	  return "contentForm";
 	      }else {
-	    	  return "<script>alert('占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('권한이 없습니다.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
@@ -178,7 +177,7 @@ public class boardController {
 	
 	
 	
-	//占쏙옙 占쏙옙占쏙옙 占싹댐옙 占쏙옙
+	
 	@RequestMapping(value = "/updateAction",  method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAction(
@@ -193,18 +192,18 @@ public class boardController {
 
 		Object usercheck = session.getAttribute("profile");
 		if (usercheck == null) {
-			return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin';</script>";
+			return "<script>alert('로그인 후  이용해 주세요'); location.href='/signin';</script>";
 		}
 
 		int result = IBoardDAO.updateDTO(board_idx, board_name, board_title, board_content);
 
 		if (result == 1) {
 
-			return "<script>alert('占쏙옙占쏙옙占싹뤄옙!'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
+			return "<script>alert('글이 업데이트 되었습니다'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
 					+ "&searchType=" + scri.getsearchType() + "&keyword=" + scri.getKeyword() + "';</script>";
 		} else {
 
-			return "<script>alert('占쏙옙占쏙옙占쏙옙占쏙옙!'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
+			return "<script>alert('글 업데이트 실패'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
 		}
 	}
 	
@@ -214,7 +213,6 @@ public class boardController {
 	
 	
 	
-     //占쏙옙 占쏙옙占쏙옙 占쏙옙트占싼뤄옙
 	
 	@RequestMapping("/deleteAction")
 	@ResponseBody
@@ -224,21 +222,22 @@ public class boardController {
 								HttpSession session) {
 		
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
+		
 	      if(usercheck==null) {
-	         return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
+	         return "<script>alert('로그인 후 이용하세요'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
 	    	   IBoardDAO.deleteDTO(board_idx);
-	    	  return "<script>alert('占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙'); location.href='/board';</script>";
+	    	  return "<script>alert('글 삭제 성공'); location.href='/board';</script>";
 	      }else {
-	    	  return "<script>alert('占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('권한이 없습니다.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
 	
 	
 	
-	   // CKEditor 占쏙옙占쌜쇽옙,占쏙옙占쏙옙 占쏙옙占시듸옙 api
+	   // CKEditor  api
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request,HttpServletResponse response, MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
@@ -248,7 +247,7 @@ public class boardController {
  
         byte[] bytes=upload.getBytes();
  
-		String uploadPath = "C:\\workspace-sts-3.9.11.RELEASE\\borad55\\bin\\main\\static\\" + "ckEimg\\";	//  占쏙옙誘몌옙  寃쎈줈  占쏙옙 占쏙옙( 占쏙옙 占쏙옙  占쏙옙 占쏙옙  占쏙옙 占쏙옙)
+		String uploadPath = "C:\\workspace-sts-3.9.11.RELEASE\\board\\borad55\\bin\\main\\static\\" + "ckEimg\\";	
         OutputStream out=new FileOutputStream(new File(uploadPath+fileName));
  
         out.write(bytes);
@@ -259,7 +258,7 @@ public class boardController {
  
         String fileUrl= request.getContextPath()+"/ckEimg/"+fileName;
 
-        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"',' 占싱뱄옙占쏙옙占쏙옙 占쏙옙占싸듸옙 占실억옙占쏙옙占싹댐옙.')"+"</script>");
+        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"',' 사진이 업로드 되었습니다.')"+"</script>");
 
         printWriter.flush();
 	}
@@ -270,7 +269,7 @@ public class boardController {
     
     
     
-   	//占쏙옙 占쏙옙占쏙옙 占쏙옙 
+
    	@GetMapping("/readForm")
    	public String readForm(
    			@RequestParam("board_idx") String board_idx, 
@@ -279,7 +278,7 @@ public class boardController {
    			@ModelAttribute("scri") SearchCriteria scri,
    			@RequestParam(value = "page", defaultValue = "1") String page ) {
 
-   		// 占쏙옙회占쏙옙 占쏙옙占쏙옙 , 占쏙옙占쏙옙징
+   		
    		IBoardDAO.hit(board_idx);
    		scri.getKeyword();
    		model.addAttribute("page", page);
