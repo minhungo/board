@@ -46,6 +46,8 @@ td {
 <body>
 
 
+  <c:import url="header.jsp"/>
+
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -62,7 +64,6 @@ td {
             </div>
         </div>
     </div>
-
 
 
 
@@ -418,7 +419,7 @@ td {
            spaceBetween: 30,
            centeredSlides: true,
            autoplay: {
-             delay: 5000,
+             delay: 2000,
              disableOnInteraction: false,
            },
            pagination: {

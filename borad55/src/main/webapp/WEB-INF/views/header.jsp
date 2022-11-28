@@ -234,7 +234,7 @@ crossorigin="anonymous">
       <c:if test="${profile.signup_id eq 'admin'}">
       <button class="btn btn-primary" style="display:inline-block; width:80px; 
       height:30px; border:0px solid white; border-radius:20px; 
-      background-color:#c1c1c1; font-size:11px; position:absolute; right:239px; top:60px;" 
+      background-color:#c1c1c1; font-size:11px; position:absolute; right:350px; top:60px;" 
       onclick="location.href='admin'">관리자</button>
       </c:if>
       

@@ -386,12 +386,14 @@ function ReplyUpdateView() {
                            <br>
                            <br>
                            
+                           
+                           
                            <div>
-                              <c:if test="${!empty profile.signup_id}">                            
+                                <c:if test="${!empty profile.signup_id}">                            
                                    <button type="button" id="test" onclick="LikeAction()">
                                    <img src="resources/image/great.png" width="50" height="50"></button>
                                    <span>${dto.board_like_cnt}</span>
-                              </c:if>
+                                 </c:if>
                            </div>
                            
                            
@@ -699,7 +701,7 @@ function ReplyUpdateView() {
                          
                          
                          <td scope="col"> <c:set var="dateVar" value="${dto.board_date}"/>
-      <fmt:formatDate value="${dateVar}" pattern="yyyy-MM-dd HH:MM"/></td>
+                           <fmt:formatDate value="${dateVar}" pattern="yyyy-MM-dd HH:MM"/></td>
                         <td align="right" scope="col" style="width: 300px;">조회수 ${dto.board_hit }</td>
                      </tr>
                   </thead>
@@ -716,13 +718,17 @@ function ReplyUpdateView() {
                            
                            <br>
                            <br>
-                         <div>
-                               <c:if test="${!empty profile.signup_id}">                            
+                      
+                      
+                             <div>
+                                 <c:if test="${!empty profile.signup_id}">                            
                                    <button type="button" id="test" onclick="LikeAction()">
                                    <img src="resources/image/great.png" width="50" height="50"></button>
                                    <span>${dto.board_like_cnt}</span>
-                               </c:if>
+                                 </c:if>
                            </div>
+                        
+                        
                            <div class="footer position-absolure start-0"
                               style="width: 900px;">
                               
@@ -816,7 +822,8 @@ function ReplyUpdateView() {
 							<button type="button" class="btn btn-outline-danger">삭제</button></a>
 							
 						</c:if>
-					<!-- 댓글 직권처리 -->		
+            
+            
 						<c:if test="${!empty profile.signup_id}">
 							<button type="button" class="btn btn-outline-danger">신고</button>
 						</c:if>
@@ -925,6 +932,8 @@ function ReplyUpdateView() {
                                    <img src="resources/image/great.png" width="50" height="50"></button>
                                    <span>${dto.board_like_cnt}</span>
                                </c:if>
+                                 
+                                 
                            </div>
                            <div class="footer position-absolure start-0"
                               style="width: 900px;">
@@ -934,9 +943,12 @@ function ReplyUpdateView() {
                               <input type="submit" value="수정하기" class="btn btn-outline-primary">
                               <a href="deleteAction?board_idx=${dto.board_idx }&board_name=${dto.board_name}"><input type="button" value="삭제하기" class="btn btn-outline-danger"></a>&nbsp;&nbsp;
 							</c:if>
-                            <c:if test="${!empty profile.signup_id}">	
+                            
+                            
+                            <c:if test="${!empty profile.signup_id}"> 
                               <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
-							</c:if>
+                            </c:if>
+
                            </div>
                         </td>
                      </tr>
@@ -1006,9 +1018,10 @@ function ReplyUpdateView() {
 							
 						</c:if>         
                       <!-- 댓글 직권처리 -->
-                  <c:if test="${!empty profile.signup_id}">          
+                   
+                   <c:if test="${!empty profile.signup_id}"> 
                   <button type="button" class="btn btn-outline-danger">신고</button>
-                  </c:if>
+                  </c:if>         
                   
                   
                   </td>
@@ -1099,10 +1112,14 @@ function ReplyUpdateView() {
         <div id=hg >
         
        </div >
+       
+       
        <c:if test="${!empty profile.signup_id}">
 	       <a href='userReport' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;">
 	       <button class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>        
         </c:if>
+        
+        
         </div>
          </div>
       </div>

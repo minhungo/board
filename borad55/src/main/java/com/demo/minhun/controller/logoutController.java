@@ -42,10 +42,11 @@ public class logoutController {
 	   @RequestMapping("/logout_action")
 	   @ResponseBody
 	   public String signout(HttpSession session) {
-		   session.invalidate();
 			try {
+				System.out.println(user.isUserLogin()+"@@@@@@@@@@@@@@@");
 			  if (true == user.isUserLogin()) {
-			         user.setUserLogin(false);
+			        
+				  user.setUserLogin(false);
 			         
 			         signupDTO usercheck = (signupDTO) session.getAttribute("profile");               
 	                  for(int i=0; i<userList.size(); i++) {                      
@@ -53,14 +54,15 @@ public class logoutController {
 	                              userList.remove(i);                              
 	                          }
 	                      }
-			         
-			         session.invalidate();
+	                  
+	                  session.invalidate();
 			         return "<script>location.href='/signin';</script>";
 			      }else {
 			    	 session.invalidate();
 			         return "<script> location.href='/'; </script>";
 			      }
 		} catch (Exception e) {
+			session.invalidate();
 			return "<script>alert('로그아웃!!'); location.href='/signin'; </script>";
 		}
 	
