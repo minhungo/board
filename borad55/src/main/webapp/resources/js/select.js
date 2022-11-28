@@ -30,7 +30,7 @@ function selectAnswer(item) {
                         signup_id : select_usercoin
                     }),
                     success : function(result) {
-                        if(result > 0){
+                        if(result > 4){
                             modal.style.display = 'block';
                             document.body.style.overflow = 'hidden';
 
@@ -65,7 +65,7 @@ function selectAnswer(item) {
                                 }
                             });
                         }else{
-                            alert("현재 소지한 코인이 없습니다.\n답변채택에는 기본 코인1개가 필요합니다.\n코인을 충전해주세요")
+                            alert("현재 소지한 코인이 없습니다.\n답변채택에는 기본 코인 5개가 필요합니다.\n코인을 충전해주세요")
                         }
                     },
                     error : function() {

@@ -46,6 +46,14 @@ li {
 	list-style: none;
 }
 
+.header_logo {
+  height: 75px;
+  position: absolute;
+  top: 28.5%;
+  left: 44.5%;
+  margin: auto;
+}
+
 .wrap {
 	width: 100%;
 	height: 100vh;
@@ -57,7 +65,7 @@ li {
 
 .login {
 	width: 30%;
-	height: 600px;
+	height: 700px;
 	background: white;
 	border-radius: 20px;
 	display: flex;
@@ -118,7 +126,10 @@ li {
 <form action="log_action" method="post">
 	<div class="wrap">
 		<div class="login">
-			<h2 class="log_in_logo"><b>로그인</b></h2>
+		
+			<div class="header_logo">
+				<a href="/"><img src="resources/image/slow2.png"></a>
+			</div>
 
 				<div class="login_id">
 				<h4><b>ID</b></h4>

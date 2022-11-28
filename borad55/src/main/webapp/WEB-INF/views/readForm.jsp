@@ -387,10 +387,13 @@ function ReplyUpdateView() {
                            <br>
                            
                            <div>
-                              <button type="button" id="test" onclick="LikeAction()"><img src="resources/image/great.png" width="50"
-                                 height="50"></button>
-                       				 <span>${dto.board_like_cnt}</span>
+                              <c:if test="${!empty profile.signup_id}">                            
+                                   <button type="button" id="test" onclick="LikeAction()">
+                                   <img src="resources/image/great.png" width="50" height="50"></button>
+                                   <span>${dto.board_like_cnt}</span>
+                              </c:if>
                            </div>
+                           
                            
                            <div class="footer position-absolure start-0"
                               style="width: 900px; text-align: center;">		
@@ -406,8 +409,9 @@ function ReplyUpdateView() {
                                 
                                 
                                
-                               
-                          <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+                          <c:if test="${!empty profile.signup_id}">     
+                          	<a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+                          </c:if> 
                            </div>
                            
                         </td>
@@ -624,9 +628,9 @@ function ReplyUpdateView() {
 						
 										
                          
-										
+						<c:if test="${!empty profile.signup_id}">				
                         <button type="button" class="btn btn-outline-danger" >신고</button>
-                              
+                        </c:if>      
 										
 										
                         </div>
@@ -713,9 +717,11 @@ function ReplyUpdateView() {
                            <br>
                            <br>
                          <div>
-                               <button type="button" id="test" onclick="LikeAction()"><img src="resources/image/great.png" width="50"
-                                 height="50"></button>
-                        <span>${dto.board_like_cnt}</span>
+                               <c:if test="${!empty profile.signup_id}">                            
+                                   <button type="button" id="test" onclick="LikeAction()">
+                                   <img src="resources/image/great.png" width="50" height="50"></button>
+                                   <span>${dto.board_like_cnt}</span>
+                               </c:if>
                            </div>
                            <div class="footer position-absolure start-0"
                               style="width: 900px;">
@@ -729,7 +735,10 @@ function ReplyUpdateView() {
                               
                               
                               <a href="/board?bgnopage=${scri.bgnopage}&board_idx=${dto.board_idx }&page=${page }&searchType=${scri.searchType }&keyword=${scri.keyword }"><input type="button" class="btn btn-outline-primary" value="목록보기"></a>
+                             
+                            <c:if test="${!empty profile.signup_id}"> 
                              <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
+							</c:if>
 
                            </div>
                         </td>
@@ -808,9 +817,9 @@ function ReplyUpdateView() {
 							
 						</c:if>
 					<!-- 댓글 직권처리 -->		
-						
+						<c:if test="${!empty profile.signup_id}">
 							<button type="button" class="btn btn-outline-danger">신고</button>
-							
+						</c:if>
 									</td>
 								</tr>
 
@@ -911,9 +920,11 @@ function ReplyUpdateView() {
                           	<br>
 							<br>
                             <div>
-                               <button type="button" id="test" onclick="LikeAction()"><img src="resources/image/great.png" width="50"
-                                 height="50"></button>
-                        <span>${dto.board_like_cnt}</span>
+                               <c:if test="${!empty profile.signup_id}">                            
+                                   <button type="button" id="test" onclick="LikeAction()">
+                                   <img src="resources/image/great.png" width="50" height="50"></button>
+                                   <span>${dto.board_like_cnt}</span>
+                               </c:if>
                            </div>
                            <div class="footer position-absolure start-0"
                               style="width: 900px;">
@@ -923,9 +934,9 @@ function ReplyUpdateView() {
                               <input type="submit" value="수정하기" class="btn btn-outline-primary">
                               <a href="deleteAction?board_idx=${dto.board_idx }&board_name=${dto.board_name}"><input type="button" value="삭제하기" class="btn btn-outline-danger"></a>&nbsp;&nbsp;
 							</c:if>
-                            
+                            <c:if test="${!empty profile.signup_id}">	
                               <a href='/report?board_idx=${dto.board_idx }&board_name=${dto.board_name}' onclick="window.open(this.href,'신고','width=500,height=600,top=100,left=500');return false;"><button type="button" class="btn btn-outline-danger">신고</button></a>
-
+							</c:if>
                            </div>
                         </td>
                      </tr>
@@ -995,9 +1006,9 @@ function ReplyUpdateView() {
 							
 						</c:if>         
                       <!-- 댓글 직권처리 -->
-                            
+                  <c:if test="${!empty profile.signup_id}">          
                   <button type="button" class="btn btn-outline-danger">신고</button>
-                  
+                  </c:if>
                   
                   
                   </td>
@@ -1088,8 +1099,10 @@ function ReplyUpdateView() {
         <div id=hg >
         
        </div >
-       <a href='userReport' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;">
-       <button class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>        
+       <c:if test="${!empty profile.signup_id}">
+	       <a href='userReport' onclick="window.open(this.href,'신고','width=520,height=650,top=100,left=500');return false;">
+	       <button class="btn btn-success " style="width: 150px; display: inline-block; margin-bottom: 10px;">신고</button></a><br>        
+        </c:if>
         </div>
          </div>
       </div>

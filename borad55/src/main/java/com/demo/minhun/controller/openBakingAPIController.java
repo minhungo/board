@@ -66,9 +66,7 @@ public class openBakingAPIController {
 
     private final OpenBankService openBankService;
     
-    private final Map<String, String> map = Map.of("산업은행","002", "기업은행", "003", "국민은행", "004", "우리은행", "020", "우체국", "071", "하나은행", "081"
-    		, "신한은행", "088", "케이은행", "089", "카카오은행", "090", "오픈은행", "097");
-
+    private final Map<String, String> map = Map.of("산업은행","002", "기업은행", "003", "국민은행", "004", "우리은행", "020", "우체국", "071", "하나은행", "081", "신한은행", "088", "케이은행", "089", "카카오은행", "090", "오픈은행", "097");
 
     // 토큰요청 및 전체계좌 조회
 //    @GetMapping("/callback")

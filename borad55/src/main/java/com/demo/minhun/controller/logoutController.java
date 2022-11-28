@@ -42,7 +42,7 @@ public class logoutController {
 	   @RequestMapping("/logout_action")
 	   @ResponseBody
 	   public String signout(HttpSession session) {
-			
+		   session.invalidate();
 			try {
 			  if (true == user.isUserLogin()) {
 			         user.setUserLogin(false);
@@ -57,6 +57,7 @@ public class logoutController {
 			         session.invalidate();
 			         return "<script>location.href='/signin';</script>";
 			      }else {
+			    	 session.invalidate();
 			         return "<script> location.href='/'; </script>";
 			      }
 		} catch (Exception e) {
