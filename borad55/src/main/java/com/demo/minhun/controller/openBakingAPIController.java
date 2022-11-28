@@ -3,6 +3,7 @@ package com.demo.minhun.controller;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -65,9 +66,20 @@ public class openBakingAPIController {
     private String base_url = "https://testapi.openbanking.or.kr/v2.0";
 
     private final OpenBankService openBankService;
-    
-    private final Map<String, String> map = Map.of("산업은행","002", "기업은행", "003", "국민은행", "004", "우리은행", "020", "우체국", "071", "하나은행", "081", "신한은행", "088", "케이은행", "089", "카카오은행", "090", "오픈은행", "097");
 
+    private final Map<String, String> map = new HashMap<String, String>() {
+    	  {
+    	    put("산업은행","002");
+    	    put("기업은행", "003");
+    	    put("국민은행", "004");
+    	    put("우리은행", "020");
+    	    put("우체국", "071");
+    	    put("하나은행", "081");
+    	    put("케이은행", "089");
+    	    put("카카오은행", "090");
+    	    put("오픈은행", "097");
+    	  }
+    	};	
     // 토큰요청 및 전체계좌 조회
 //    @GetMapping("/callback")
 //    public String getToken(BankRequestToken bankRequestToken, Model model){
