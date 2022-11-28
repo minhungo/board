@@ -164,7 +164,7 @@ public class adminController {
  	
  	
  	
- //占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 회占쏙옙 탈占쏙옙
+ //회원탈퇴
 	@RequestMapping("/deleteSignupaction")
 	@ResponseBody
 	public String deleteSignupaction(@RequestParam("signup_num") String signup_num, HttpServletRequest request,
@@ -173,7 +173,7 @@ public class adminController {
 
 		sigupDAO.deleteSignup(signup_num);
 
-		return "<script>alert('회占쏙옙占쏙옙 탈占쏙옙 占실억옙占쏙옙占싹댐옙'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
+		return "<script>alert('회원 탈퇴 되었습니따'); location.href='/adminpro'; opener.parent.location=\"adminpro\"; window.close();</script>";
 	}
 		 
 	
@@ -199,8 +199,7 @@ public class adminController {
 	      return "userReportlist";
 	   }
 	 
-	 
-	 //占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占신곤옙占� 占쌉시뱄옙 占쏙옙占쏙옙트 占쏙옙트占싼뤄옙
+	
 	 @RequestMapping(value = "/adminreport", method = RequestMethod.GET)
      public String adminreport (Model model, @ModelAttribute("scri") SearchCriteria scri,
      @RequestParam(value = "page", defaultValue = "1") String page,@RequestParam(value = "bgno" ,defaultValue = "0")int bgno) throws Exception {
@@ -227,7 +226,7 @@ public class adminController {
 	      Calendar cal = Calendar.getInstance();
 	      cal.setTime(new Date());
 	   
-	      //占쏙옙占쏙옙챨占� 占쏙옙占쏙옙 3占쏙옙 ,7占쏙옙 ,30占쏙옙 占쏙옙 占쏙옙占싹댐옙 占쌉쇽옙
+	 
 	      Calendar cal3 = Calendar.getInstance();
 	      Calendar cal7 = Calendar.getInstance();
 	      Calendar cal30 = Calendar.getInstance();
@@ -282,7 +281,7 @@ public class adminController {
 
 	      sigupDAO.sanctionsDTO(str_sanctions,and_sanctions,true_sanctions,signup_num);
 
-	      return "<script>alert('占쏙옙占쏙옙 占실억옙占쏙옙占싹댐옙');window.close();</script>";
+	      return "<script>alert('정지 되었습니다.');window.close();</script>";
 	   }
 	 
 	  

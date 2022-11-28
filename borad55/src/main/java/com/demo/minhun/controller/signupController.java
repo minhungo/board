@@ -77,7 +77,7 @@ public class signupController {
 				signup_adr_point, signup_data,signup_profle_img);
 
 		if (result == 1) {
-			System.out.println("ȸ������ ����!!");
+			System.out.println("");
 			ChargeNRefundDTO cnrDTO = new ChargeNRefundDTO();
 			cnrDTO.setSignupId(signup_id);
 			cnrDTO.setPayAmount(10000l);

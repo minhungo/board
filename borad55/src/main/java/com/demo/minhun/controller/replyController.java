@@ -134,7 +134,7 @@ public class replyController {
 					ChargeNRefundDTO minusCnrDTO = coinDAO.getMyIdByNickname(board_name);
 					minusCnrDTO.setSignupId(minusCnrDTO.getSignup_id());
 					minusCnrDTO.setPayAmount(-500l);
-					minusCnrDTO.setPayImpUid("�떟蹂�梨꾪깮�궗�슜");
+					minusCnrDTO.setPayImpUid("답변 채택 사용");
 					minusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					minusCnrDTO.setPossibleRefund(5l);
 					System.out.println(minusCnrDTO);
@@ -144,32 +144,30 @@ public class replyController {
 					ChargeNRefundDTO plusCnrDTO = coinDAO.getMyIdByNickname(reply_name);
 					plusCnrDTO.setSignupId(plusCnrDTO.getSignup_id());
 					plusCnrDTO.setPayAmount(500l);
-					plusCnrDTO.setPayImpUid("�떟蹂�梨꾪깮蹂댁긽");
+					plusCnrDTO.setPayImpUid("답변 채택 보상");
 					plusCnrDTO.setPayMerchantUid("merchant " + localDateTime.getNano());
 					plusCnrDTO.setPossibleRefund(5l);
 					System.out.println(plusCnrDTO);
 					coinDAO.ChargeCoin(plusCnrDTO);
 
 		         }else {
-		            return "<script>alert('占쌜쇽옙占쌘곤옙 占싣댐옙占쏙옙占쏙옙 채占쏙옙占쌀쇽옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		            return "<script>alert('작성자가 아님으로 채택할수 없습니다.'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		         }
 		              
-		       
-		       int result = IReplyDAO.reply_selectDTO(reply_idx);
+		      int result = IReplyDAO.reply_selectDTO(reply_idx);
 		      if(result==1) {
 		         
 		    	  	sigupDAO.signup_gradeUpdate(board_name);
 		            sigupDAO.signup_gradeUpdate(reply_name);
 		            
-		         return "<script>alert('채占쏙옙 占싹뤄옙'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         return "<script>alert('채택완료'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		      else {
-		         System.out.println("채占쏙옙 占쏙옙占쏙옙");
-		         return "<script>alert('채占쏙옙 占쏙옙占쏙옙'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
+		         System.out.println("패택실패");
+		         return "<script>alert('채택 실패'); location.href='/readForm?board_idx=" + board_idx + "'; </script>";
 		      }
 		            
 		   }
-
 
 	@PostMapping("/checkSelect")
 	@ResponseBody

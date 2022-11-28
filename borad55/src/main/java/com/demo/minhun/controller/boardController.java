@@ -43,6 +43,8 @@ public class boardController {
 	@Autowired
 	CoinDAO coinDAO;
 	
+	
+	
 	public static List<signupDTO> userList=new ArrayList<signupDTO>();
 	
 	@RequestMapping("/")
@@ -114,9 +116,9 @@ public class boardController {
 		int result = IBoardDAO.write(board_name, board_title, board_content, bgno, board_profle_img,board_writer_id);
 
 		if (result == 1) {
-			return "<script>alert('占쏙옙占쌜쇽옙 占쏙옙占쏙옙!'); location.href='/board';</script>";
+			return "<script>alert('게시글이 작성되었습니다'); location.href='/board';</script>";
 		} else {
-			return "<script> alert('占쏙옙占쌜쇽옙 占쏙옙占쏙옙'); location.href='/writeForm';</script>";
+			return "<script> alert('게시글 작성 불가 '); location.href='/writeForm';</script>";
 		}
 		
 	}
@@ -149,12 +151,15 @@ public class boardController {
 		//占쏙옙占쏙옙 체크 占싸깍옙占쏙옙 占쏙옙占싹몌옙 占쏙옙占쏙옙
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
 	      if(usercheck==null) {
-	         return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
+	    	  
+	         return "<script>alert('게시글 수정 권한이 없습니다'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
+	    	  
+	    	  
 	    	  return "contentForm";
 	      }else {
-	    	  return "<script>alert('占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('세션 만료'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
@@ -178,18 +183,18 @@ public class boardController {
 
 		Object usercheck = session.getAttribute("profile");
 		if (usercheck == null) {
-			return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin';</script>";
+			return "<script>alert('게시글 수정권힌이 없습니다'); location.href='/signin';</script>";
 		}
 
 		int result = IBoardDAO.updateDTO(board_idx, board_name, board_title, board_content);
 
 		if (result == 1) {
 
-			return "<script>alert('占쏙옙占쏙옙占싹뤄옙!'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
+			return "<script>alert('게시글 수정이 완료되었습니다.'); location.href='/board?page=" + page + "&bgnopage=" + scri.getBgnopage()
 					+ "&searchType=" + scri.getsearchType() + "&keyword=" + scri.getKeyword() + "';</script>";
 		} else {
 
-			return "<script>alert('占쏙옙占쏙옙占쏙옙占쏙옙!'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
+			return "<script>alert('게시글 수정 불가'); location.href='/contentForm?board_idx=" + board_idx + "';</script>";
 		}
 	}
 	
@@ -210,13 +215,13 @@ public class boardController {
 		
 		signupDTO usercheck = (signupDTO)session.getAttribute("profile");
 	      if(usercheck==null) {
-	         return "<script>alert('占싸깍옙占쏙옙 占쏙옙 占싱울옙占싹쇽옙占쏙옙'); location.href='/signin'; </script>";
+	         return "<script>alert('삭제 권한이 없습니다 로그인 후 이용해 주세요'); location.href='/signin'; </script>";
 	      }
 	      else if(usercheck.getSignup_nickname().equals(board_name)) {
 	    	   IBoardDAO.deleteDTO(board_idx);
-	    	  return "<script>alert('占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙'); location.href='/board';</script>";
+	    	  return "<script>alert('게시글이 삭제 되었습니다'); location.href='/board';</script>";
 	      }else {
-	    	  return "<script>alert('占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
+	    	  return "<script>alert('삭제 되지 않았습니다'); location.href='/readForm?board_idx=" + board_idx + "';</script>";
 	      }
 	}
 	
@@ -255,7 +260,7 @@ public class boardController {
     
     
     
-   	//占쏙옙 占쏙옙占쏙옙 占쏙옙 
+
    	@GetMapping("/readForm")
    	public String readForm(
    			@RequestParam("board_idx") String board_idx, 
